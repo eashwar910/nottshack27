@@ -3,106 +3,128 @@
   <head>
     <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>NottsHack 2027</title>
-    <meta name="description" content="NottsHack 2027: a six-day blockchain and crypto hackathon run by the UNM Computer Science Society at the University of Nottingham Malaysia."/>
+    <meta name="description" content="NottsHack 2027: a six-day hackathon run by the UNM Computer Science Society at the University of Nottingham Malaysia."/>
     <meta property="og:type" content="website"/><meta property="og:title" content="NottsHack 2027"/>
-    <meta property="og:description" content="Dream it. Code it. Chain it. A six-day blockchain hackathon at UNM Malaysia."/>
-    <meta name="twitter:card" content="summary"/><meta name="theme-color" content="#1a1033"/>
+    <meta property="og:description" content="A six-day hackathon at the University of Nottingham Malaysia."/>
+    <meta name="twitter:card" content="summary"/><meta name="theme-color" content="#0b0916" media="(prefers-color-scheme: dark)"/><meta name="theme-color" content="#241845" media="(prefers-color-scheme: light)"/>
     <link rel="icon" type="image/png" href="assets/NottsHack-logo/nottshack-square.png"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="css/tailwind.css"/>
     <link rel="stylesheet" href="css/style.css"/>
-    <script>document.documentElement.classList.add("js")</script>
+    <!-- set the theme before first paint: a saved choice wins, otherwise follow the OS -->
+    <script>(function(d){d.classList.add("js");var t;try{t=localStorage.getItem("theme")}catch(e){}d.dataset.theme=t||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")})(document.documentElement)</script>
   </head>
   <body>
-    <i class="blob left-[-10vw] top-[-10vw] bg-orchid"></i><i class="blob right-[-12vw] top-[30vh] bg-peri" style="animation-delay:-7s"></i><i class="blob bottom-[-15vw] left-[25vw] bg-spring" style="animation-delay:-13s;opacity:.12"></i>
     <svg width="0" height="0" class="absolute"><defs>
     <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></symbol>
     <symbol id="i-usr" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M16 4.5a3.5 3.5 0 010 7M18 14c2.5.7 4 2.5 4 6"/></symbol>
     <symbol id="i-tro" viewBox="0 0 24 24"><path d="M7 4h10v6a5 5 0 01-10 0zM7 6H3c0 4 2 5 4 5M17 6h4c0 4-2 5-4 5M12 15v4M8 21h8"/></symbol>
     <symbol id="i-eat" viewBox="0 0 24 24"><path d="M6 3v8a2 2 0 004 0V3M8 11v10M17 3c-2 2-3 5-3 8h3v10"/></symbol>
-    <symbol id="i-pent" viewBox="0 0 24 24"><path d="M12 2l9.5 7-3.6 11.5H6.1L2.5 9z"/></symbol>
-    <symbol id="i-hex" viewBox="0 0 24 24"><path d="M7 3h10l5 9-5 9H7l-5-9z"/></symbol>
+    <symbol id="i-arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
     </defs></svg>
-    <a href="#main" class="absolute -top-20 left-4 z-[100] rounded bg-spring px-4 py-2 text-deep focus:top-4">Skip to content</a>
+    <a href="#main" class="absolute -top-20 left-4 z-[100] rounded bg-spring px-4 py-2 text-ink focus:top-4">Skip to content</a>
 
     <!-- NAV: floating pill -->
-    <header class="sticky top-3 z-50 px-3"><nav class="mx-auto flex h-14 max-w-6xl items-center gap-3 rounded-full border border-rim/70 bg-deep/75 px-4 backdrop-blur-md" aria-label="Primary">
-      <a href="#top" aria-label="NottsHack home" class="shrink-0"><img data-logo alt="NottsHack" class="h-9 w-auto transition hover:-rotate-3 hover:scale-110"/></a>
-      <ul class="tabs flex min-w-0 flex-1 items-center gap-5 overflow-x-auto md:justify-center md:gap-7">
+    <header class="sticky top-3 z-50 px-3"><nav class="relative mx-auto flex h-14 max-w-6xl items-center gap-2 rounded-full border border-rim bg-deep/80 pl-4 pr-2 shadow-[0_10px_40px_-15px_rgba(0,0,0,.8)] backdrop-blur-xl sm:gap-3" aria-label="Primary">
+      <a href="#top" aria-label="NottsHack home" class="mr-auto shrink-0 lg:mr-0"><img data-logo alt="NottsHack" class="h-9 w-auto transition hover:-rotate-3 hover:scale-110"/></a>
+      <ul id="menu" class="menu">
         <li class="shrink-0"><a class="nav-link" data-scr href="#about">The Event</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#tracks">Challenges</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#mentors">Guides</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#timeline">Schedule</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#past">NottsHack 26</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#where">Find Us</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#sponsors">Sponsors</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#faq">FAQ</a></li>
       </ul>
-      <a href="#join" class="btn b-line shrink-0 !px-5 !py-2 !text-[.66rem]">Register</a>
+      <button id="theme" class="icon-btn" type="button" aria-label="Switch to light mode">
+        <svg class="ic i-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="ic i-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z"/></svg>
+      </button>
+      <button id="menu-btn" class="icon-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+        <svg class="ic i-burger" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="ic i-close" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <a href="#join" class="btn b-main btn-sm shrink-0">Register</a>
       </nav>
     </header>
 
     <main id="main">
-      <!-- HERO: left-aligned, graph lives on the right -->
-      <section id="top" class="relative isolate flex min-h-[88vh] items-center overflow-hidden px-5 py-16 lg:px-[8vw]">
+      <!-- HERO: text left, neural-net canvas on the right -->
+      <section id="top" class="relative isolate flex min-h-[90vh] items-center supports-[height:100svh]:min-h-[90svh] overflow-hidden px-5 pb-16 pt-12 lg:px-[8vw]">
       <canvas id="fx" class="pointer-events-none absolute inset-0 -z-10 h-full w-full" aria-hidden="true"></canvas>
-      <div class="ent max-w-4xl">
-        <p class="inline-block rounded-full border border-rim bg-deep/50 px-4 py-1 text-[.65rem] uppercase tracking-[.2em]">UNM CSS presents:</p>
-        <h1 class="wm mt-6" id="wm"><span class="sr-only">NottsHack 27</span><span aria-hidden="true"><span data-l class="g">N</span><span data-l class="w">o</span><span data-l class="w">t</span><span data-l class="g">t</span><span data-l class="w">s</span><span data-l class="p">H</span><span data-l class="g">a</span><span data-l class="w">c</span><span data-l class="p">k</span> <span data-l class="g">2</span><span data-l class="w">7</span></span></h1>
-        <p class="mt-5 text-xl"><span class="fx p">Dream It.</span> <span class="fx w">Code It.</span> <span class="fx g">Chain It.</span></p>
-        <p class="mt-6 flex items-center gap-3 text-[.7rem] uppercase tracking-[.25em] text-lilac/60">Powered by
-        <!-- Replace the placeholder span with: <img src="assets/sponsor-logo.png" alt="Sponsor name" class="h-8 w-auto"/> -->
-        <span class="grid h-8 min-w-28 place-items-center rounded border border-dashed border-lilac/40 px-3 text-[.6rem] tracking-[.15em] text-lilac/50">Sponsor logo</span></p>
-        <div class="mt-8 flex flex-wrap gap-4"><a href="#join" class="btn b-main">Register Now</a><a href="#about" class="btn b-line">Learn More</a></div>
-        <button id="poke" class="mt-8 text-xs text-lilac/60 underline decoration-dotted underline-offset-4 hover:text-peach">psst… poke the letters (or click here)</button>
+      <div class="ent w-full max-w-3xl">
+        <p class="chip"><span class="pulse" aria-hidden="true"></span>UNM CSS presents · Feb 2027</p>
+        <h1 class="wm mt-7" id="wm"><span class="sr-only">NottsHack 27</span><span aria-hidden="true"><span class="whitespace-nowrap"><span data-l class="w">N</span><span data-l class="w">o</span><span data-l class="w">t</span><span data-l class="w">t</span><span data-l class="w">s</span><span data-l class="g">H</span><span data-l class="g">a</span><span data-l class="g">c</span><span data-l class="g">k</span></span> <span class="whitespace-nowrap"><span data-l class="p">2</span><span data-l class="p">7</span></span></span></h1>
+        <p class="mt-5 font-mono text-sm uppercase tracking-[.18em] text-mute"><span class="fx">Dream it.</span> <span class="fx">Code it.</span> <span class="fx text-spring">Ship it.</span></p>
+        <p class="mt-4 max-w-xl text-pretty text-lg text-lilac">Six days to turn an idea into something real, with AI in your toolkit. Hosted by the UNM Computer Science Society.</p>
+        <!-- Sponsor credit: uncomment once confirmed.
+        <p class="mt-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[.2em] text-mute">Powered by <img src="assets/sponsor-logo.png" alt="Sponsor name" class="h-8 w-auto"/></p> -->
+        <div class="prompt mt-8 max-w-xl">
+          <p class="prompt-q"><svg class="h-3.5 w-3.5 text-spring" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.7 5 3 7.3 8 8-5 .7-7.3 3-8 8-.7-5-3-7.3-8-8 5-.7 7.3-3 8-8z"/></svg>What will you build in six days?</p>
+          <p class="prompt-line"><span class="text-spring" aria-hidden="true">&gt;</span> <span id="typed" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span><span class="sr-only">Pitch your idea at NottsHack 27.</span></p>
+          <div class="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex min-w-0 flex-wrap gap-2 font-mono text-[.7rem] text-mute"><span class="rounded-md border border-rim px-2 py-1">6 days</span><span class="rounded-md border border-rim px-2 py-1">squads of 3–5</span><span class="rounded-md border border-rim px-2 py-1">RM13k+ prizes</span></div>
+            <a href="#join" class="btn b-main shrink-0 sm:!px-4 sm:!py-2.5 sm:text-[.8rem]">Register <svg class="ic" aria-hidden="true"><use href="#i-arr"/></svg></a>
+          </div>
+        </div>
+        <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a href="#about" class="btn b-line btn-sm">Learn more</a>
+          <button id="poke" class="font-mono text-xs text-mute underline decoration-dotted underline-offset-4 transition hover:text-spring">psst… poke the letters</button>
+        </div>
       </div>
       </section>
 
-      <div class="overflow-hidden py-5 text-[.68rem] uppercase tracking-[.35em] text-lilac/45 [-webkit-mask-image:linear-gradient(90deg,transparent,#000_15%,#000_85%,transparent)] [mask-image:linear-gradient(90deg,transparent,#000_15%,#000_85%,transparent)]" aria-hidden="true"><div class="mq flex w-max whitespace-nowrap"></div></div>
+      <div class="overflow-hidden border-y border-rim/60 bg-deep/40 py-4 font-mono text-[.72rem] uppercase tracking-[.3em] text-mute [-webkit-mask-image:linear-gradient(90deg,transparent,#000_15%,#000_85%,transparent)] [mask-image:linear-gradient(90deg,transparent,#000_15%,#000_85%,transparent)]" aria-hidden="true"><div class="mq flex w-max whitespace-nowrap"></div></div>
 
       <!-- ABOUT: sticky left column, scrolling right column -->
-      <section id="about" class="sec"><div class="grid gap-10 lg:grid-cols-12">
-      <div class="lg:col-span-5"><div class="lg:sticky lg:top-24">
-        <img src="assets/NottsHack-logo/nottshack-dark-shadow.png" alt="NottsHack logo" class="mb-5 w-48 drop-shadow-[0_0_18px_rgba(154,165,255,.5)]"/>
-        <h2 class="h2 fx">Meet NottsHack</h2>
-        <p class="mt-4">Six days, one chain of ideas. <span class="hl">NottsHack 2027</span> is a blockchain and crypto hackathon run by the <span class="hl p">Computer Science Society</span> at the University of Nottingham Malaysia.</p>
-        <p id="cdl" class="mt-8 text-xs uppercase tracking-[.2em]">Sign-Ups Close In</p>
-        <div class="mt-3 grid grid-cols-4 gap-2 text-center">
-        <div class="rounded-xl bg-deep/70 py-3"><b data-cd class="font-pixel text-3xl text-spring">00</b><small class="block text-[.6rem] text-orchid">DAYS</small></div>
-        <div class="rounded-xl bg-deep/70 py-3"><b data-cd class="font-pixel text-3xl text-spring">00</b><small class="block text-[.6rem] text-orchid">HRS</small></div>
-        <div class="rounded-xl bg-deep/70 py-3"><b data-cd class="font-pixel text-3xl text-spring">00</b><small class="block text-[.6rem] text-orchid">MIN</small></div>
-        <div class="rounded-xl bg-deep/70 py-3"><b data-cd class="font-pixel text-3xl text-spring">00</b><small class="block text-[.6rem] text-orchid">SEC</small></div>
+      <section id="about" class="sec"><div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5"><div class="lg:sticky lg:top-28">
+        <button id="honk" type="button" class="relative mb-8 block" aria-label="Honk the NottsHack goose"><img src="assets/NottsHack-logo/nottshack-dark-shadow.png" alt="" class="w-44 drop-shadow-[0_0_24px_rgba(154,165,255,.35)]"/></button>
+        <p class="eyebrow">01 · The Event</p>
+        <h2 class="h2 fx mt-4">Meet NottsHack</h2>
+        <p class="mt-5">Six days, one big idea. <span class="hl">NottsHack 2027</span> is a hackathon for builders, run by the <span class="hl">Computer Science Society</span> at the University of Nottingham Malaysia. Bring an idea, pick up the tools, and ship something that works.</p>
+        <p id="cdl" class="mt-10 font-mono text-xs uppercase tracking-[.16em] text-mute">Sign-ups close in</p>
+        <div class="cd mt-3">
+        <div><b data-cd>00</b><small>DAYS</small></div>
+        <div><b data-cd>00</b><small>HRS</small></div>
+        <div><b data-cd>00</b><small>MIN</small></div>
+        <div><b data-cd>00</b><small>SEC</small></div>
         </div></div></div>
       <div class="grid gap-5 lg:col-span-7">
-        <div class="card"><p>Squads of <span class="hl">3 to 5</span> take on real problems set by our sponsors across <span class="hl">two tracks</span>, with mentors, workshops and hands-on help from people working in the industry.</p></div>
+        <div class="card"><p class="text-lg text-snow">Squads of <span class="text-spring">3 to 5</span> take on real problems set by our sponsors across <span class="text-spring">two tracks</span>, with mentors, workshops and hands-on help from people working in the industry.</p></div>
         <div class="grid grid-cols-2 gap-5">
-        <div class="card"><svg class="ic text-peri"><use href="#i-cal"/></svg><h3 class="mt-2 text-2xl text-spring">6 Days</h3><p class="text-xs">of building</p></div>
-        <div class="card"><svg class="ic text-peri"><use href="#i-usr"/></svg><h3 class="mt-2 text-2xl text-orchid">3–5 People</h3><p class="text-xs">in every squad</p></div>
-        <div class="card"><svg class="ic text-peri"><use href="#i-tro"/></svg><h3 class="mt-2 text-2xl text-orchid">RM13,000+</h3><p class="text-xs">prize pool</p></div>
-        <div class="card"><svg class="ic text-peri"><use href="#i-eat"/></svg><h3 class="mt-2 text-2xl text-spring">Free Meals</h3><p class="text-xs">on campus days</p></div>
+        <div class="card" data-burst="📅 ⏳ 🗓️ ⚡"><svg class="ic text-spring"><use href="#i-cal"/></svg><h3 class="mt-5 text-2xl sm:text-3xl">6 Days</h3><p class="mt-1 font-mono text-xs text-mute">of building</p></div>
+        <div class="card" data-burst="👥 🤝 💻 🧠"><svg class="ic text-spring"><use href="#i-usr"/></svg><h3 class="mt-5 text-2xl sm:text-3xl">3–5</h3><p class="mt-1 font-mono text-xs text-mute">people per squad</p></div>
+        <div class="card" data-burst="💸 🏆 💰 ✨"><svg class="ic text-spring"><use href="#i-tro"/></svg><h3 class="mt-5 text-2xl sm:text-3xl">RM13k+</h3><p class="mt-1 font-mono text-xs text-mute">prize pool</p></div>
+        <div class="card" data-burst="🍕 🍜 🧋 🍩 🍟"><svg class="ic text-spring"><use href="#i-eat"/></svg><h3 class="mt-5 text-2xl sm:text-3xl">Free Food</h3><p class="mt-1 font-mono text-xs text-mute">on campus days</p></div>
         </div>
         <div class="grid gap-5 sm:grid-cols-2">
-        <div class="card"><h3 class="text-spring">Phase 1: Online</h3><p class="mt-1 text-sm text-snow">Starts Feb 25, 2027, from anywhere</p><p class="mt-2 text-xs">Opening ceremony and workshops, then build with your squad from wherever you are.</p></div>
-        <div class="card"><h3 class="text-orchid">Phase 2: On Campus</h3><p class="mt-1 text-sm text-snow">Feb 27, 2027 at UNMC</p><p class="mt-2 text-xs">Mentoring, pitching to judges, and the awards ceremony.</p></div>
+        <div class="card"><span class="chip">phase_01 · online</span><h3 class="mt-5 text-xl">Build from anywhere</h3><p class="mt-1 font-mono text-xs text-spring">Starts Feb 25, 2027</p><p class="mt-3 text-sm">Opening ceremony and workshops, then build with your squad from wherever you are.</p></div>
+        <div class="card"><span class="chip">phase_02 · on campus</span><h3 class="mt-5 text-xl">Demo day at UNMC</h3><p class="mt-1 font-mono text-xs text-orchid">Feb 27, 2027</p><p class="mt-3 text-sm">Mentoring, pitching to judges, and the awards ceremony.</p></div>
         </div></div></div></section>
 
-      <section id="tracks" class="sec"><h2 class="h2 fx">Pick Your Challenge</h2><p class="mt-3 max-w-xl">Two sponsor tracks, one goal: solve something real. Briefs are placeholders until announced.</p>
-      <div class="mt-8 grid gap-5 md:grid-cols-2">
-        <div class="card"><svg class="ic h-10 w-10 text-spring"><use href="#i-pent"/></svg><h3 class="mt-3 text-2xl">Track A</h3><p class="mt-2 text-sm">Sponsor and challenge statement to be announced.</p></div>
-        <div class="card"><svg class="ic h-10 w-10 text-orchid"><use href="#i-hex"/></svg><h3 class="mt-3 text-2xl">Track B</h3><p class="mt-2 text-sm">Sponsor and challenge statement to be announced.</p></div></div></section>
+      <section id="tracks" class="sec"><p class="eyebrow">02 · Challenges</p><h2 class="h2 fx mt-4">Pick Your Challenge</h2><p class="mt-4 max-w-xl">Two sponsor tracks, one goal: solve something real. Briefs drop once our sponsors are confirmed.</p>
+      <div class="mt-10 grid gap-5 md:grid-cols-2">
+        <div class="card"><div class="flex items-center justify-between gap-3"><span class="chip text-spring">track_a</span><span class="font-mono text-xs text-mute">status: <span class="text-peri" data-msgs="classified 🔒|under NDA|decrypting…|ask again in Feb">loading…</span></span></div><h3 class="mt-8 text-2xl">Track A</h3><p class="mt-2 text-sm text-mute">Sponsor and challenge statement to be announced.</p><div class="mt-6 grid gap-2.5" aria-hidden="true"><i class="skel h-2 w-11/12"></i><i class="skel h-2 w-4/5"></i><i class="skel h-2 w-3/5"></i></div></div>
+        <div class="card"><div class="flex items-center justify-between gap-3"><span class="chip text-orchid">track_b</span><span class="font-mono text-xs text-mute">status: <span class="text-peri" data-msgs="classified 🔒|under NDA|decrypting…|ask again in Feb">loading…</span></span></div><h3 class="mt-8 text-2xl">Track B</h3><p class="mt-2 text-sm text-mute">Sponsor and challenge statement to be announced.</p><div class="mt-6 grid gap-2.5" aria-hidden="true"><i class="skel h-2 w-10/12"></i><i class="skel h-2 w-full"></i><i class="skel h-2 w-1/2"></i></div></div></div></section>
 
-      <section id="mentors" class="sec"><h2 class="h2 fx">Your Guides</h2><p class="mt-3 max-w-xl">Industry mentors who will guide you. Names coming soon.</p>
-      <div class="mt-8 grid grid-cols-2 gap-5 md:grid-cols-4">
-        <div class="card text-center"><div class="mx-auto grid h-16 w-16 place-items-center rounded-lg bg-peri/20 font-pixel text-2xl text-peri">?</div><p class="mt-3 text-sm text-snow">Mentor TBA</p></div>
-        <div class="card text-center"><div class="mx-auto grid h-16 w-16 place-items-center rounded-lg bg-orchid/20 font-pixel text-2xl text-orchid">?</div><p class="mt-3 text-sm text-snow">Mentor TBA</p></div>
-        <div class="card text-center"><div class="mx-auto grid h-16 w-16 place-items-center rounded-lg bg-spring/20 font-pixel text-2xl text-spring">?</div><p class="mt-3 text-sm text-snow">Mentor TBA</p></div>
-        <div class="card text-center"><div class="mx-auto grid h-16 w-16 place-items-center rounded-lg bg-peach/20 font-pixel text-2xl text-peach">?</div><p class="mt-3 text-sm text-snow">Mentor TBA</p></div></div></section>
+      <section id="mentors" class="sec"><p class="eyebrow">03 · Guides</p><h2 class="h2 fx mt-4">Your Guides</h2><p class="mt-4 max-w-xl">Industry mentors who will help you scope, build and pitch. Names coming soon.</p>
+      <div class="mt-10 grid grid-cols-2 gap-5 md:grid-cols-4">
+        <div class="card text-center"><i class="skel mx-auto h-16 w-16" aria-hidden="true"></i><p class="mt-4 text-sm text-snow" data-msgs="404: mentor not found|could this be you?|booting up…">Mentor TBA</p><i class="skel mx-auto mt-2 h-2 w-20" aria-hidden="true"></i></div>
+        <div class="card text-center"><i class="skel mx-auto h-16 w-16" aria-hidden="true"></i><p class="mt-4 text-sm text-snow" data-msgs="still compiling…|ask us in Feb|loading wisdom…">Mentor TBA</p><i class="skel mx-auto mt-2 h-2 w-16" aria-hidden="true"></i></div>
+        <div class="card text-center"><i class="skel mx-auto h-16 w-16" aria-hidden="true"></i><p class="mt-4 text-sm text-snow" data-msgs="sudo reveal mentor|permission denied|nice try">Mentor TBA</p><i class="skel mx-auto mt-2 h-2 w-24" aria-hidden="true"></i></div>
+        <div class="card text-center"><i class="skel mx-auto h-16 w-16" aria-hidden="true"></i><p class="mt-4 text-sm text-snow" data-msgs="training…|epoch 3/∞|almost there">Mentor TBA</p><i class="skel mx-auto mt-2 h-2 w-14" aria-hidden="true"></i></div></div></section>
 
-      <section id="timeline" class="sec"><h2 class="h2 fx">The Chain of Events</h2>
-      <ol class="mt-8 ml-3 border-l-2 border-rim">
-        <li class="relative pb-8 pl-8"><i class="absolute -left-[9px] top-1 h-4 w-4 bg-spring"></i><b class="font-pixel text-snow">Block 1, Feb 25</b><p class="text-sm">The main event kicks off with the opening ceremony and briefing.</p></li>
-        <li class="relative pb-8 pl-8"><i class="absolute -left-[9px] top-1 h-4 w-4 bg-orchid"></i><b class="font-pixel text-snow">Block 2, Feb 25–27</b><p class="text-sm">Build with your squad, backed by workshops and mentors.</p></li>
-        <li class="relative pl-8"><i class="absolute -left-[9px] top-1 h-4 w-4 bg-peach"></i><b class="font-pixel text-snow">Block 3, Feb 27</b><p class="text-sm">Pitching day: present to the judges, then the awards ceremony.</p></li></ol></section>
+      <section id="timeline" class="sec"><p class="eyebrow">04 · Schedule</p><h2 class="h2 fx mt-4">How It Runs</h2>
+      <div class="term mt-10"><div class="term-bar" aria-hidden="true"><i style="--c:#ff7ad9"></i><i style="--c:#9aa5ff"></i><i style="--c:#7dffb2"></i><span>nottshack-27 / schedule.log</span></div>
+      <ol class="term-body">
+        <li class="log"><time>Feb 25</time><b style="--c:#7dffb2">kickoff</b><p>The main event kicks off with the opening ceremony and briefing.</p></li>
+        <li class="log"><time>Feb 25–27</time><b style="--c:#9aa5ff">build</b><p>Build with your squad, backed by workshops and mentors.</p></li>
+        <li class="log"><time>Feb 27</time><b style="--c:#ff7ad9">demo day</b><p>Pitching day: present to the judges, then the awards ceremony.</p></li>
+        <li id="term-out" class="term-out pt-3" aria-live="polite"></li>
+        <li class="pt-2"><form id="term-form" class="flex items-center gap-2"><label for="term-in" class="text-spring">$</label><input id="term-in" class="term-in" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" placeholder="type help and press enter"/></form></li></ol></div></section>
 
       <section id="past" class="sec">
-      <p class="text-xs uppercase tracking-[.25em] text-peach">Previously</p>
-      <h2 class="h2 fx mt-2">NottsHack 26</h2>
-      <div class="past-layout mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
-      <p class="text-justify">Last year’s hackathon brought students together for a weekend of building, learning and a lot of snacks. Replace this paragraph with a short recap: how many people took part, what teams built, who won, and your favourite moment.</p>
+      <p class="eyebrow">05 · Previously</p>
+      <h2 class="h2 fx mt-4">NottsHack 26</h2>
+      <div class="past-layout mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+      <p>Last year’s hackathon brought students together for a weekend of building, learning and a lot of snacks. Replace this paragraph with a short recap: how many people took part, what teams built, who won, and your favourite moment.</p>
       <div class="past-album" data-open="false">
         <button class="past-folder" type="button" aria-expanded="false" aria-label="Check it out! Open or close the album" aria-controls="past-gallery">
           <span class="past-folder-copy" aria-hidden="true"><strong>Check it out!</strong><small>Open the album</small></span>
@@ -124,44 +146,52 @@
       </div>
       </section>
 
-      <section id="where" class="sec"><div class="card md:flex md:items-center md:justify-between"><div><h2 class="h2 fx">Find Us</h2><p class="mt-3">University of Nottingham Malaysia, Semenyih, Selangor. Parking and transport details to come.</p></div>
-      <a class="btn b-main mt-5 md:mt-0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=University+of+Nottingham+Malaysia">Open in Maps</a></div></section>
+      <section id="where" class="sec"><div class="card md:flex md:items-center md:justify-between md:gap-8 md:p-10"><div><p class="eyebrow">06 · Find Us</p><h2 class="h2 fx mt-4">Find Us</h2><p class="mt-4 flex items-start gap-2"><svg class="ic mt-0.5 h-5 w-5 shrink-0 text-spring" aria-hidden="true"><use href="#i-pin"/></svg>University of Nottingham Malaysia, Semenyih, Selangor. Parking and transport details to come.</p></div>
+      <a class="btn b-line mt-6 md:mt-0" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=University+of+Nottingham+Malaysia">Open in Maps <svg class="ic" aria-hidden="true"><use href="#i-arr"/></svg></a></div></section>
 
-      <section id="sponsors" class="sec"><h2 class="h2 fx">Sponsorships & Partners</h2><p class="mt-3">Sponsored by <span class="hl">xxxxx</span>. More partners to be announced.</p>
-      <div class="mt-8 grid grid-cols-2 gap-5 md:grid-cols-4"><div class="card grid h-24 place-items-center text-xs">Your logo here</div><div class="card grid h-24 place-items-center text-xs">Your logo here</div><div class="card grid h-24 place-items-center text-xs">Your logo here</div><div class="card grid h-24 place-items-center text-xs">Your logo here</div></div></section>
+      <section id="sponsors" class="sec"><p class="eyebrow">07 · Sponsors</p><h2 class="h2 fx mt-4">Sponsors &amp; Partners</h2><p class="mt-4">Partners to be announced.</p>
+      <div class="mt-10 grid grid-cols-2 gap-5 md:grid-cols-4" aria-hidden="true"><div class="card grid h-28 place-items-center"><i class="skel h-3 w-24"></i></div><div class="card grid h-28 place-items-center"><i class="skel h-3 w-20"></i></div><div class="card grid h-28 place-items-center"><i class="skel h-3 w-28"></i></div><div class="card grid h-28 place-items-center"><i class="skel h-3 w-16"></i></div></div>
+      <div class="card join mt-5 flex flex-col gap-6 p-7 sm:p-10 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p class="font-mono text-xs text-mute"><span class="text-spring">$</span> sponsor --event nottshack-27</p>
+          <h3 class="mt-4 text-2xl sm:text-3xl">Want to sponsor NottsHack?</h3>
+          <p class="mt-3 max-w-xl text-pretty">Set a challenge track, put your brand in front of a room of builders, and meet the people shipping with AI. We’d love to hear from you.</p>
+        </div>
+        <!-- TODO: replace href="#" with the sponsorship form or email link -->
+        <a href="#" class="btn b-main shrink-0 self-start md:self-auto">Become a sponsor <svg class="ic" aria-hidden="true"><use href="#i-arr"/></svg></a>
+      </div></section>
 
-      <section id="faq" class="sec"><h2 class="h2 fx">Frequently Asked Questions</h2><div class="mt-6 grid gap-4 md:grid-cols-2">
-      <details class="faq-item"><summary>How Big Is a Squad?</summary><p class="mt-3">Three to five people.</p></details>
-      <details class="faq-item"><summary>Do I Have to Be on Campus All Week?</summary><p class="mt-3">No. The build happens remotely; only pitching day on Feb 27 is at UNMC.</p></details>
-      <details class="faq-item"><summary>What Will We Build?</summary><p class="mt-3">Solutions to industry-set challenges across two sponsor tracks.</p></details>
-      <details class="faq-item"><summary>Is Food Included?</summary><p class="mt-3">Yes, meals are provided on site.</p></details>
-      <details class="faq-item faq-placeholder" aria-hidden="true"><summary></summary></details>
-      <details class="faq-item faq-placeholder" aria-hidden="true"><summary></summary></details>
-      <details class="faq-item faq-placeholder" aria-hidden="true"><summary></summary></details>
-      <details class="faq-item faq-placeholder" aria-hidden="true"><summary></summary></details></div></section>
+      <section id="faq" class="sec"><p class="eyebrow">08 · FAQ</p><h2 class="h2 fx mt-4">Frequently Asked Questions</h2><div class="mt-10 grid items-start gap-4 md:grid-cols-2">
+      <details class="faq-item"><summary>How big is a squad?</summary><p class="mt-3">Three to five people.</p></details>
+      <details class="faq-item"><summary>Do I have to be on campus all week?</summary><p class="mt-3">No. The build happens remotely; only pitching day on Feb 27 is at UNMC.</p></details>
+      <details class="faq-item"><summary>What will we build?</summary><p class="mt-3">Solutions to industry-set challenges across two sponsor tracks.</p></details>
+      <details class="faq-item"><summary>Is food included?</summary><p class="mt-3">Yes, meals are provided on site.</p></details></div></section>
 
       <section id="join" class="sec text-center">
-        <h2 class="h2 mx-auto max-w-3xl text-center">
-          <span class="fx fx-w block text-balance text-[clamp(1rem,2.6vw,1.5rem)] text-lilac">Don’t just watch the future happen.</span>
-          <span class="fx fx-w mt-2 block text-[clamp(2.25rem,7vw,4rem)]">Build&nbsp;it!</span>
+        <div class="card join mx-auto max-w-4xl overflow-hidden px-6 py-16 sm:px-12 sm:py-20">
+        <p class="font-mono text-xs text-mute"><span class="text-spring">$</span> ./register --event nottshack-27</p>
+        <h2 class="h2 mx-auto mt-6 max-w-3xl text-center">
+          <span class="fx fx-w block text-balance text-[clamp(1.05rem,2.6vw,1.5rem)] text-lilac">Don’t just watch the future happen.</span>
+          <span class="fx fx-w mt-3 block text-[clamp(2.5rem,7.5vw,4.5rem)] text-spring [text-shadow:0_0_40px_rgba(125,255,178,.35)]">Build&nbsp;it!</span>
         </h2>
-        <a href="#" class="btn b-main mt-6">Register Now</a>
+        <a href="#" class="btn b-main mt-10">Register now <svg class="ic" aria-hidden="true"><use href="#i-arr"/></svg></a>
+        </div>
       </section>
     </main>
-    
-    <footer class="border-t border-rim/60 bg-deep/70 py-5 text-xs">
+
+    <footer class="border-t border-rim bg-deep/70 py-6 text-xs">
       <div class="mx-auto flex max-w-6xl flex-col items-center gap-5 px-5 text-center sm:flex-row sm:justify-between sm:text-left">
-        <p class="order-2">NottsHack 27 © UNM CSS</p>
+        <div class="order-2 font-mono text-mute sm:text-right"><p>NottsHack 27 © UNM CSS</p><p id="tokens" class="mt-1 text-[.7rem]">psst: 6 ✦ are hidden on this page</p></div>
         <div class="order-1 flex items-center gap-3">
-          <img src="assets/css-logo.png" alt="" class="h-16 w-16 shrink-0 object-contain"/>
+          <img src="assets/css-logo.png" alt="" class="h-14 w-14 shrink-0 object-contain"/>
           <div>
             <p class="text-sm text-snow">UNM Computer Science Society</p>
-            <p class="mt-1 text-[.65rem] text-lilac/70">We don't code, We build</p>
-            <div class="mt-2 flex items-center gap-3 sm:justify-start justify-center">
-              <a href="https://www.instagram.com/unm.css/" target="_blank" rel="noopener noreferrer" aria-label="UNM CSS on Instagram" class="text-lilac/70 transition hover:text-spring">
+            <p class="mt-1 font-mono text-[.7rem] text-mute">We don't code, We build</p>
+            <div class="-ml-2.5 mt-1 flex items-center justify-center sm:justify-start">
+              <a href="https://www.instagram.com/unm.css/" target="_blank" rel="noopener noreferrer" aria-label="UNM CSS on Instagram" class="grid h-10 w-10 place-items-center text-mute transition hover:text-spring">
                 <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>
               </a>
-              <a href="https://www.linkedin.com/company/unmcss" target="_blank" rel="noopener noreferrer" aria-label="UNM CSS on LinkedIn" class="text-lilac/70 transition hover:text-spring">
+              <a href="https://www.linkedin.com/company/unmcss" target="_blank" rel="noopener noreferrer" aria-label="UNM CSS on LinkedIn" class="grid h-10 w-10 place-items-center text-mute transition hover:text-spring">
                 <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0H5C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5ZM8 19H5V9h3v10ZM6.5 7.7a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6ZM20 19h-3v-4.8c0-1.14-.02-2.61-1.59-2.61-1.6 0-1.84 1.25-1.84 2.53V19h-3V9h2.88v1.37h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.6V19Z"/></svg>
               </a>
             </div>
@@ -169,8 +199,10 @@
         </div>
       </div>
     </footer>
-    
-    <div id="hud" hidden class="fixed bottom-4 left-4 z-[95] rounded-full border border-rim bg-deep/90 px-4 py-2 text-xs">Corner hits: <b id="ch" class="text-spring">0</b> | click a logo to pop it, Esc clears all</div>
+
+    <div id="hud" hidden class="fixed bottom-4 left-4 z-[95] rounded-full border border-rim bg-deep/90 px-4 py-2 font-mono text-xs">Corner hits: <b id="ch" class="text-spring">0</b> | click a logo to pop it, Esc clears all</div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="js/config.js"></script>
     <script src="js/main.js"></script>
