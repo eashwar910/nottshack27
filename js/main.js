@@ -36,8 +36,6 @@ function tick(t){const dt=Math.min((t-last)/1000,.05);last=t;
    if((hx&&(b.y<50||b.y>my-50))||(hy&&(b.x<50||b.x>mx-50)))burst(b)}
   b.el.style.transform=`translate3d(${b.x}px,${b.y}px,0)`}
  raf=bs.length?requestAnimationFrame(tick):0}
-$('#wm').onclick=e=>{const l=e.target.closest('[data-l]');if(l){const r=l.getBoundingClientRect();spawn(r.left+r.width/2,r.top+r.height/2)}};
-$('#poke').onclick=e=>{const r=e.target.getBoundingClientRect();spawn(r.left+r.width/2,r.top)};
 addEventListener('keydown',e=>{if(e.key=='Escape'){[...bs].forEach(kill);setMenu(false)}});
 
 /* theme: dark by default, light = the original purple palette. A click is remembered; otherwise follow the OS setting. */
@@ -61,13 +59,6 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 $$('.card,.sec>h2,.sec>p,details,.term').forEach((e,i)=>{e.classList.add('rv');e.style.animationDelay=(i%4)*70+'ms';io.observe(e)});
 {const w=['prompt','prototype','debug','ship','pitch','repeat'],g=`<span class="flex shrink-0 items-center gap-8 pr-8">${w.map(x=>`${x}<i class="not-italic text-spring">✦</i>`).join('')}</span>`,h=`<span class="flex shrink-0">${g.repeat(3)}</span>`;$('.mq').innerHTML=h+h}
 addEventListener('pointermove',e=>{const c=e.target.closest?.('.card');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}},{passive:true});
-/* hero prompt: types out example ideas, then deletes and moves on */
-{const el=$('#typed'),ideas=['an agent that turns lecture slides into flashcards','a voice assistant that finds your next class','a copilot that explains your stack traces','a vision model that spots plant disease from one photo','a RAG bot over every module handbook','something nobody has built yet'];
- if(RM.matches)el.textContent=ideas[0];
- else{let i=0,n=0,del=false;(function step(){const s=ideas[i];
-  if(!del){el.textContent=s.slice(0,++n);if(n==s.length){del=true;return setTimeout(step,2200)}}
-  else{el.textContent=s.slice(0,--n);if(!n){del=false;i=(i+1)%ideas.length;return setTimeout(step,400)}}
-  setTimeout(step,del?14:35+Math.random()*45)})()}}
 /* hero canvas: a small neural net. Signals fire from the inputs and light up every node they reach.
    Desktop (net beside the text): hover a node to light its links, click it to fire a burst,
    drag it around (it springs back), or click empty space near the net to inject a signal. */
@@ -156,7 +147,7 @@ $$('[data-msgs]').forEach(el=>{const m=[...el.dataset.msgs.split('|'),el.textCon
  const say=(...l)=>{l.forEach(s=>{const d=document.createElement('div');d.textContent=s;out.append(d)});while(out.childElementCount>14)out.firstChild.remove()};
  const jump=id=>setTimeout(()=>$(id).scrollIntoView({behavior:RM.matches?'auto':'smooth'}),450);
  const C={help:()=>say('commands: schedule  tracks  register  faq  whoami  ls  goose  clear'),
-  schedule:()=>say('feb 25     kickoff   · opening ceremony + briefing','feb 25–27  build     · squads, workshops, mentors','feb 27     demo day  · pitch, judging, awards'),
+  schedule:()=>say('feb 25     kickoff   · 6:00 pm · opening ceremony + briefing','feb 25–27  build     · squads, workshops, mentors','feb 27     demo day  · pitch, judging, awards'),
   tracks:()=>say('track_a    status: loading…','track_b    status: loading…','briefs drop once sponsors are confirmed'),
   register:()=>{say('→ jumping to registration…');jump('#join')},
   faq:()=>{say('→ opening the FAQ…');jump('#faq')},

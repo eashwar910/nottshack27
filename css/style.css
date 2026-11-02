@@ -85,23 +85,14 @@ nav[data-open] .i-burger,.i-close{display:none}nav[data-open] .i-close{display:b
 #top::before{content:"";position:absolute;inset:0;z-index:-20;pointer-events:none;background:radial-gradient(32% 45% at 75% 50%,rgb(var(--peri)/.16),transparent 70%),radial-gradient(18% 25% at 78% 55%,rgb(var(--spring)/.07),transparent 70%)}
 @media(max-width:1199px){#top::before{background:radial-gradient(70% 30% at 62% 15%,rgb(var(--peri)/.16),transparent 70%)}}
 .wm{font:400 clamp(2.5rem,8.4vw,5rem)/.98 var(--font-display);user-select:none;text-shadow:0 0 42px rgb(var(--peri)/.28)}
-.wm [data-l]{display:inline-block;cursor:pointer;transition:transform .15s;animation:bob 3.4s ease-in-out infinite;animation-delay:calc(var(--i)*120ms)}
-.wm [data-l]:hover{animation:hop .45s ease}.wm [data-l]:active{transform:scale(.85,1.15)}
+.wm [data-l]{display:inline-block;transition:transform .15s;animation:bob 3.4s ease-in-out infinite;animation-delay:calc(var(--i)*120ms)}
+.wm [data-l]:hover{animation:hop .45s ease}
 @keyframes bob{50%{transform:translateY(-4px)}}
 .g{color:rgb(var(--spring))}.p{color:rgb(var(--orchid))}.w{color:rgb(var(--snow))}
 .fx span{display:inline-block}.fx:hover span{animation:hop .5s ease calc(var(--i)*30ms) both}
 @keyframes hop{40%{transform:translateY(-7px);color:rgb(var(--spring))}}
 /* heading words never split mid-word; the heading wraps between words instead */
 .fxw{display:inline-block;white-space:nowrap;font-style:normal}
-/* prompt box: gradient hairline border, typed idea, send button */
-.prompt{border:1px solid transparent;border-radius:1.1rem;padding:1rem 1rem .9rem 1.15rem;
- background:linear-gradient(rgb(var(--deep)),rgb(var(--deep))) padding-box,linear-gradient(120deg,rgb(var(--spring)/.6),rgb(var(--peri)/.22) 45%,rgb(var(--orchid)/.5)) border-box;
- box-shadow:0 24px 70px -24px rgb(var(--peri)/.4)}
-.prompt-q{display:flex;align-items:center;gap:.5rem;margin:0;font:500 .72rem/1 var(--font-mono);letter-spacing:.06em;color:rgb(var(--mute))}
-.prompt-line{margin:.75rem 0 0;min-height:3em;font:400 1rem/1.5 var(--font-mono);color:rgb(var(--snow))}
-@media(max-width:639px){.prompt{padding:.9rem .9rem .9rem 1rem}.prompt-line{font-size:.9rem;min-height:4.5em}}
-.caret{display:inline-block;width:.55em;height:1.15em;margin-left:2px;vertical-align:-.22em;background:rgb(var(--spring));animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
 .mq{animation:mq 90s linear infinite}.mq:hover{animation-play-state:paused}@keyframes mq{to{transform:translateX(-50%)}}
 
 /* ---- "not announced yet" placeholders read as loading skeletons ---- */
