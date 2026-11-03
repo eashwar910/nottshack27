@@ -13,8 +13,8 @@ $$('.fx').forEach(e=>{const t=e.textContent;e.setAttribute('aria-label',t);
 function scramble(e,t){let f=0;clearInterval(e._t);e._t=setInterval(()=>{e.textContent=[...t].map((c,i)=>c==' '||i<f/2?c:'01<>/_{}'[Math.random()*8|0]).join('');if(++f>[...t].length*2){clearInterval(e._t);e.textContent=t}},35)}
 $$('[data-scr]').forEach(e=>{const t=e.textContent;e.onmouseenter=()=>scramble(e,t)});
 /* countdown (set the real close date) */
-const END=new Date('2026-04-01T23:59:59+08:00'),cd=$$('[data-cd]');
-(function c(){const d=Math.max(0,Math.floor((END-Date.now())/1000)),v=[d/86400|0,d%86400/3600|0,d%3600/60|0,d%60];cd.forEach((e,i)=>e.textContent=String(v[i]).padStart(2,'0'));$('#cdl').textContent=d?'Sign-ups close in':'Sign-ups closed';setTimeout(c,1000)})();
+const END=new Date('2027-02-25T18:00:00+08:00');
+(function c(){const cd=$$('[data-cd]'),d=Math.max(0,Math.floor((END-Date.now())/1000)),v=[d/86400|0,d%86400/3600|0,d%3600/60|0,d%60];cd.forEach((e,i)=>e.textContent=String(v[i%4]).padStart(2,'0'));const l=$('#cdl');if(l)l.textContent=d?'Countdown to kickoff':'Hacking is live!';setTimeout(c,1000)})();
 /* bouncing-logo easter egg */
 const GL=['#7dffb2','#ff7ad9','#9aa5ff','#f6f4ff'],bs=[];let raf=0,last=0,hits=0;
 /* usable viewport size (excludes scrollbars) and real rendered logo size, so bounces hit the true screen edges */
@@ -36,7 +36,7 @@ function tick(t){const dt=Math.min((t-last)/1000,.05);last=t;
    if((hx&&(b.y<50||b.y>my-50))||(hy&&(b.x<50||b.x>mx-50)))burst(b)}
   b.el.style.transform=`translate3d(${b.x}px,${b.y}px,0)`}
  raf=bs.length?requestAnimationFrame(tick):0}
-addEventListener('keydown',e=>{if(e.key=='Escape'){[...bs].forEach(kill);setMenu(false)}});
+addEventListener('keydown',e=>{if(e.key=='Escape'){[...bs].forEach(kill);setMenu(false);setContactDrawer(false);closeContactModal()}});
 
 /* theme: dark by default, light = the original purple palette. A click is remembered; otherwise follow the OS setting. */
 const root=document.documentElement,tb=$('#theme'),OSL=matchMedia('(prefers-color-scheme: light)');
@@ -146,7 +146,9 @@ $$('[data-msgs]').forEach(el=>{const m=[...el.dataset.msgs.split('|'),el.textCon
 {const form=$('#term-form'),inp=$('#term-in'),out=$('#term-out'),hist=[];let hi=0;
  const say=(...l)=>{l.forEach(s=>{const d=document.createElement('div');d.textContent=s;out.append(d)});while(out.childElementCount>14)out.firstChild.remove()};
  const jump=id=>setTimeout(()=>$(id).scrollIntoView({behavior:RM.matches?'auto':'smooth'}),450);
- const C={help:()=>say('commands: schedule  tracks  register  faq  whoami  ls  goose  clear'),
+ const C={help:()=>say('commands: schedule  tracks  sponsors  contact  register  faq  whoami  ls  goose  clear'),
+  sponsors:()=>{say('→ opening sponsors & committee contacts…');setContactDrawer(true);jump('#sponsors')},sponsor:()=>C.sponsors(),
+  contact:()=>{say('→ opening committee contact info…');setContactDrawer(true);jump('#sponsors')},
   schedule:()=>say('feb 25     kickoff   · 6:00 pm · opening ceremony + briefing','feb 25–27  build     · squads, workshops, mentors','feb 27     demo day  · pitch, judging, awards'),
   tracks:()=>say('track_a    status: loading…','track_b    status: loading…','briefs drop once sponsors are confirmed'),
   register:()=>{say('→ jumping to registration…');jump('#join')},
@@ -170,3 +172,53 @@ $$('[data-msgs]').forEach(el=>{const m=[...el.dataset.msgs.split('|'),el.textCon
   b.onclick=e=>{b.remove();n++;pop(e.clientX,e.clientY,['✦','✧','✦'],10);hint.textContent=n<K?`✦ ${n}/${K} found`:`✦ all ${K} found. legend.`;
    toast(n<K?`✦ token ${n}/${K} found`:'All tokens found. Goose party!');
    if(n==K)for(let k=0;k<5;k++)setTimeout(()=>spawn(Math.random()*VW(),Math.random()*VH()),k*180)}})}
+
+/* ---- Sponsors & Committee contact drawer & modal ---- */
+const cDrawer=$('#contact-drawer'),cBtn=$('#contact-toggle-btn'),cModal=$('#contact-modal');
+function setContactDrawer(open){
+  if(!cDrawer)return;
+  cDrawer.dataset.open=String(open);
+  if(cBtn){
+    cBtn.setAttribute('aria-expanded',String(open));
+    const txt=cBtn.querySelector('.btn-text');
+    if(txt)txt.textContent=open?'Hide Committee Contacts':'Become a sponsor';
+  }
+}
+function toggleContactDrawer(){
+  if(!cDrawer)return;
+  setContactDrawer(cDrawer.dataset.open!=='true');
+}
+cBtn?.addEventListener('click',toggleContactDrawer);
+$$('[data-contact-trigger]').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    setContactDrawer(true);
+    $('#sponsors')?.scrollIntoView({behavior:RM.matches?'auto':'smooth'});
+  });
+});
+function openContactModal(){
+  const m=$('#contact-modal');
+  if(m){
+    try{typeof m.showModal==='function'?m.showModal():m.setAttribute('open','')}
+    catch(e){m.setAttribute('open','')}
+  }
+}
+function closeContactModal(){
+  const m=$('#contact-modal');
+  if(m){
+    try{typeof m.close==='function'?m.close():m.removeAttribute('open')}
+    catch(e){m.removeAttribute('open')}
+  }
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('#open-contact-modal')||e.target.closest('#nav-open-modal-btn')||e.target.closest('[data-modal-contact]')){
+    e.preventDefault();
+    openContactModal();
+  }
+  if(e.target.closest('#close-contact-modal')){
+    e.preventDefault();
+    closeContactModal();
+  }
+  if(e.target.id==='contact-modal'){
+    closeContactModal();
+  }
+});

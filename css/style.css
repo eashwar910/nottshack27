@@ -198,3 +198,32 @@ details[open] summary::after{transform:rotate(45deg)}
 
 /* ---- closing call to action ---- */
 .join{background:radial-gradient(60% 80% at 50% 120%,rgb(var(--spring)/.16),transparent 70%),radial-gradient(50% 60% at 50% -20%,rgb(var(--peri)/.14),transparent 70%),rgb(var(--deep)/.7)}
+
+/* ---- sponsors interactive contact drawer & modal ---- */
+.contact-drawer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1),opacity .35s ease;opacity:0}
+.contact-drawer[data-open="true"]{grid-template-rows:1fr;opacity:1}
+.contact-drawer-inner{min-height:0;overflow:hidden}
+.contact-card{position:relative;border:1px solid rgb(var(--rim));border-radius:1rem;background:rgb(var(--deep)/.85);padding:1.35rem;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:border-color .25s,transform .25s,box-shadow .25s,background .25s}
+.contact-card:hover{transform:translateY(-2px);box-shadow:0 14px 35px -10px rgba(0,0,0,.5)}
+.contact-card.theme-spring:hover{border-color:rgb(var(--spring)/.6);box-shadow:0 14px 35px -10px rgb(var(--spring)/.18)}
+.contact-card.theme-orchid:hover{border-color:rgb(var(--orchid)/.6);box-shadow:0 14px 35px -10px rgb(var(--orchid)/.18)}
+.contact-btn{display:flex;align-items:center;justify-content:space-between;gap:.75rem;width:100%;border:1px solid rgb(var(--rim));border-radius:.75rem;background:rgb(var(--card)/.7);padding:.75rem 1rem;font:500 .82rem/1.2 var(--font-mono);color:rgb(var(--snow));text-decoration:none;transition:border-color .2s,background .2s,color .2s,transform .15s}
+.contact-btn:hover{border-color:rgb(var(--spring));background:rgb(var(--card));color:rgb(var(--spring));transform:translateX(2px)}
+.contact-btn.orchid:hover{border-color:rgb(var(--orchid));color:rgb(var(--orchid))}
+.contact-btn .ic-sub{width:1.1rem;height:1.1rem;flex:none}
+.contact-btn .arr-sub{width:.85rem;height:.85rem;stroke-width:2;transition:transform .2s}
+.contact-btn:hover .arr-sub{transform:translate(2px,-2px)}
+#contact-toggle-btn[aria-expanded="true"] .toggle-arrow{transform:rotate(180deg)}
+.toggle-arrow{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+
+/* modal dialog */
+.contact-modal{border:1px solid rgb(var(--rim));border-radius:1.5rem;background:rgb(var(--deep)/.95);color:rgb(var(--lilac));padding:2rem;max-width:44rem;width:calc(100% - 2rem);margin:auto;box-shadow:0 25px 60px -15px rgba(0,0,0,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.contact-modal::backdrop{background:rgba(11,9,22,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+
+/* ---- nav dropdown ---- */
+.nav-dropdown{position:absolute;top:calc(100% + .25rem);left:50%;transform:translateX(-50%) translateY(6px);width:270px;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:60}
+.group\/nav:hover .nav-dropdown,.group\/nav:focus-within .nav-dropdown{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-dropdown-inner{border:1px solid rgb(var(--rim));border-radius:1rem;background:rgb(var(--deep)/.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 18px 45px -12px rgba(0,0,0,.85);overflow:hidden}
+.dropdown-item{display:block;padding:.5rem .75rem;border-radius:.6rem;text-decoration:none;transition:background .15s}
+.dropdown-item:hover{background:rgb(var(--card)/.9)}
+@media(max-width:1023px){.nav-dropdown{display:none}}

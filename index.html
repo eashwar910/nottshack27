@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>NottsHack 2027</title>
-    <meta name="description" content="NottsHack 2027: a six-day hackathon run by the UNM Computer Science Society at the University of Nottingham Malaysia."/>
+    <meta name="description" content="NottsHack 2027: a 48-hour hackathon run by the UNM Computer Science Society at the University of Nottingham Malaysia."/>
     <meta property="og:type" content="website"/><meta property="og:title" content="NottsHack 2027"/>
-    <meta property="og:description" content="A six-day hackathon at the University of Nottingham Malaysia."/>
+    <meta property="og:description" content="A 48-hour hackathon at the University of Nottingham Malaysia."/>
     <meta name="twitter:card" content="summary"/><meta name="theme-color" content="#0b0916" media="(prefers-color-scheme: dark)"/><meta name="theme-color" content="#241845" media="(prefers-color-scheme: light)"/>
     <link rel="icon" type="image/png" href="assets/NottsHack-logo/nottshack-square.png"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/tailwind.css?v=2"/>
-    <link rel="stylesheet" href="css/style.css?v=2"/>
+    <link rel="stylesheet" href="css/tailwind.css?v=3"/>
+    <link rel="stylesheet" href="css/style.css?v=3"/>
     <!-- set the theme before first paint: a saved choice wins, otherwise follow the OS -->
     <script>(function(d){d.classList.add("js");var t;try{t=localStorage.getItem("theme")}catch(e){}d.dataset.theme=t||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")})(document.documentElement)</script>
   </head>
@@ -23,6 +23,10 @@
     <symbol id="i-eat" viewBox="0 0 24 24"><path d="M6 3v8a2 2 0 004 0V3M8 11v10M17 3c-2 2-3 5-3 8h3v10"/></symbol>
     <symbol id="i-arr" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.01-1.24-.74-.66-1.25-1.48-1.39-1.73-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.72 4.31 3.81.6.26 1.07.42 1.44.54.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.1-.22-.16-.47-.28"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></symbol>
     </defs></svg>
     <a href="#main" class="absolute -top-20 left-4 z-[100] rounded bg-spring px-4 py-2 text-ink focus:top-4">Skip to content</a>
 
@@ -30,7 +34,44 @@
     <header class="sticky top-3 z-50 px-3"><nav class="relative mx-auto flex h-14 max-w-6xl items-center gap-2 rounded-full border border-rim bg-deep/80 pl-4 pr-2 shadow-[0_10px_40px_-15px_rgba(0,0,0,.8)] backdrop-blur-xl sm:gap-3" aria-label="Primary">
       <a href="#top" aria-label="NottsHack home" class="mr-auto shrink-0 lg:mr-0"><img data-logo alt="NottsHack" class="h-9 w-auto transition hover:-rotate-3 hover:scale-110"/></a>
       <ul id="menu" class="menu">
-        <li class="shrink-0"><a class="nav-link" data-scr href="#about">The Event</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#tracks">Challenges</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#mentors">Guides</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#timeline">Schedule</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#past">NottsHack 26</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#where">Find Us</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#sponsors">Sponsors</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#faq">FAQ</a></li>
+        <li class="shrink-0"><a class="nav-link" data-scr href="#about">The Event</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#tracks">Challenges</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#mentors">Guides</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#timeline">Schedule</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#past">NottsHack 26</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#where">Find Us</a></li><li class="shrink-0 relative group/nav">
+          <a class="nav-link" data-scr href="#sponsors" data-contact-trigger>Sponsors</a>
+          <div class="nav-dropdown">
+            <div class="nav-dropdown-inner">
+              <div class="px-3.5 py-2.5 border-b border-rim/60 bg-card/40">
+                <p class="font-mono text-[.68rem] uppercase tracking-wider text-spring font-medium flex items-center gap-1.5"><svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Committee Contacts</p>
+              </div>
+              <div class="p-2 space-y-1.5">
+                <a href="#sponsors" data-contact-trigger class="dropdown-item">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="font-semibold text-snow">Yoonjae Lee</span>
+                    <span class="rounded bg-spring/10 border border-spring/30 px-1.5 py-0.5 font-mono text-[.62rem] text-spring">President</span>
+                  </div>
+                  <div class="mt-1 flex items-center justify-between font-mono text-[.68rem] text-mute">
+                    <span>WhatsApp: 0109699115</span>
+                    <span class="text-spring text-[.62rem]">View →</span>
+                  </div>
+                </a>
+                <a href="#sponsors" data-contact-trigger class="dropdown-item">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="font-semibold text-snow">Desai</span>
+                    <span class="rounded bg-orchid/10 border border-orchid/30 px-1.5 py-0.5 font-mono text-[.62rem] text-orchid">VP / Contact</span>
+                  </div>
+                  <div class="mt-1 flex items-center justify-between font-mono text-[.68rem] text-mute">
+                    <span>WhatsApp: +60 11 1472 7860</span>
+                    <span class="text-orchid text-[.62rem]">View →</span>
+                  </div>
+                </a>
+              </div>
+              <div class="p-2 pt-1 border-t border-rim/50">
+                <button type="button" class="w-full text-center py-1.5 text-[.72rem] font-mono text-spring hover:text-snow hover:bg-card/60 rounded transition flex items-center justify-center gap-1.5" id="nav-open-modal-btn">
+                  <span>Open Contact Modal</span>
+                  <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </li><li class="shrink-0"><a class="nav-link" data-scr href="#faq">FAQ</a></li>
       </ul>
       <button id="theme" class="icon-btn" type="button" aria-label="Switch to light mode">
         <svg class="ic i-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -52,7 +93,7 @@
         <p class="chip"><span class="pulse" aria-hidden="true"></span>UNM CSS presents · Feb 25–27, 2027 · 6:00–8:20 PM</p>
         <h1 class="wm mt-7" id="wm"><span class="sr-only">NottsHack 27</span><span aria-hidden="true"><span class="whitespace-nowrap"><span data-l class="w">N</span><span data-l class="w">o</span><span data-l class="w">t</span><span data-l class="w">t</span><span data-l class="w">s</span><span data-l class="g">H</span><span data-l class="g">a</span><span data-l class="g">c</span><span data-l class="g">k</span></span> <span class="whitespace-nowrap"><span data-l class="p">2</span><span data-l class="p">7</span></span></span></h1>
         <p class="mt-5 font-mono text-sm uppercase tracking-[.18em] text-mute"><span class="fx">Dream it.</span> <span class="fx">Code it.</span> <span class="fx text-spring">Ship it.</span></p>
-        <p class="mt-4 max-w-xl text-pretty text-lg text-lilac">Six days to turn an idea into something real, with AI in your toolkit. Hosted by the UNM Computer Science Society.</p>
+        <p class="mt-4 max-w-xl text-pretty text-lg text-lilac">48 hours to turn an idea into something real, with AI in your toolkit. Hosted by the UNM Computer Science Society.</p>
         <!-- Sponsor credit: uncomment once confirmed.
         <p class="mt-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[.2em] text-mute">Powered by <img src="assets/sponsor-logo.png" alt="Sponsor name" class="h-8 w-auto"/></p> -->
         <div class="card join mt-8 flex max-w-xl flex-col gap-5 p-6 sm:p-7">
@@ -62,7 +103,7 @@
             <p class="mt-2 text-pretty text-sm">Set a challenge track, put your brand in front of a room of builders, and meet the people shipping with AI. We’d love to hear from you.</p>
           </div>
           <!-- TODO: replace href="#" with the sponsorship form or email link -->
-          <a href="#" class="btn b-main shrink-0 self-start">Become a sponsor <svg class="ic" aria-hidden="true"><use href="#i-arr"/></svg></a>
+          <a href="#sponsors" class="btn b-main shrink-0 self-start" data-contact-trigger>Become a sponsor <svg class="ic" aria-hidden="true"><use href="#i-arr"/></svg></a>
         </div>
         <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
           <a href="#about" class="btn b-line btn-sm">Learn more</a>
@@ -78,8 +119,8 @@
         <button id="honk" type="button" class="relative mb-8 block" aria-label="Honk the NottsHack goose"><img src="assets/NottsHack-logo/nottshack-dark-shadow.png" alt="" class="w-44 drop-shadow-[0_0_24px_rgba(154,165,255,.35)]"/></button>
         <p class="eyebrow">01 · The Event</p>
         <h2 class="h2 fx mt-4">Meet NottsHack</h2>
-        <p class="mt-5">Six days, one big idea. <span class="hl">NottsHack 2027</span> is a hackathon for builders, run by the <span class="hl">Computer Science Society</span> at the University of Nottingham Malaysia. Bring an idea, pick up the tools, and ship something that works.</p>
-        <p id="cdl" class="mt-10 font-mono text-xs uppercase tracking-[.16em] text-mute">Sign-ups close in</p>
+        <p class="mt-5">48 hours, one big idea. <span class="hl">NottsHack 2027</span> is a hackathon for builders, run by the <span class="hl">Computer Science Society</span> at the University of Nottingham Malaysia. Bring an idea, pick up the tools, and ship something that works.</p>
+        <p id="cdl" class="mt-10 font-mono text-xs uppercase tracking-[.16em] text-mute">Countdown to kickoff</p>
         <div class="cd mt-3">
         <div><b data-cd>00</b><small>DAYS</small></div>
         <div><b data-cd>00</b><small>HRS</small></div>
@@ -88,8 +129,28 @@
         </div></div></div>
       <div class="grid gap-5 lg:col-span-7">
         <div class="card"><p class="text-lg text-snow">Squads of <span class="text-spring">3 to 5</span> take on real problems set by our sponsors across <span class="text-spring">two tracks</span>, with mentors, workshops and hands-on help from people working in the industry.</p></div>
-        <div class="grid grid-cols-2 gap-5">
-        <div class="card" data-burst="📅 ⏳ 🗓️ ⚡"><svg class="ic text-spring"><use href="#i-cal"/></svg><h3 class="mt-5 text-2xl sm:text-3xl">6 Days</h3><p class="mt-1 font-mono text-xs text-mute">of building</p></div>
+        <div class="card" data-burst="⚡ ⏳ ⏱️ 🚀">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+            <div>
+              <div class="flex items-center gap-2">
+                <svg class="ic text-spring"><use href="#i-cal"/></svg>
+                <span class="chip text-spring text-xs py-0.5 px-2.5"><span class="pulse" aria-hidden="true"></span>Starts Feb 25, 2027 · 6:00 PM</span>
+              </div>
+              <h3 class="mt-3 text-2xl sm:text-3xl">48 Hours</h3>
+              <p class="mt-1 font-mono text-xs text-mute">of building</p>
+            </div>
+            <div class="border-t sm:border-t-0 sm:border-l border-rim/60 pt-4 sm:pt-0 sm:pl-6 w-full sm:w-auto">
+              <p class="font-mono text-[.72rem] uppercase tracking-[.14em] text-mute mb-2">Countdown to kickoff</p>
+              <div class="cd">
+                <div><b data-cd>00</b><small>DAYS</small></div>
+                <div><b data-cd>00</b><small>HRS</small></div>
+                <div><b data-cd>00</b><small>MIN</small></div>
+                <div><b data-cd>00</b><small>SEC</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
         <div class="card" data-burst="👥 🤝 💻 🧠"><svg class="ic text-spring"><use href="#i-usr"/></svg><h3 class="mt-5 text-2xl sm:text-3xl">3–5</h3><p class="mt-1 font-mono text-xs text-mute">people per squad</p></div>
         <div class="card" data-burst="💸 🏆 💰 ✨"><svg class="ic text-spring"><use href="#i-tro"/></svg><h3 class="mt-5 text-2xl sm:text-3xl">TBA</h3><p class="mt-1 font-mono text-xs text-mute">prize pool</p></div>
         <div class="card" data-burst="🍕 🍜 🧋 🍩 🍟"><svg class="ic text-spring"><use href="#i-eat"/></svg><h3 class="mt-5 text-2xl sm:text-3xl">Free Food</h3><p class="mt-1 font-mono text-xs text-mute">on campus days</p></div>
@@ -150,19 +211,102 @@
 
       <section id="sponsors" class="sec"><p class="eyebrow">07 · Sponsors</p><h2 class="h2 fx mt-4">Sponsors &amp; Partners</h2><p class="mt-4">Partners to be announced.</p>
       <div class="mt-10 grid grid-cols-2 gap-5 md:grid-cols-4" aria-hidden="true"><div class="card grid h-28 place-items-center"><i class="skel h-3 w-24"></i></div><div class="card grid h-28 place-items-center"><i class="skel h-3 w-20"></i></div><div class="card grid h-28 place-items-center"><i class="skel h-3 w-28"></i></div><div class="card grid h-28 place-items-center"><i class="skel h-3 w-16"></i></div></div>
-      <div class="card join mt-5 flex flex-col gap-6 p-7 sm:p-10 md:flex-row md:items-center md:justify-between">
-        <div>
-          <p class="font-mono text-xs text-mute"><span class="text-spring">$</span> sponsor --event nottshack-27</p>
-          <h3 class="mt-4 text-2xl sm:text-3xl">Want to sponsor NottsHack?</h3>
-          <p class="mt-3 max-w-xl text-pretty">Set a challenge track, put your brand in front of a room of builders, and meet the people shipping with AI. We’d love to hear from you.</p>
+      <div class="card join mt-5 p-7 sm:p-10">
+        <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p class="font-mono text-xs text-mute"><span class="text-spring">$</span> sponsor --event nottshack-27</p>
+            <h3 class="mt-4 text-2xl sm:text-3xl">Want to sponsor NottsHack?</h3>
+            <p class="mt-3 max-w-xl text-pretty">Set a challenge track, put your brand in front of a room of builders, and meet the people shipping with AI. We’d love to hear from you.</p>
+          </div>
+          <button id="contact-toggle-btn" type="button" class="btn b-main shrink-0 self-start md:self-auto" aria-expanded="false" aria-controls="contact-drawer">
+            <span class="btn-text">Become a sponsor</span>
+            <svg class="ic toggle-arrow" aria-hidden="true"><use href="#i-chev"/></svg>
+          </button>
         </div>
-        <!-- TODO: replace href="#" with the sponsorship form or email link -->
-        <a href="#" class="btn b-main shrink-0 self-start md:self-auto">Become a sponsor <svg class="ic" aria-hidden="true"><use href="#i-arr"/></svg></a>
+
+        <!-- Interactive click-to-expand drawer -->
+        <div id="contact-drawer" class="contact-drawer" data-open="false">
+          <div class="contact-drawer-inner border-t border-rim/60 pt-8 mt-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+              <div>
+                <span class="chip text-spring">committee · contacts</span>
+                <h4 class="mt-2 text-xl font-display text-snow">Organizing Committee Contacts</h4>
+                <p class="text-sm text-mute mt-1">Get in touch directly via WhatsApp or email for sponsorship decks, tiers, and inquiries.</p>
+              </div>
+              <button type="button" id="open-contact-modal" class="btn b-line btn-sm shrink-0 self-start sm:self-auto">
+                <span>Popup view</span>
+                <svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg>
+              </button>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-2">
+              <!-- Yoonjae Lee (President) -->
+              <div class="contact-card theme-spring">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <span class="inline-block rounded-full border border-spring/40 bg-spring/10 px-2.5 py-0.5 font-mono text-[.7rem] uppercase tracking-wider text-spring">President</span>
+                    <h5 class="mt-2 text-xl font-semibold text-snow">Yoonjae Lee</h5>
+                    <p class="font-mono text-xs text-mute mt-0.5">President · UNM Computer Science Society</p>
+                  </div>
+                  <div class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-rim bg-deep text-spring">
+                    <svg class="ic" aria-hidden="true"><use href="#i-usr"/></svg>
+                  </div>
+                </div>
+                <div class="mt-5 space-y-2.5">
+                  <a href="https://wa.me/60109699115" target="_blank" rel="noopener noreferrer" class="contact-btn">
+                    <span class="flex items-center gap-2.5 text-snow">
+                      <svg class="ic ic-sub text-spring"><use href="#i-wa"/></svg>
+                      <span>WhatsApp: 0109699115</span>
+                    </span>
+                    <svg class="ic arr-sub"><use href="#i-ext"/></svg>
+                  </a>
+                  <a href="mailto:hfyyl16@nottingham.edu.my" class="contact-btn">
+                    <span class="flex items-center gap-2.5 text-snow truncate">
+                      <svg class="ic ic-sub text-spring"><use href="#i-mail"/></svg>
+                      <span class="truncate">hfyyl16@nottingham.edu.my</span>
+                    </span>
+                    <svg class="ic arr-sub"><use href="#i-ext"/></svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Desai (Vice President / Contact) -->
+              <div class="contact-card theme-orchid">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <span class="inline-block rounded-full border border-orchid/40 bg-orchid/10 px-2.5 py-0.5 font-mono text-[.7rem] uppercase tracking-wider text-orchid">Vice President / Contact</span>
+                    <h5 class="mt-2 text-xl font-semibold text-snow">Desai</h5>
+                    <p class="font-mono text-xs text-mute mt-0.5">Vice President · UNM Computer Science Society</p>
+                  </div>
+                  <div class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-rim bg-deep text-orchid">
+                    <svg class="ic" aria-hidden="true"><use href="#i-usr"/></svg>
+                  </div>
+                </div>
+                <div class="mt-5 space-y-2.5">
+                  <a href="https://wa.me/601114727860" target="_blank" rel="noopener noreferrer" class="contact-btn orchid">
+                    <span class="flex items-center gap-2.5 text-snow">
+                      <svg class="ic ic-sub text-orchid"><use href="#i-wa"/></svg>
+                      <span>WhatsApp: +60 11 1472 7860</span>
+                    </span>
+                    <svg class="ic arr-sub"><use href="#i-ext"/></svg>
+                  </a>
+                  <a href="mailto:hcymd2@nottingham.edu.my" class="contact-btn orchid">
+                    <span class="flex items-center gap-2.5 text-snow truncate">
+                      <svg class="ic ic-sub text-orchid"><use href="#i-mail"/></svg>
+                      <span class="truncate">hcymd2@nottingham.edu.my</span>
+                    </span>
+                    <svg class="ic arr-sub"><use href="#i-ext"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div></section>
 
       <section id="faq" class="sec"><p class="eyebrow">08 · FAQ</p><h2 class="h2 fx mt-4">Frequently Asked Questions</h2><div class="mt-10 grid items-start gap-4 md:grid-cols-2">
       <details class="faq-item"><summary>How big is a squad?</summary><p class="mt-3">Three to five people.</p></details>
-      <details class="faq-item"><summary>Do I have to be on campus all week?</summary><p class="mt-3">No. The build happens remotely; only pitching day on Feb 27 is at UNMC.</p></details>
+      <details class="faq-item"><summary>Do I have to be on campus for the entire 48 hours?</summary><p class="mt-3">No. The build happens remotely; only pitching day on Feb 27 is at UNMC.</p></details>
       <details class="faq-item"><summary>What will we build?</summary><p class="mt-3">Solutions to industry-set challenges across two sponsor tracks.</p></details>
       <details class="faq-item"><summary>Is food included?</summary><p class="mt-3">Yes, meals are provided on site.</p></details></div></section>
 
@@ -203,7 +347,83 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-    <script src="js/config.js?v=2"></script>
-    <script src="js/main.js?v=2"></script>
+    <!-- Contact Modal Dialog -->
+    <dialog id="contact-modal" class="contact-modal">
+      <div class="flex items-center justify-between gap-4 border-b border-rim/60 pb-4 mb-6">
+        <div>
+          <span class="chip text-spring">committee · contacts</span>
+          <h3 class="mt-2 text-2xl">Organizing Committee</h3>
+        </div>
+        <button type="button" id="close-contact-modal" class="icon-btn" aria-label="Close modal">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <p class="text-sm text-mute mb-6">Reach out to our executive committee for sponsorship packages, challenge briefs, and event partnerships.</p>
+      <div class="grid gap-5 md:grid-cols-2">
+        <!-- Yoonjae Lee (President) -->
+        <div class="contact-card theme-spring">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <span class="inline-block rounded-full border border-spring/40 bg-spring/10 px-2.5 py-0.5 font-mono text-[.7rem] uppercase tracking-wider text-spring">President</span>
+              <h4 class="mt-2 text-xl font-semibold text-snow">Yoonjae Lee</h4>
+              <p class="font-mono text-xs text-mute mt-0.5">President · UNM Computer Science Society</p>
+            </div>
+            <div class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-rim bg-deep text-spring">
+              <svg class="ic" aria-hidden="true"><use href="#i-usr"/></svg>
+            </div>
+          </div>
+          <div class="mt-5 space-y-2.5">
+            <a href="https://wa.me/60109699115" target="_blank" rel="noopener noreferrer" class="contact-btn">
+              <span class="flex items-center gap-2.5 text-snow">
+                <svg class="ic ic-sub text-spring"><use href="#i-wa"/></svg>
+                <span>WhatsApp: 0109699115</span>
+              </span>
+              <svg class="ic arr-sub"><use href="#i-ext"/></svg>
+            </a>
+            <a href="mailto:hfyyl16@nottingham.edu.my" class="contact-btn">
+              <span class="flex items-center gap-2.5 text-snow truncate">
+                <svg class="ic ic-sub text-spring"><use href="#i-mail"/></svg>
+                <span class="truncate">hfyyl16@nottingham.edu.my</span>
+              </span>
+              <svg class="ic arr-sub"><use href="#i-ext"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Desai (Vice President / Contact) -->
+        <div class="contact-card theme-orchid">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <span class="inline-block rounded-full border border-orchid/40 bg-orchid/10 px-2.5 py-0.5 font-mono text-[.7rem] uppercase tracking-wider text-orchid">Vice President / Contact</span>
+              <h4 class="mt-2 text-xl font-semibold text-snow">Desai</h4>
+              <p class="font-mono text-xs text-mute mt-0.5">Vice President · UNM Computer Science Society</p>
+            </div>
+            <div class="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-rim bg-deep text-orchid">
+              <svg class="ic" aria-hidden="true"><use href="#i-usr"/></svg>
+            </div>
+          </div>
+          <div class="mt-5 space-y-2.5">
+            <a href="https://wa.me/601114727860" target="_blank" rel="noopener noreferrer" class="contact-btn orchid">
+              <span class="flex items-center gap-2.5 text-snow">
+                <svg class="ic ic-sub text-orchid"><use href="#i-wa"/></svg>
+                <span>WhatsApp: +60 11 1472 7860</span>
+              </span>
+              <svg class="ic arr-sub"><use href="#i-ext"/></svg>
+            </a>
+            <a href="mailto:hcymd2@nottingham.edu.my" class="contact-btn orchid">
+              <span class="flex items-center gap-2.5 text-snow truncate">
+                <svg class="ic ic-sub text-orchid"><use href="#i-mail"/></svg>
+                <span class="truncate">hcymd2@nottingham.edu.my</span>
+              </span>
+              <svg class="ic arr-sub"><use href="#i-ext"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="js/config.js?v=3"></script>
+    <script src="js/main.js?v=3"></script>
+    
   </body>
 </html>
