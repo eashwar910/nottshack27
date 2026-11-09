@@ -203,7 +203,7 @@ details[open] summary::after{transform:rotate(45deg)}
 .contact-drawer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1),opacity .35s ease;opacity:0}
 .contact-drawer[data-open="true"]{grid-template-rows:1fr;opacity:1}
 .contact-drawer-inner{min-height:0;overflow:hidden}
-.contact-card{position:relative;border:1px solid rgb(var(--rim));border-radius:1rem;background:rgb(var(--deep)/.85);padding:1.35rem;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:border-color .25s,transform .25s,box-shadow .25s,background .25s}
+.contact-card{position:relative;display:flex;flex-direction:column;min-width:0;border:1px solid rgb(var(--rim));border-radius:1rem;background:rgb(var(--deep)/.85);padding:1.35rem;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:border-color .25s,transform .25s,box-shadow .25s,background .25s}
 .contact-card:hover{transform:translateY(-2px);box-shadow:0 14px 35px -10px rgba(0,0,0,.5)}
 .contact-card.theme-spring:hover{border-color:rgb(var(--spring)/.6);box-shadow:0 14px 35px -10px rgb(var(--spring)/.18)}
 .contact-card.theme-orchid:hover{border-color:rgb(var(--orchid)/.6);box-shadow:0 14px 35px -10px rgb(var(--orchid)/.18)}
@@ -213,11 +213,27 @@ details[open] summary::after{transform:rotate(45deg)}
 .contact-btn .ic-sub{width:1.1rem;height:1.1rem;flex:none}
 .contact-btn .arr-sub{width:.85rem;height:.85rem;stroke-width:2;transition:transform .2s}
 .contact-btn:hover .arr-sub{transform:translate(2px,-2px)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:1.25rem}
+@media(min-width:1024px){.contact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.contact-badge{display:inline-block;border-width:1px;border-style:solid;border-radius:999px;padding:.15rem .65rem;font:500 .7rem/1.5 var(--font-mono);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.contact-avatar{display:grid;place-items:center;flex:none;width:2.5rem;height:2.5rem;border:1px solid rgb(var(--rim));border-radius:999px;background:rgb(var(--deep))}
+.contact-role{margin:.15rem 0 0;font:400 .7rem/1.5 var(--font-mono);color:rgb(var(--mute))}
+.contact-role>span{white-space:nowrap}
+/* below 640px a card is too narrow for "role · society" on one line: drop the dot and stack the two parts */
+@media(max-width:639px){.contact-role>span{display:block}.contact-role>.contact-sep{display:none}}
+.contact-actions{display:grid;grid-template-columns:minmax(0,1fr);gap:.625rem;margin-top:auto;padding-top:1.25rem}
+.contact-btn>span{min-width:0}
+@media(max-width:639px){.contact-card{padding:1.1rem}.contact-btn{padding:.7rem .85rem;font-size:.76rem}}
+/* very narrow phones: drop the decorative avatar and show "WhatsApp:" to screen readers only, so the full number fits */
+@media(max-width:419px){.contact-avatar{display:none}.contact-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
 #contact-toggle-btn[aria-expanded="true"] .toggle-arrow{transform:rotate(180deg)}
 .toggle-arrow{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
 
 /* modal dialog */
-.contact-modal{border:1px solid rgb(var(--rim));border-radius:1.5rem;background:rgb(var(--deep)/.95);color:rgb(var(--lilac));padding:2rem;max-width:44rem;width:calc(100% - 2rem);margin:auto;box-shadow:0 25px 60px -15px rgba(0,0,0,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.contact-modal{border:1px solid rgb(var(--rim));border-radius:1.5rem;background:rgb(var(--deep)/.95);color:rgb(var(--lilac));padding:2rem;width:calc(100% - 2rem);max-width:60rem;max-height:calc(100dvh - 2rem);overflow-y:auto;overscroll-behavior:contain;margin:auto;box-shadow:0 25px 60px -15px rgba(0,0,0,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+@media(max-width:639px){.contact-modal{padding:1.25rem;border-radius:1.25rem}}
+/* stat cards: one heading size that still fits "Performance" in a half-width card */
+.stat-v{font-size:clamp(1.5rem,1.1rem + 1.2vw,1.875rem);line-height:1.2;white-space:nowrap}
 .contact-modal::backdrop{background:rgba(11,9,22,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 
 /* ---- nav dropdown ---- */
