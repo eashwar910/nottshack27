@@ -7,7 +7,7 @@ albumButton?.addEventListener('click',()=>{const open=album.dataset.open!=='true
 /* hover: letter hop on headings */
 $$('.fx').forEach(e=>{const t=e.textContent;e.setAttribute('aria-label',t);
  if(e.matches('h1,h2,h3,.fx-w')){/* headings: keep each word together, wrap only between words */
-  let i=0;e.innerHTML=t.split(' ').map(w=>{const x=`<em class="fxw">${[...w].map(c=>`<span aria-hidden="true" style="--i:${i++}">${c}</span>`).join('')}</em>`;i++;return x}).join(' ')}
+  let i=0;e.innerHTML=t.trim().split(/\s+/).map(w=>{const x=`<em class="fxw">${[...w].map(c=>`<span aria-hidden="true" style="--i:${i++}">${c}</span>`).join('')}</em>`;i++;return x}).join(' ')}
  else e.innerHTML=[...t].map((c,i)=>`<span aria-hidden="true" style="--i:${i}">${c==' '?'&nbsp;':c}</span>`).join('')});
 /* scramble-decode text into place (nav hover, track statuses, mentor quips) */
 function scramble(e,t){let f=0;clearInterval(e._t);e._t=setInterval(()=>{e.textContent=[...t].map((c,i)=>c==' '||i<f/2?c:'01<>/_{}'[Math.random()*8|0]).join('');if(++f>[...t].length*2){clearInterval(e._t);e.textContent=t}},35)}
