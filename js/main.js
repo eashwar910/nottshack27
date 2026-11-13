@@ -6,6 +6,10 @@ $$('.fx').forEach(e=>{const t=e.textContent;e.setAttribute('aria-label',t);
  if(e.matches('h1,h2,h3,.fx-w')){/* headings: keep each word together, wrap only between words */
   let i=0;e.innerHTML=t.trim().split(/\s+/).map(w=>{const x=`<em class="fxw">${[...w].map(c=>`<span aria-hidden="true" style="--i:${i++}">${c}</span>`).join('')}</em>`;i++;return x}).join(' ')}
  else e.innerHTML=[...t].map((c,i)=>`<span aria-hidden="true" style="--i:${i}">${c==' '?'&nbsp;':c}</span>`).join('')});
+/* phone menu: toggle, close on link tap / Escape / tap outside */
+{const b=$('#nav-btn'),t=$('#nav-tabs'),set=o=>{t.dataset.open=String(o);b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'Close menu':'Open menu')};
+ b.onclick=()=>set(t.dataset.open!=='true');t.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+ addEventListener('keydown',e=>{if(e.key=='Escape')set(false)});addEventListener('pointerdown',e=>{if(!e.target.closest('nav'))set(false)})}
 /* hover: scramble-decode on nav links */
 $$('[data-scr]').forEach(e=>{const t=e.textContent;e.onmouseenter=()=>{let f=0;clearInterval(e._t);e._t=setInterval(()=>{e.textContent=[...t].map((c,i)=>c==' '||i<f/2?c:'#%&*+?'[Math.random()*6|0]).join('');if(++f>t.length*2){clearInterval(e._t);e.textContent=t}},35)}});
 /* countdown (set the real close date) */

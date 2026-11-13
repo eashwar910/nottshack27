@@ -9,10 +9,10 @@
     <meta name="twitter:card" content="summary"/><meta name="theme-color" content="#1a1033"/>
     <link rel="icon" type="image/png" href="assets/NottsHack-logo/nottshack-square.png"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
     <link rel="preload" href="assets/Monocraft.woff" as="font" type="font/woff" crossorigin/>
-    <link rel="stylesheet" href="css/tailwind.css?v=7"/>
-    <link rel="stylesheet" href="css/style.css?v=18"/>
+    <link rel="stylesheet" href="css/tailwind.css?v=8"/>
+    <link rel="stylesheet" href="css/style.css?v=21"/>
     <script>document.documentElement.classList.add("js");/* lite = phones / low-end devices: skips the expensive effects */if(matchMedia("(max-width:820px),(pointer:coarse)").matches||navigator.deviceMemory<=4||navigator.hardwareConcurrency<=4)document.documentElement.classList.add("lite")</script>
   </head>
   <body>
@@ -37,10 +37,11 @@
     <!-- NAV: floating pill -->
     <header class="sticky top-3 z-50 px-3"><nav class="mx-auto flex h-14 max-w-6xl items-center gap-3 rounded-full border border-rim/70 bg-deep/75 px-4 backdrop-blur-md" aria-label="Primary">
       <a href="#top" aria-label="NottsHack home" class="shrink-0"><img data-logo alt="NottsHack" class="h-9 w-auto transition hover:-rotate-3 hover:scale-110"/></a>
-      <ul class="tabs flex min-w-0 flex-1 items-center gap-5 overflow-x-auto md:justify-center md:gap-7">
+      <ul id="nav-tabs" class="tabs flex min-w-0 flex-1 items-center gap-5 overflow-x-auto md:justify-center md:gap-7">
         <li class="shrink-0"><a class="nav-link" data-scr href="#about">The Event</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#tracks">Challenges</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#mentors">Guides</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#timeline">Schedule</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#past">NottsHack 26</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#where">Find Us</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#sponsors">Sponsors</a></li><li class="shrink-0"><a class="nav-link" data-scr href="#faq">FAQ</a></li>
       </ul>
-      <a href="#join" class="btn b-line shrink-0 !px-5 !py-2 !text-[.66rem]">Register</a>
+      <a href="#join" class="btn b-line ml-auto shrink-0 !px-5 !py-2 !text-[.66rem] md:ml-0">Register</a>
+      <button id="nav-btn" type="button" class="nav-btn md:hidden" aria-expanded="false" aria-controls="nav-tabs" aria-label="Open menu"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       </nav>
     </header>
 
@@ -238,7 +239,7 @@
     </dialog>
 
     <script src="js/config.js"></script>
-    <script src="js/main.js?v=6"></script>
+    <script src="js/main.js?v=7"></script>
     <script src="js/hero.js?v=2"></script>
   </body>
 </html>
