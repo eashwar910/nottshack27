@@ -56,8 +56,11 @@ $$('.card,.sec>h2,.sec>p,details,#timeline li,.sp-tier').forEach((e,i)=>{e.class
  lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('lb-in'))lb.close()});
  lb.addEventListener('keydown',e=>{if(e.key=='ArrowLeft')show(i-1);else if(e.key=='ArrowRight')show(i+1)})}
 
-/* founding sponsor stage lights: start once most of the box is on screen */
-new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}}),{threshold:.7}).observe($('.sp-founding'));
+/* founding sponsor stage lights: aim the two edge lamps at the sponsor card for this screen size, then start once most of the box is on screen */
+{const st=$('.sp-stage'),lg=$('.sp-founding .sp-logo'),aim=()=>{const s=st.getBoundingClientRect(),l=lg.getBoundingClientRect(),tx=l.left+l.width/2-s.left,ty=l.top+l.height/2-s.top,ly=90,dxL=tx-16,dxR=s.width-16-tx,dy=ty-ly,a=Math.atan2(dy,dxL)*180/Math.PI,b=Math.atan2(dy,dxR)*180/Math.PI;
+ st.style.setProperty('--aimL',(-90+a)+'deg');st.style.setProperty('--aimR',(90-b)+'deg');st.style.setProperty('--len',Math.round(Math.max(Math.hypot(dxL,dy),Math.hypot(dxR,dy))+140)+'px')};
+ aim();addEventListener('resize',aim);addEventListener('load',aim);
+ new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){aim();e.target.classList.add('in');o.unobserve(e.target)}}),{threshold:.7}).observe($('.sp-founding'))};
 
 /* gallery slideshow: arrows, dots, swipe (native scroll-snap) and a gentle autoplay that pauses on hover/touch, off-screen and for reduced motion */
 {const tr=$('.past-gallery'),sl=tr.parentElement,ph=$$('.past-gallery .photo'),lb=$('#lightbox'),n=ph.length,dots=$('#ss-dots');let cur=0,hold=false,vis=false;

@@ -153,36 +153,23 @@ summary::-webkit-details-marker{display:none}
 /* ---- founding sponsor: stage lights search around the dark box, then lock on and light up the sponsor ---- */
 .sp-founding{overflow:hidden;background:rgba(12,7,28,.6)}
 .sp-founding>h3,.sp-founding>div{position:relative;z-index:2}
-.beam{will-change:transform;position:absolute;z-index:1;top:0;width:460px;height:430px;margin-left:-230px;pointer-events:none;transform-origin:50% 0;opacity:.9;-webkit-mask-image:linear-gradient(180deg,#000,rgba(0,0,0,.6) 45%,transparent 92%);mask-image:linear-gradient(180deg,#000,rgba(0,0,0,.6) 45%,transparent 92%)}
-.beam.l{left:25%;transform:rotate(-45deg);background:conic-gradient(from 166deg at 50% 0,transparent 0,rgba(255,206,240,.05) 4deg,rgba(255,206,240,.17) 8deg,rgba(255,206,240,.36) 11deg,rgba(255,206,240,.46) 14deg,rgba(255,206,240,.36) 17deg,rgba(255,206,240,.17) 20deg,rgba(255,206,240,.05) 24deg,transparent 28deg)}
-.beam.r{left:75%;transform:rotate(45deg);background:conic-gradient(from 166deg at 50% 0,transparent 0,rgba(200,255,222,.05) 4deg,rgba(200,255,222,.17) 8deg,rgba(200,255,222,.36) 11deg,rgba(200,255,222,.46) 14deg,rgba(200,255,222,.36) 17deg,rgba(200,255,222,.17) 20deg,rgba(200,255,222,.05) 24deg,transparent 28deg)}
-/* the lamp head: rotates with its beam */
-.beam::before{content:"";position:absolute;left:50%;top:0;width:26px;height:13px;margin-left:-13px;border-radius:3px 3px 10px 10px;background:linear-gradient(#2a1d52,#150d2e);border:1px solid #5a46a0;border-top:0;box-shadow:0 7px 14px 1px rgba(255,248,235,.85)}
-.beam::after{content:"";position:absolute;left:50%;top:8px;width:12px;height:5px;margin-left:-6px;border-radius:50%;background:#fff;filter:blur(1px)}
 .pool{position:absolute;z-index:1;left:50%;top:66%;width:92%;height:56%;translate:-50% -50%;pointer-events:none;background:radial-gradient(ellipse 34% 46% at 36% 50%,rgba(255,122,217,.32),transparent),radial-gradient(ellipse 34% 46% at 64% 50%,rgba(125,255,178,.32),transparent),radial-gradient(closest-side,rgba(255,250,240,.5),transparent 78%)}
 .sp-founding .sp-logo{border-color:#7dffb2;box-shadow:0 0 26px -2px rgba(125,255,178,.7)}
-.js .sp-founding:not(.in) .beam,.js .sp-founding:not(.in) .pool{opacity:0}
 .js .sp-founding:not(.in) .sp-title{opacity:0}.js .sp-founding:not(.in) .sp-logo{opacity:.25;box-shadow:none}
 @media(prefers-reduced-motion:no-preference){
-.sp-founding.in .beam.l{animation:sp-aimL 4.8s ease-in-out .3s backwards,sp-beamon .6s ease-out .3s backwards,sp-beampulse 2.8s ease-in-out 5.2s infinite alternate}
-.sp-founding.in .beam.r{animation:sp-aimR 5.2s ease-in-out .3s backwards,sp-beamon .6s ease-out .3s backwards,sp-beampulse 3.3s ease-in-out 5.6s infinite alternate}
-.sp-founding.in .pool{animation:sp-pool 1.8s ease-out 4.7s backwards}
-.sp-founding.in .sp-title{animation:sp-flicker 1.2s steps(1,end) 4.9s backwards}
-.sp-founding.in .sp-logo{animation:sp-lit 1.6s ease-out 4.8s backwards}
+.sp-founding.in .pool{animation:sp-pool 1.8s ease-out 5.2s backwards}
+.sp-founding.in .sp-title{animation:sp-flicker 1.2s steps(1,end) 5.4s backwards}
+.sp-founding.in .sp-logo{animation:sp-lit 1.6s ease-out 5.3s backwards}
 }
-@keyframes sp-aimL{0%{transform:rotate(30deg)}22%{transform:rotate(-48deg)}45%{transform:rotate(14deg)}68%{transform:rotate(-58deg)}86%{transform:rotate(-40deg)}100%{transform:rotate(-45deg)}}
-@keyframes sp-aimR{0%{transform:rotate(-28deg)}25%{transform:rotate(50deg)}48%{transform:rotate(-10deg)}70%{transform:rotate(60deg)}88%{transform:rotate(41deg)}100%{transform:rotate(45deg)}}
-@keyframes sp-beamon{from{opacity:0}}
-@keyframes sp-beampulse{from{opacity:.65}to{opacity:1}}
 @keyframes sp-pool{from{opacity:0;scale:.5}}
 @keyframes sp-flicker{0%,20%,40%{opacity:0}10%,30%,50%,100%{opacity:1}}
 @keyframes sp-lit{0%{opacity:.25;box-shadow:none}35%{opacity:1;box-shadow:0 0 60px 8px rgba(255,250,232,.9)}100%{opacity:1;box-shadow:0 0 26px -2px rgba(125,255,178,.7)}}
 /* lite: still aims and lights up (transform/opacity only), just no endless pulse */
-.lite .sp-founding.in .beam{animation-name:sp-aimL,sp-beamon}.lite .sp-founding.in .beam.r{animation-name:sp-aimR,sp-beamon}
 
 /* phone nav: a menu button + dropdown instead of a sideways-scrolling strip */
 .nav-btn{display:grid;place-items:center;flex:none;width:2.4rem;height:2.4rem;padding:0;border:1px solid rgba(77,58,133,.9);border-radius:50%;background:transparent;color:#d6cbf5;cursor:pointer}
 .nav-btn .ic{width:1.2rem;height:1.2rem;margin:0}
+@media(min-width:768px){.nav-btn{display:none}}
 @media(max-width:767px){
 .tabs{display:none}
 .tabs[data-open=true]{display:flex;flex-direction:column;align-items:stretch;gap:0;position:absolute;top:calc(100% + .5rem);left:.75rem;right:.75rem;overflow:visible;padding:.5rem;border:1px solid #4d3a85;border-radius:1.25rem;background:rgba(22,13,44,.99);box-shadow:0 18px 40px rgba(0,0,0,.45);animation:up .25s ease backwards}
@@ -190,3 +177,21 @@ summary::-webkit-details-marker{display:none}
 .tabs .nav-link{display:block;padding:.85rem 1rem;font-size:.8rem;border-radius:.75rem;opacity:1}
 .tabs .nav-link:active{background:rgba(125,255,178,.12)}
 }
+
+/* ---- stage lights on the page edges: two lamps at the far left/right of the screen search the dark, then lock on the founding sponsor ---- */
+.sp-stage{position:absolute;z-index:1;left:50%;width:100vw;margin-left:-50vw;top:-90px;bottom:-90px;overflow:hidden;pointer-events:none}
+.beam{will-change:transform;position:absolute;top:90px;width:var(--len,800px);height:var(--len,800px);margin-left:calc(var(--len,800px)/-2);transform-origin:50% 0;opacity:.9;-webkit-mask-image:linear-gradient(180deg,#000,rgba(0,0,0,.7) 50%,transparent 100%);mask-image:linear-gradient(180deg,#000,rgba(0,0,0,.7) 50%,transparent 100%)}
+.beam.l{left:16px;transform:rotate(var(--aimL,-80deg));background:conic-gradient(from 166deg at 50% 0,transparent 0,rgba(255,206,240,.05) 4deg,rgba(255,206,240,.17) 8deg,rgba(255,206,240,.36) 11deg,rgba(255,206,240,.5) 14deg,rgba(255,206,240,.36) 17deg,rgba(255,206,240,.17) 20deg,rgba(255,206,240,.05) 24deg,transparent 28deg)}
+.beam.r{right:auto;left:calc(100% - 16px);transform:rotate(var(--aimR,80deg));background:conic-gradient(from 166deg at 50% 0,transparent 0,rgba(200,255,222,.05) 4deg,rgba(200,255,222,.17) 8deg,rgba(200,255,222,.36) 11deg,rgba(200,255,222,.5) 14deg,rgba(200,255,222,.36) 17deg,rgba(200,255,222,.17) 20deg,rgba(200,255,222,.05) 24deg,transparent 28deg)}
+.beam::before{content:"";position:absolute;left:50%;top:-4px;width:30px;height:16px;margin-left:-15px;border-radius:3px 3px 11px 11px;background:linear-gradient(#2a1d52,#150d2e);border:1px solid #5a46a0;border-top:0;box-shadow:0 8px 16px 2px rgba(255,248,235,.9)}
+.beam::after{content:"";position:absolute;left:50%;top:8px;width:14px;height:6px;margin-left:-7px;border-radius:50%;background:#fff;filter:blur(1px)}
+.js .sp-founding:not(.in) ~ .sp-stage .beam{opacity:0}
+@media(prefers-reduced-motion:no-preference){
+.sp-founding.in ~ .sp-stage .beam.l{animation:sp-aimL 5s ease-in-out .3s backwards,sp-beamon .9s ease-out .3s backwards,sp-beampulse 2.8s ease-in-out 5.4s infinite alternate}
+.sp-founding.in ~ .sp-stage .beam.r{animation:sp-aimR 5.5s ease-in-out .3s backwards,sp-beamon .9s ease-out .5s backwards,sp-beampulse 3.3s ease-in-out 5.9s infinite alternate}
+}
+@keyframes sp-aimL{0%{transform:rotate(calc(var(--aimL,-80deg) + 36deg))}22%{transform:rotate(calc(var(--aimL,-80deg) - 40deg))}45%{transform:rotate(calc(var(--aimL,-80deg) + 18deg))}68%{transform:rotate(calc(var(--aimL,-80deg) - 30deg))}86%{transform:rotate(calc(var(--aimL,-80deg) + 5deg))}100%{transform:rotate(var(--aimL,-80deg))}}
+@keyframes sp-aimR{0%{transform:rotate(calc(var(--aimR,80deg) - 34deg))}25%{transform:rotate(calc(var(--aimR,80deg) + 38deg))}48%{transform:rotate(calc(var(--aimR,80deg) - 16deg))}70%{transform:rotate(calc(var(--aimR,80deg) + 30deg))}88%{transform:rotate(calc(var(--aimR,80deg) - 5deg))}100%{transform:rotate(var(--aimR,80deg))}}
+@keyframes sp-beamon{0%{opacity:0}10%{opacity:.85}16%{opacity:.1}26%{opacity:.9}}
+@keyframes sp-beampulse{from{opacity:.65}to{opacity:1}}
+.lite .sp-founding.in ~ .sp-stage .beam{animation-name:sp-aimL,sp-beamon}.lite .sp-founding.in ~ .sp-stage .beam.r{animation-name:sp-aimR,sp-beamon}
