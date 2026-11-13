@@ -1,9 +1,6 @@
 // Fallback logo ratio (height/width) used only until the real image has loaded; after that the real rendered size is measured.
 const LOGO_RATIO = 0.454;
 const $=(s)=>document.querySelector(s),$$=(s)=>[...document.querySelectorAll(s)],RM=matchMedia('(prefers-reduced-motion: reduce)');
-/* Past-year album folder: toggle the horizontal photo gallery. */
-const album=$('.past-album'),albumButton=$('.past-folder');
-albumButton?.addEventListener('click',()=>{const open=album.dataset.open!=='true';album.dataset.open=String(open);albumButton.setAttribute('aria-expanded',String(open));album.querySelector('.past-folder-copy small').textContent=open?'Click to fold away':'Open the album'});
 /* hover: letter hop on headings */
 $$('.fx').forEach(e=>{const t=e.textContent;e.setAttribute('aria-label',t);
  if(e.matches('h1,h2,h3,.fx-w')){/* headings: keep each word together, wrap only between words */
@@ -43,7 +40,7 @@ addEventListener('keydown',e=>{if(e.key=='Escape'){[...bs].forEach(kill);setCont
 $$('.ent>*').forEach((e,i)=>e.style.animationDelay=i*90+'ms');
 $$('[data-l]').forEach((l,i)=>l.style.setProperty('--i',i));
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
-$$('.card,.sec>h2,.sec>p,details,#timeline li').forEach((e,i)=>{e.classList.add('rv');e.style.animationDelay=(i%4)*70+'ms';io.observe(e)});
+$$('.card,.sec>h2,.sec>p,details,#timeline li,.sp-tier').forEach((e,i)=>{e.classList.add('rv');e.style.animationDelay=(i%4)*70+'ms';io.observe(e)});
 {const w=['dream','code','ship','repeat'],c=['bg-orchid','bg-spring','bg-peri','bg-peach'],g=`<span class="flex shrink-0 items-center gap-6 pr-6">${w.map((x,i)=>`${x}<i class="inline-block h-2.5 w-2.5 ${c[i]}"></i><u class="block h-px w-16 bg-rim"></u>`).join('')}</span>`,h=`<span class="flex shrink-0">${g.repeat(3)}</span>`;$('.mq').innerHTML=h+h}
 
 /* NottsHack 26 album: click a photo to open the whole set as a large slideshow (arrows / swipe-free: buttons, ← →, Esc) */
@@ -54,6 +51,20 @@ $$('.card,.sec>h2,.sec>p,details,#timeline li').forEach((e,i)=>{e.classList.add(
  $('#lb-prev').onclick=()=>show(i-1);$('#lb-next').onclick=()=>show(i+1);$('#lb-close').onclick=()=>lb.close();
  lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('lb-in'))lb.close()});
  lb.addEventListener('keydown',e=>{if(e.key=='ArrowLeft')show(i-1);else if(e.key=='ArrowRight')show(i+1)})}
+
+/* founding sponsor stage lights: start once most of the box is on screen */
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}}),{threshold:.7}).observe($('.sp-founding'));
+
+/* gallery slideshow: arrows, dots, swipe (native scroll-snap) and a gentle autoplay that pauses on hover/touch, off-screen and for reduced motion */
+{const tr=$('.past-gallery'),sl=tr.parentElement,ph=$$('.past-gallery .photo'),lb=$('#lightbox'),n=ph.length,dots=$('#ss-dots');let cur=0,hold=false,vis=false;
+ const go=k=>{cur=(k+n)%n;tr.scrollTo({left:cur*tr.clientWidth,behavior:RM.matches?'auto':'smooth'})};
+ ph.forEach((_,k)=>{const d=document.createElement('button');d.type='button';d.setAttribute('aria-label','Photo '+(k+1));d.onclick=()=>go(k);dots.append(d)});
+ const mark=()=>{cur=Math.round(tr.scrollLeft/tr.clientWidth);[...dots.children].forEach((d,k)=>d.setAttribute('aria-current',k==cur))};
+ tr.addEventListener('scroll',mark,{passive:true});mark();
+ $('#ss-prev').onclick=()=>go(cur-1);$('#ss-next').onclick=()=>go(cur+1);
+ ['pointerenter','focusin','touchstart'].forEach(e=>sl.addEventListener(e,()=>hold=true,{passive:true}));['pointerleave','focusout'].forEach(e=>sl.addEventListener(e,()=>hold=false));
+ new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(sl);
+ if(!RM.matches)setInterval(()=>{if(vis&&!hold&&!document.hidden&&!lb.open)go(cur+1)},4500)}
 
 /* sponsors: click-to-expand committee contacts + popup (popup grid is cloned from the drawer) */
 const cDrawer=$('#contact-drawer'),cBtn=$('#contact-toggle-btn'),cModal=$('#contact-modal');

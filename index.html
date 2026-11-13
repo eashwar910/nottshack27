@@ -10,9 +10,10 @@
     <link rel="icon" type="image/png" href="assets/NottsHack-logo/nottshack-square.png"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/tailwind.css?v=6"/>
-    <link rel="stylesheet" href="css/style.css?v=11"/>
-    <script>document.documentElement.classList.add("js")</script>
+    <link rel="preload" href="assets/Monocraft.woff" as="font" type="font/woff" crossorigin/>
+    <link rel="stylesheet" href="css/tailwind.css?v=7"/>
+    <link rel="stylesheet" href="css/style.css?v=18"/>
+    <script>document.documentElement.classList.add("js");/* lite = phones / low-end devices: skips the expensive effects */if(matchMedia("(max-width:820px),(pointer:coarse)").matches||navigator.deviceMemory<=4||navigator.hardwareConcurrency<=4)document.documentElement.classList.add("lite")</script>
   </head>
   <body>
     <i class="blob left-[-10vw] top-[-10vw] bg-orchid"></i><i class="blob right-[-12vw] top-[30vh] bg-peri" style="animation-delay:-7s"></i><i class="blob bottom-[-15vw] left-[25vw] bg-spring" style="animation-delay:-13s;opacity:.12"></i>
@@ -112,25 +113,21 @@
       <section id="past" class="sec">
       <p class="text-xs uppercase tracking-[.25em] text-peach">Previously</p>
       <h2 class="h2 fx mt-2">NottsHack 26</h2>
-      <div class="past-layout mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
-      <div><p class="text-justify">Last year’s hackathon brought students together for a weekend of building, learning and a lot of snacks. Replace this paragraph with a short recap: how many people took part, what teams built, who won, and your favourite moment.</p><a href="https://nottshack26.unmcss.dev/" target="_blank" rel="noopener" class="btn b-main mt-6">Visit NottsHack 26 site</a></div>
-      <div class="past-album" data-open="false">
-        <button class="past-folder" type="button" aria-expanded="false" aria-label="Check it out! Open or close the album" aria-controls="past-gallery">
-          <span class="past-folder-copy" aria-hidden="true"><strong>Check it out!</strong><small>Open the album</small></span>
-        </button>
-        <div class="past-gallery-clip" id="past-gallery">
-          <div class="past-gallery" tabindex="0" aria-label="NottsHack 26 photo gallery">
-        <figure class="photo big" data-ph="Photo 01"><img src="assets/gallery/web/main.jpg" alt="The whole NottsHack 26 crowd posing together in the lecture theatre" loading="lazy"/></figure>
-        <figure class="photo" data-ph="Photo 02"><img src="assets/gallery/web/dsc01875.jpg" alt="Track 1 champions holding their winner's cheque on stage" loading="lazy"/></figure>
-        <figure class="photo" data-ph="Photo 03"><img src="assets/gallery/web/dsc01778.jpg" alt="A participant pitching their project to the judges" loading="lazy"/></figure>
-        <figure class="photo" data-ph="Photo 04"><img src="assets/gallery/web/dsc01521.jpg" alt="Squads working on laptops at tables during the build" loading="lazy"/></figure>
-        <figure class="photo" data-ph="Photo 05"><img src="assets/gallery/web/dsc01564.jpg" alt="A squad talking through their project with a mentor" loading="lazy"/></figure>
-        <figure class="photo" data-ph="Photo 06"><img src="assets/gallery/web/dsc01537.jpg" alt="A mentor helping a squad at their table" loading="lazy"/></figure>
-        <figure class="photo" data-ph="Photo 07"><img src="assets/gallery/web/img_9637.jpg" alt="A humanoid robot on display at the event" loading="lazy"/></figure>
-        <figure class="photo" data-ph="Photo 08"><img src="assets/gallery/web/dsc01623.jpg" alt="Sponsor swag laid out on a table: backpacks, stickers and lanyards" loading="lazy"/></figure>
-          </div>
-        </div>
+      <div class="max-w-3xl"><p class="mt-4 text-justify">Last year’s hackathon brought students together for a weekend of building, learning and a lot of snacks. Replace this paragraph with a short recap: how many people took part, what teams built, who won, and your favourite moment.</p><a href="https://nottshack26.unmcss.dev/" target="_blank" rel="noopener" class="btn b-main mt-6">Visit NottsHack 26 site</a></div>
+      <div class="slideshow relative mt-8 max-w-3xl" role="group" aria-roledescription="carousel" aria-label="NottsHack 26 photo gallery">
+      <div class="past-gallery" tabindex="0">
+        <figure class="photo" data-ph="Photo 01"><img src="assets/gallery/web/main.jpg" alt="The whole NottsHack 26 crowd posing together in the lecture theatre" loading="lazy" decoding="async"/></figure>
+        <figure class="photo" data-ph="Photo 02"><img src="assets/gallery/web/dsc01875.jpg" alt="Track 1 champions holding their winner's cheque on stage" loading="lazy" decoding="async"/></figure>
+        <figure class="photo" data-ph="Photo 03"><img src="assets/gallery/web/dsc01778.jpg" alt="A participant pitching their project to the judges" loading="lazy" decoding="async"/></figure>
+        <figure class="photo" data-ph="Photo 04"><img src="assets/gallery/web/dsc01521.jpg" alt="Squads working on laptops at tables during the build" loading="lazy" decoding="async"/></figure>
+        <figure class="photo" data-ph="Photo 05"><img src="assets/gallery/web/dsc01564.jpg" alt="A squad talking through their project with a mentor" loading="lazy" decoding="async"/></figure>
+        <figure class="photo" data-ph="Photo 06"><img src="assets/gallery/web/dsc01537.jpg" alt="A mentor helping a squad at their table" loading="lazy" decoding="async"/></figure>
+        <figure class="photo" data-ph="Photo 07"><img src="assets/gallery/web/img_9637.jpg" alt="A humanoid robot on display at the event" loading="lazy" decoding="async"/></figure>
+        <figure class="photo" data-ph="Photo 08"><img src="assets/gallery/web/dsc01623.jpg" alt="Sponsor swag laid out on a table: backpacks, stickers and lanyards" loading="lazy" decoding="async"/></figure>
       </div>
+      <button type="button" id="ss-prev" class="btn b-line lb-btn ss-btn ss-prev" aria-label="Previous photo"><svg class="ic" viewBox="0 0 24 24" style="transform:scaleX(-1)"><use href="#i-arr"/></svg></button>
+      <button type="button" id="ss-next" class="btn b-line lb-btn ss-btn ss-next" aria-label="Next photo"><svg class="ic" viewBox="0 0 24 24"><use href="#i-arr"/></svg></button>
+      <div class="ss-dots" id="ss-dots"></div>
       </div>
       </section>
 
@@ -141,11 +138,11 @@
       <a class="btn b-main shrink-0 self-start md:self-center" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=University+of+Nottingham+Malaysia">Open in Maps <svg class="ic" aria-hidden="true"><use href="#i-arr"/></svg></a></div></section>
 
       <section id="sponsors" class="sec"><h2 class="h2 fx">Sponsors &amp; Partners</h2>
-      <div class="sp-founding mt-10"><h3 class="font-pixel text-2xl text-orchid sm:text-4xl">Founding Sponsors</h3><div class="mt-6 flex justify-center"><div class="card grid h-24 w-64 place-items-center text-xs">Your logo here</div></div></div>
-      <h3 class="font-pixel mt-14 text-center text-sm uppercase tracking-[.2em] text-spring sm:text-base">Diamond Sponsors</h3>
-      <div class="mt-6 flex flex-wrap justify-center gap-5"><div class="card grid h-24 w-56 place-items-center text-xs">Your logo here</div><div class="card grid h-24 w-56 place-items-center text-xs">Your logo here</div><div class="card grid h-24 w-56 place-items-center text-xs">Your logo here</div></div>
-      <h3 class="font-pixel mt-10 text-center text-xs uppercase tracking-[.2em] text-lilac sm:text-sm">Platinum Sponsors</h3>
-      <div class="mt-6 flex justify-center"><div class="card grid h-24 w-56 place-items-center text-xs">Your logo here</div></div>
+      <div class="sp-founding mt-10"><i class="beam l" aria-hidden="true"></i><i class="beam r" aria-hidden="true"></i><i class="pool" aria-hidden="true"></i><h3 class="sp-title font-pixel text-2xl text-orchid sm:text-4xl">Founding Sponsors</h3><div class="mt-6 flex justify-center"><div class="card sp-logo grid h-24 w-64 place-items-center text-xs">Your logo here</div></div></div>
+      <h3 class="sp-tier font-pixel mt-14 text-center text-sm uppercase tracking-[.2em] text-spring sm:text-base">Diamond Sponsors</h3>
+      <div class="mt-6 flex flex-wrap justify-center gap-5"><div class="card sp-logo grid h-24 w-56 place-items-center text-xs">Your logo here</div><div class="card sp-logo grid h-24 w-56 place-items-center text-xs">Your logo here</div><div class="card sp-logo grid h-24 w-56 place-items-center text-xs">Your logo here</div></div>
+      <h3 class="sp-tier font-pixel mt-10 text-center text-xs uppercase tracking-[.2em] text-lilac sm:text-sm">Platinum Sponsors</h3>
+      <div class="mt-6 flex justify-center"><div class="card sp-logo grid h-24 w-56 place-items-center text-xs">Your logo here</div></div>
 
       <div id="sponsor-card" class="card mt-5 !p-7 sm:!p-10">
         <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -241,7 +238,7 @@
     </dialog>
 
     <script src="js/config.js"></script>
-    <script src="js/main.js?v=4"></script>
-    <script src="js/hero.js"></script>
+    <script src="js/main.js?v=6"></script>
+    <script src="js/hero.js?v=2"></script>
   </body>
 </html>

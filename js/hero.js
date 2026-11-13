@@ -6,6 +6,8 @@
 (() => {
   const cv = $('#fx'), hero = $('#top'), x = cv.getContext('2d');
   const M = '125,255,178', P = '255,122,217', L = '214,203,245', B = '154,165,255', O = '255,184,107';
+  const lite = document.documentElement.classList.contains('lite');
+  if (lite) Object.defineProperty(x, 'shadowBlur', { set() {}, get: () => 0 }); /* canvas glow is the costliest thing to draw on phones */
   const R = (c, a) => `rgba(${c},${a})`, TAU = 6.2832;
   let W, H, sc, raf = 0, vis = true, wide = false, mx = 0, my = 0, tx = 0, ty = 0, lt = 0;
   let sd = 7; const rn = () => (sd = sd * 16807 % 2147483647) / 2147483647;
@@ -119,15 +121,16 @@
   function draw(t) {
     const dt = lt ? Math.min(t - lt, 50) : 0; lt = t;
     mx += (tx - mx) * .05; my += (ty - my) * .05; x.clearRect(0, 0, W, H);
-    D.forEach(d => { const e = (d.z + 1) / 2; x.fillStyle = R(d.c, (.25 + .45 * (Math.sin(t * .0012 + d.p) + 1) / 2) * (.5 + .5 * e)); x.beginPath(); x.arc(W * d.fx + mx * (4 + 18 * e), H * d.fy + my * (3 + 12 * e), d.r * (.6 + .8 * e), 0, TAU); x.fill() });
-    x.lineCap = 'round'; FAR.forEach(o => o.f(o, t)); graph(t, dt); x.lineCap = 'round'; NEAR.forEach(o => o.f(o, t));
+    D.slice(0, lite ? 10 : 34).forEach(d => { const e = (d.z + 1) / 2; x.fillStyle = R(d.c, (.25 + .45 * (Math.sin(t * .0012 + d.p) + 1) / 2) * (.5 + .5 * e)); x.beginPath(); x.arc(W * d.fx + mx * (4 + 18 * e), H * d.fy + my * (3 + 12 * e), d.r * (.6 + .8 * e), 0, TAU); x.fill() });
+    x.lineCap = 'round'; if (!lite) FAR.forEach(o => o.f(o, t)); graph(t, dt); x.lineCap = 'round'; if (!lite) NEAR.forEach(o => o.f(o, t));
   }
 
   function size() {
-    const d = Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * d; cv.height = H * d; x.setTransform(d, 0, 0, d, 0, 0);
+    const d = lite ? 1 : Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * d; cv.height = H * d; x.setTransform(d, 0, 0, d, 0, 0);
     wide = W > 820; sc = Math.min(Math.max(W / 900, .55), 1.2); if (RM.matches) draw(0);
   }
-  const f = t => { draw(t); raf = requestAnimationFrame(f) }, go = () => { if (!raf && vis && !document.hidden && !RM.matches) raf = requestAnimationFrame(f) }, no = () => { cancelAnimationFrame(raf); raf = 0 };
+  let last = 0;
+  const f = t => { if (!lite || t - last > 32) { last = t; draw(t) } raf = requestAnimationFrame(f) }, go = () => { if (!raf && vis && !document.hidden && !RM.matches) raf = requestAnimationFrame(f) }, no = () => { cancelAnimationFrame(raf); raf = 0 };
   new ResizeObserver(size).observe(cv); new IntersectionObserver(([e]) => { vis = e.isIntersecting; vis ? go() : no() }).observe(cv);
   document.addEventListener('visibilitychange', () => { lt = 0; document.hidden ? no() : go() });
   addEventListener('pointermove', e => { tx = (e.clientX / innerWidth - .5) * 2; ty = (e.clientY / innerHeight - .5) * 2 }, { passive: true });
