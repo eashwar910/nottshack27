@@ -82,8 +82,11 @@ summary::after{content:"+";color:#7dffb2;transition:.2s}details[open] summary::a
 /* ---- photo lightbox (opens from the NottsHack 26 album) ---- */
 .past-gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:1rem}.past-gallery::-webkit-scrollbar{display:none}
 .past-gallery .photo{flex:0 0 100%;aspect-ratio:16/10;scroll-snap-align:center;cursor:zoom-in;border-style:solid;border-radius:0}
-.ss-btn{top:50%;translate:0 -50%;z-index:2}.ss-prev{left:.75rem}.ss-next{right:.75rem}
-.ss-dots{display:flex;justify-content:center;gap:.5rem;margin-top:1rem}
+.ss-nav{display:flex;align-items:center;justify-content:center;gap:1.25rem;margin-top:1rem}
+.ss-btn,.ss-nav .ss-btn{position:static;translate:none;flex:none;width:2.6rem;height:2.6rem}
+.ss-dots{display:flex;justify-content:center;gap:.5rem}
+/* phones / touch: swipe only, no arrow buttons */
+@media(max-width:767px),(pointer:coarse){.ss-btn{display:none}}
 .ss-dots button{width:.65rem;height:.65rem;padding:0;border:0;border-radius:50%;background:#4d3a85;cursor:pointer;transition:.25s}.ss-dots button[aria-current=true]{background:#7dffb2;transform:scale(1.35)}
 .lightbox{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;padding:0;border:0;background:transparent;color:#fffaff;overflow:hidden}
 .lightbox::backdrop{background:rgba(26,16,51,.94);backdrop-filter:blur(10px)}
