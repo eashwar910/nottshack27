@@ -56,11 +56,28 @@ $$('.card,.sec>h2,.sec>p,details,#timeline li,.sp-tier').forEach((e,i)=>{e.class
  lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('lb-in'))lb.close()});
  lb.addEventListener('keydown',e=>{if(e.key=='ArrowLeft')show(i-1);else if(e.key=='ArrowRight')show(i+1)})}
 
-/* founding sponsor stage lights: aim the two edge lamps at the sponsor card for this screen size, then start once most of the box is on screen */
-{const st=$('.sp-stage'),lg=$('.sp-founding .sp-logo'),aim=()=>{const s=st.getBoundingClientRect(),l=lg.getBoundingClientRect(),tx=l.left+l.width/2-s.left,ty=l.top+l.height/2-s.top,ly=90,dxL=tx-16,dxR=s.width-16-tx,dy=ty-ly,a=Math.atan2(dy,dxL)*180/Math.PI,b=Math.atan2(dy,dxR)*180/Math.PI;
- st.style.setProperty('--aimL',(-90+a)+'deg');st.style.setProperty('--aimR',(90-b)+'deg');st.style.setProperty('--len',Math.round(Math.max(Math.hypot(dxL,dy),Math.hypot(dxR,dy))+140)+'px')};
- aim();addEventListener('resize',aim);addEventListener('load',aim);
- new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){aim();e.target.classList.add('in');o.unobserve(e.target)}}),{threshold:.7}).observe($('.sp-founding'))};
+/* sponsors thunderstorm: jagged lightning (midpoint displacement) strikes the page sides, then hits the founding sponsor */
+{const box=$('.sp-founding'),wrap=box.parentElement,st=$('.sp-storm'),sv=st.firstElementChild,fl=$('.sp-flash'),lg=box.querySelector('.sp-logo'),lite=document.documentElement.classList.contains('lite'),NS='http://www.w3.org/2000/svg',rnd=(a,b)=>a+Math.random()*(b-a);
+ const jag=(x0,y0,x1,y1,d,n)=>{let p=[[x0,y0],[x1,y1]];while(n--){const q=[p[0]];for(let i=1;i<p.length;i++){const[a,b]=p[i-1],[c,e]=p[i],dx=c-a,dy=e-b,l=Math.hypot(dx,dy)||1,o=rnd(-d,d);q.push([(a+c)/2-dy/l*o,(b+e)/2+dx/l*o],p[i])}p=q;d/=2}return p};
+ const line=p=>'M'+p.map(q=>q[0].toFixed(1)+' '+q[1].toFixed(1)).join('L');
+ const mk=(tag,at)=>{const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);return e};
+ const flash=f=>{fl.style.setProperty('--f',f);fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go')};
+ /* one bolt: main jagged path plus a few forks, drawn as wide glow + mid glow + white core */
+ function bolt(x0,y0,x1,y1,w,hit){const r=st.getBoundingClientRect();sv.setAttribute('viewBox',`0 0 ${r.width} ${r.height}`);
+  const g=mk('g',{class:'bolt'}),main=jag(x0,y0,x1,y1,Math.hypot(x1-x0,y1-y0)*.16,6),paths=[main];
+  for(let i=0,k=lite?1:3;i<k;i++){const j=Math.floor(rnd(.2,.8)*main.length),[sx,sy]=main[j],a=Math.atan2(y1-y0,x1-x0)+(Math.random()<.5?-1:1)*rnd(.45,.9),l=Math.hypot(x1-x0,y1-y0)*rnd(.15,.3);paths.push(jag(sx,sy,sx+Math.cos(a)*l,sy+Math.sin(a)*l,l*.2,4))}
+  paths.forEach((p,i)=>{const k=i?.55:1;[['g1',w*5],['g2',w*2.6],['c',w]].forEach(([c,sw])=>g.append(mk('path',{class:c,d:line(p),'stroke-width':sw*k})))});
+  if(hit)g.append(mk('circle',{cx:x1,cy:y1,r:34}),mk('circle',{cx:x1,cy:y1,r:7,style:'fill:#fff'}));
+  sv.append(g);setTimeout(()=>g.remove(),900)}
+ const side=(left,f)=>{const r=st.getBoundingClientRect(),x=r.width*(left?rnd(.04,.2):rnd(.8,.96));bolt(x,0,x+rnd(-70,70),r.height*rnd(.55,.95),2.4,false);flash(f)};
+ let vis=false,timer=0;
+ const idle=()=>{timer=setTimeout(()=>{if(vis&&!document.hidden)side(Math.random()<.5,.1);idle()},rnd(6000,10000))};
+ function storm(){if(RM.matches){box.classList.add('in');return}
+  setTimeout(()=>side(true,.22),400);setTimeout(()=>side(false,.26),1200);setTimeout(()=>side(true,.3),2000);
+  setTimeout(()=>{const r=st.getBoundingClientRect(),l=lg.getBoundingClientRect(),cx=l.left+l.width/2-r.left,ty=l.top-r.top+8;
+   bolt(cx+rnd(-40,40),0,cx,ty,3.4,true);flash(.6);box.classList.add('in');wrap.classList.add('shake');setTimeout(()=>wrap.classList.remove('shake'),550);
+   if(!lite)setTimeout(idle,3000)},3000)}
+ new IntersectionObserver(([e],o)=>{vis=e.isIntersecting;if(vis&&!box.dataset.s){box.dataset.s=1;storm()}},{threshold:.7}).observe(box)}
 
 /* gallery slideshow: arrows, dots, swipe (native scroll-snap) and a gentle autoplay that pauses on hover/touch, off-screen and for reduced motion */
 {const tr=$('.past-gallery'),sl=tr.parentElement,ph=$$('.past-gallery .photo'),lb=$('#lightbox'),n=ph.length,dots=$('#ss-dots');let cur=0,hold=false,vis=false;
