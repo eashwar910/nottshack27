@@ -138,36 +138,6 @@ summary::-webkit-details-marker{display:none}
 /* lite mode (phones / low-end): no blurred fixed blobs, no backdrop blur, no endless animations */
 .lite .blob{display:none}.lite nav{-webkit-backdrop-filter:none;backdrop-filter:none}.lite .wm [data-l],.lite .b-main::after{animation:none}.lite .lightbox::backdrop,.lite .contact-modal::backdrop{backdrop-filter:none}
 
-/* ---- sponsors: scroll-triggered light show (.in is added by the scroll-reveal observer in main.js) ---- */
-.sp-logo{position:relative;overflow:hidden}
-.sp-logo::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent)}
-@media(prefers-reduced-motion:no-preference){
-.sp-tier.in{animation:sp-track 1s ease-out backwards}
-.sp-tier.in + div .sp-logo::after{animation:sp-sweep 1.2s ease-out 0s 1 backwards}
-.sp-tier.in + div .sp-logo:nth-child(2)::after{animation-delay:.25s}.sp-tier.in + div .sp-logo:nth-child(3)::after{animation-delay:.5s}
-.sp-tier.in + div .sp-logo{animation:up .7s ease backwards}
-.sp-tier.in + div .sp-logo:nth-child(2){animation-delay:.15s}.sp-tier.in + div .sp-logo:nth-child(3){animation-delay:.3s}
-}
-@keyframes sp-sweep{0%{opacity:1;transform:translateX(-130%) skewX(-20deg)}100%{opacity:1;transform:translateX(330%) skewX(-20deg)}}
-@keyframes sp-track{from{opacity:0;letter-spacing:.6em}}
-/* lite: one-off effects only, no endless loops */
-
-.sp-logo::after{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:45%;pointer-events:none;opacity:0;transform:translateX(-130%) skewX(-20deg)}
-/* ---- founding sponsor: stage lights search around the dark box, then lock on and light up the sponsor ---- */
-.sp-founding{overflow:hidden;background:rgba(12,7,28,.6)}
-.sp-founding>h3,.sp-founding>div{position:relative;z-index:2}
-.pool{position:absolute;z-index:1;left:50%;top:66%;width:92%;height:56%;translate:-50% -50%;pointer-events:none;background:radial-gradient(closest-side,rgba(170,205,255,.55),rgba(90,140,255,.22) 55%,transparent)}
-.sp-founding .sp-logo{border-color:#7dffb2;box-shadow:0 0 26px -2px rgba(125,255,178,.7)}
-.js .sp-founding:not(.in) .sp-title{opacity:0}.js .sp-founding:not(.in) .sp-logo{opacity:.25;box-shadow:none}
-@media(prefers-reduced-motion:no-preference){
-.sp-founding.in .pool{animation:sp-pool 1.8s ease-out .05s backwards}
-.sp-founding.in .sp-title{animation:sp-flicker 1.2s steps(1,end) .12s backwards}
-.sp-founding.in .sp-logo{animation:sp-lit 1.8s ease-out .05s backwards}
-}
-@keyframes sp-pool{from{opacity:0;scale:.5}}
-@keyframes sp-flicker{0%,20%,40%{opacity:0}10%,30%,50%,100%{opacity:1}}
-@keyframes sp-lit{0%{opacity:.25;box-shadow:none}35%{opacity:1;box-shadow:0 0 60px 8px rgba(190,215,255,.95)}100%{opacity:1;box-shadow:0 0 26px -2px rgba(125,255,178,.7)}}
-/* lite: still aims and lights up (transform/opacity only), just no endless pulse */
 
 /* phone nav: a menu button + dropdown instead of a sideways-scrolling strip */
 .nav-btn{display:grid;place-items:center;flex:none;width:2.4rem;height:2.4rem;padding:0;border:1px solid rgba(77,58,133,.9);border-radius:50%;background:transparent;color:#d6cbf5;cursor:pointer}
@@ -181,17 +151,7 @@ summary::-webkit-details-marker{display:none}
 .tabs .nav-link:active{background:rgba(125,255,178,.12)}
 }
 
-/* ---- sponsors thunderstorm: bolts strike down both sides of the page, then the last one hits the founding sponsor ---- */
-.sp-storm{position:absolute;z-index:1;left:50%;width:100vw;margin-left:-50vw;top:-240px;bottom:-140px;overflow:hidden;pointer-events:none}
-.sp-storm svg{position:absolute;inset:0;width:100%;height:100%}
-.bolt path{fill:none;stroke-linecap:round;stroke-linejoin:round}
-.bolt .g1{stroke:rgba(90,140,255,.14)}.bolt .g2{stroke:rgba(140,185,255,.32)}.bolt .c{stroke:#fff}
-.bolt circle{fill:rgba(140,185,255,.3)}
-.bolt{opacity:0;animation:sp-bolt .8s linear forwards}
-@keyframes sp-bolt{0%{opacity:0}3%{opacity:1}9%{opacity:.25}15%{opacity:1}34%{opacity:.8}100%{opacity:0}}
-.sp-flash{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:0;background:rgb(175,200,255)}
-.sp-flash.go{animation:sp-flash .55s ease-out}
-@keyframes sp-flash{0%{opacity:0}5%{opacity:var(--f,.3)}13%{opacity:calc(var(--f,.3)*.15)}21%{opacity:calc(var(--f,.3)*.75)}100%{opacity:0}}
-.sp-wrap.shake{animation:sp-shake .5s ease-out}
-@keyframes sp-shake{0%{transform:translate(0)}12%{transform:translate(-4px,2px)}28%{transform:translate(4px,-2px)}46%{transform:translate(-3px,1px)}66%{transform:translate(2px,-1px)}100%{transform:translate(0)}}
-.js .sp-founding:not(.in) .pool{opacity:0}
+
+/* founding sponsors: static neon frame, no animation */
+.sp-founding{overflow:hidden;background:rgba(12,7,28,.6)}
+.sp-founding .sp-logo{border-color:#7dffb2;box-shadow:0 0 26px -2px rgba(125,255,178,.7)}
