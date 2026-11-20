@@ -156,7 +156,7 @@
     }
 
     /* instrument ring + tick marks */
-    if (!lite) {
+    {
       x.save(); x.translate(ox, oy); x.strokeStyle = 'rgba(255,255,255,.07)'; x.lineWidth = 1; x.beginPath(); x.arc(0, 0, R * 1.16, 0, TAU); x.stroke();
       x.strokeStyle = 'rgba(255,255,255,.16)'; x.beginPath();
       for (let k = 0; k < 72; k++) { const a = k * TAU / 72 + t * .00004, c = Math.cos(a), n = Math.sin(a), l = k % 6 == 0 ? 10 : 4, r0 = R * 1.16; x.moveTo(c * r0, n * r0); x.lineTo(c * (r0 + l), n * (r0 + l)) }
@@ -164,7 +164,7 @@
     }
 
     /* lattice mesh: fades in only once the crystal has formed */
-    if (!lite && w[1] > .02) {
+    if (w[1] > .02) {
       x.globalAlpha = 1; x.strokeStyle = `rgba(154,165,255,${(.2 * w[1] ** 3).toFixed(3)})`; x.lineWidth = 1; x.beginPath();
       for (let k = 0; k < EDGE.length; k += 2) { const a = EDGE[k], b = EDGE[k + 1]; x.moveTo(SX[a], SY[a]); x.lineTo(SX[b], SY[b]) }
       x.stroke();
@@ -199,7 +199,7 @@
     }
 
     /* signals hopping along the lattice */
-    if (!lite && w[1] > .7) {
+    if (w[1] > .7) {
       x.fillStyle = COL[4];
       WK.forEach(k => {
         if (k.u >= 1) { const a = k.b || (rn() * N | 0), n = ADJ[a]; if (!n.length) { k.b = rn() * N | 0; return } k.a = a; k.b = n[rn() * n.length | 0]; k.u = 0 }
