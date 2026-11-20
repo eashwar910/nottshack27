@@ -1,7 +1,7 @@
 /* Hero canvas: one particle field that morphs between four forms.
      01 DREAM IT  a spiral galaxy
      02 CODE IT   a crystal lattice with signals running along it
-     03 THE GOOSE the NottsHack logo goose (the real artwork fades in once the particles form it)
+     03 THE GOOSE the NottsHack logo goose, rebuilt from thousands of coloured specks sampled from the artwork
      04 SHIP IT   the pixel "27"
    Drag to spin it, click to morph to the next form, hover to push the particles around.
    Uses $, RM and root from main.js. */
@@ -61,20 +61,41 @@
     for (let i = 0; i < N; i++) { const p = P[i % P.length]; GOO[i * 3] = p[0]; GOO[i * 3 + 1] = p[1]; GOO[i * 3 + 2] = (rn() - .5) * .16; BO[i] = p[2] }
   })();
 
-  /* the real logo goose: the particles form its silhouette (sampled from the artwork), then the artwork itself fades in over them */
-  const gimg = new Image(); let gready = false, gw = 1, gh = 1, gcell = 1;
+  /* the goose, in particles. The artwork is only a source of points: thousands of fine specks (each keeping its colour from the logo)
+     condense out of the cloud into the goose, so it stays part of the particle world instead of being a pasted picture. */
+  const EM = lite ? 3200 : 10000;
+  const EX = new Float32Array(EM * 3), ES = new Float32Array(EM * 3), ED = new Float32Array(EM), EW = new Float32Array(EM), EC = new Uint8Array(EM), ER = new Uint8Array(EM);
+  const EPAL = []; let gready = false, gw = 1, gh = 1, gcell = 1;
+  const gimg = new Image();
   gimg.onload = () => {
     gw = gimg.naturalWidth; gh = gimg.naturalHeight; gcell = 1.8 / Math.max(gw, gh);
     const o = document.createElement('canvas'); o.width = gw; o.height = gh; const g = o.getContext('2d', { willReadFrequently: true }); g.drawImage(gimg, 0, 0);
     const d = g.getImageData(0, 0, gw, gh).data, P = [];
     for (let y = 0; y < gh; y++) for (let x = 0; x < gw; x++) {
       const k = (y * gw + x) * 4; if (d[k + 3] < 160) continue;
-      const r = d[k], gr = d[k + 1], b = d[k + 2];
-      P.push([x, y, r > 200 && gr > 100 && gr < 215 && b < 120 ? 3 : (r + gr + b) / 3 > 190 ? 4 : 2]);
+      P.push([x, y, d[k], d[k + 1], d[k + 2]]);
     }
     if (!P.length) return;
     for (let i = P.length - 1; i > 0; i--) { const j = rn() * (i + 1) | 0;[P[i], P[j]] = [P[j], P[i]] }
-    for (let i = 0; i < N; i++) { const p = P[i % P.length]; GOO[i * 3] = (p[0] + rn() - gw / 2) * gcell; GOO[i * 3 + 1] = (p[1] + rn() - gh / 2) * gcell; GOO[i * 3 + 2] = (rn() - .5) * .1; BO[i] = p[2] }
+    /* base particles take the silhouette, in their usual bright colours */
+    for (let i = 0; i < N; i++) {
+      const p = P[i % P.length], r = p[2], gr = p[3], b = p[4];
+      GOO[i * 3] = (p[0] + rn() - gw / 2) * gcell; GOO[i * 3 + 1] = (p[1] + rn() - gh / 2) * gcell; GOO[i * 3 + 2] = (rn() - .5) * .1;
+      BO[i] = r > 200 && gr > 100 && gr < 215 && b < 120 ? 3 : (r + gr + b) / 3 > 190 ? 4 : 2;
+    }
+    /* fine specks: colour comes straight from the artwork, quantised to a small palette and grouped so colour changes are rare */
+    const pick = []; for (let j = 0; j < EM; j++) pick.push(P[j % P.length]);
+    const keyOf = p => (p[2] >> 5) << 6 | (p[3] >> 5) << 3 | (p[4] >> 5); pick.sort((a, b) => keyOf(a) - keyOf(b));
+    const idx = new Map();
+    pick.forEach((p, j) => {
+      const key = keyOf(p); if (!idx.has(key)) { idx.set(key, EPAL.length); EPAL.push(`rgb(${Math.min(255, (p[2] >> 5 << 5) + 16)},${Math.min(255, (p[3] >> 5 << 5) + 16)},${Math.min(255, (p[4] >> 5 << 5) + 16)})`) }
+      EC[j] = idx.get(key);
+      EX[j * 3] = (p[0] + rn() - gw / 2) * gcell; EX[j * 3 + 1] = (p[1] + rn() - gh / 2) * gcell; EX[j * 3 + 2] = (rn() - .5) * .12;
+      const a = rn() * TAU, rad = .5 + rn() * .9; ES[j * 3] = Math.cos(a) * rad; ES[j * 3 + 1] = Math.sin(a) * rad * .8; ES[j * 3 + 2] = (rn() - .5) * .8;
+      ED[j] = rn() * .45; EW[j] = rn();
+      const spark = p[2] > 200 && p[3] > 200 && p[4] > 200 && p[0] > gw * .6 && p[1] < gh * .42, hands = p[0] > gw * .3 && p[1] > gh * .55 && p[1] < gh * .85;
+      ER[j] = spark ? 1 : hands ? 2 : 0;
+    });
     gready = true;
   };
   gimg.src = 'assets/NottsHack-logo/goose.png';
@@ -111,7 +132,7 @@
       else { hold += dt; if (hold > HOLD && !drag) next() }
     }
     const e = mp >= 1 ? 1 : smooth(mp), w = [0, 0, 0, 0]; if (mp >= 1) w[cur] = 1; else { w[cur] = 1 - e; w[to] = e }
-    const ga = gready && w[2] > .45 ? smooth(clamp((w[2] - .45) / .5, 0, 1)) : 0, wf = w[2] + w[3]; /* the goose and the "27" both turn to face the front */
+    const wf = w[2] + w[3]; /* the goose and the "27" both turn to face the front */
 
     /* camera: idle spin, drag momentum, and a gentle turn to face front for the "27" */
     if (!drag) { yaw += vy * dt * (1 - wf); vy += (IDLE - vy) * Math.min(1, dt * .0015); pitchD *= Math.exp(-dt / 1600) }
@@ -152,7 +173,25 @@
     for (let i = 0; i < N; i++) {
       const d = SD[i], z = ((lite ? 1.6 : 1.4) + d * 2.2) * (1 + .75 * wf);
       if (SB[i] !== last) { x.fillStyle = COL[SB[i]]; last = SB[i] }
-      x.globalAlpha = Math.min(1, (.22 + .78 * d) * (1 + .5 * wf)) * (1 - .85 * ga); x.fillRect(SX[i] - z / 2, SY[i] - z / 2, z, z);
+      x.globalAlpha = Math.min(1, (.22 + .78 * d) * (1 + .5 * wf)) * (1 - .8 * w[2]); x.fillRect(SX[i] - z / 2, SY[i] - z / 2, z, z);
+    }
+
+    /* the goose: fine specks condense out of the cloud; the sparks flicker and the hands tap the keys */
+    if (gready && w[2] > .01) {
+      const sc = R / 245; let lc = -1; x.globalCompositeOperation = 'source-over';
+      for (let j = 0; j < EM; j++) {
+        const p = clamp((w[2] * 1.25 - ED[j]) / .5, 0, 1); if (p <= 0) continue;
+        const s = smooth(p), inv = 1 - s, k = j * 3;
+        let X = EX[k] + ES[k] * inv, Y = EX[k + 1] + ES[k + 1] * inv, Z = EX[k + 2] + ES[k + 2] * inv;
+        if (inv > .001) { const a = inv * 1.2 * (EW[j] > .5 ? 1 : -1), c = Math.cos(a), n = Math.sin(a), q = X * c + Z * n; Z = -X * n + Z * c; X = q }
+        const x1 = X * cyw + Z * syw, z1 = -X * syw + Z * cyw, y2 = Y * cp - z1 * sp, z2 = Y * sp + z1 * cp, f = 1 / (1 - z2 * .32);
+        let sx = ox + x1 * R * f, sy = oy + y2 * R * f, al = s * .92;
+        if (ER[j] === 1) al *= Math.sin(t * .011 + EW[j] * 9) > .15 ? 1 : .3;
+        else if (ER[j] === 2) { sx += Math.sin(t * .05 + EW[j] * 40) * .5 * sc; sy += Math.sin(t * .043 + EW[j] * 31) * .6 * sc }
+        if (EC[j] !== lc) { x.fillStyle = EPAL[EC[j]]; lc = EC[j] }
+        const sz = Math.max(1.5, 2.4 * sc * (.85 + .3 * z2));
+        x.globalAlpha = al; x.fillRect(sx - sz / 2, sy - sz / 2, sz, sz);
+      }
     }
 
     /* signals hopping along the lattice */
@@ -165,13 +204,6 @@
       });
     }
 
-
-    /* the goose artwork, drawn over its own particles; it sways with the shape and bobs a little as if typing */
-    if (ga > .01) {
-      const sw = Math.cos(yaw - Math.round(yaw / TAU) * TAU), dw = gw * gcell * R, dh = gh * gcell * R;
-      x.save(); x.globalCompositeOperation = 'source-over'; x.globalAlpha = ga; x.imageSmoothingEnabled = true;
-      x.translate(ox, oy + Math.sin(t * .004) * 1.5); x.scale(sw, 1); x.drawImage(gimg, -dw / 2, -dh / 2, dw, dh); x.restore();
-    }
 
     /* label */
     x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1; x.textAlign = 'center';
