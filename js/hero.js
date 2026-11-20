@@ -1,7 +1,7 @@
 /* Hero canvas: one particle field that morphs between four forms.
      01 DREAM IT  a spiral galaxy
      02 CODE IT   a crystal lattice with signals running along it
-     03 THE GOOSE the NottsHack logo goose, in pixels
+     03 THE GOOSE the NottsHack logo goose (the real artwork fades in once the particles form it)
      04 SHIP IT   the pixel "27"
    Drag to spin it, click to morph to the next form, hover to push the particles around.
    Uses $, RM and root from main.js. */
@@ -60,6 +60,24 @@
     for (let i = P.length - 1; i > 0; i--) { const j = rn() * (i + 1) | 0;[P[i], P[j]] = [P[j], P[i]] }
     for (let i = 0; i < N; i++) { const p = P[i % P.length]; GOO[i * 3] = p[0]; GOO[i * 3 + 1] = p[1]; GOO[i * 3 + 2] = (rn() - .5) * .16; BO[i] = p[2] }
   })();
+
+  /* the real logo goose: the particles form its silhouette (sampled from the artwork), then the artwork itself fades in over them */
+  const gimg = new Image(); let gready = false, gw = 1, gh = 1, gcell = 1;
+  gimg.onload = () => {
+    gw = gimg.naturalWidth; gh = gimg.naturalHeight; gcell = 1.8 / Math.max(gw, gh);
+    const o = document.createElement('canvas'); o.width = gw; o.height = gh; const g = o.getContext('2d', { willReadFrequently: true }); g.drawImage(gimg, 0, 0);
+    const d = g.getImageData(0, 0, gw, gh).data, P = [];
+    for (let y = 0; y < gh; y++) for (let x = 0; x < gw; x++) {
+      const k = (y * gw + x) * 4; if (d[k + 3] < 160) continue;
+      const r = d[k], gr = d[k + 1], b = d[k + 2];
+      P.push([x, y, r > 200 && gr > 100 && gr < 215 && b < 120 ? 3 : (r + gr + b) / 3 > 190 ? 4 : 2]);
+    }
+    if (!P.length) return;
+    for (let i = P.length - 1; i > 0; i--) { const j = rn() * (i + 1) | 0;[P[i], P[j]] = [P[j], P[i]] }
+    for (let i = 0; i < N; i++) { const p = P[i % P.length]; GOO[i * 3] = (p[0] + rn() - gw / 2) * gcell; GOO[i * 3 + 1] = (p[1] + rn() - gh / 2) * gcell; GOO[i * 3 + 2] = (rn() - .5) * .1; BO[i] = p[2] }
+    gready = true;
+  };
+  gimg.src = 'assets/NottsHack-logo/goose.png';
   buildText();
   if (document.fonts && document.fonts.load) Promise.race([document.fonts.load('200px Monocraft', '27'), new Promise(r => setTimeout(r, 2500))]).then(buildText).catch(() => {});
 
@@ -93,7 +111,7 @@
       else { hold += dt; if (hold > HOLD && !drag) next() }
     }
     const e = mp >= 1 ? 1 : smooth(mp), w = [0, 0, 0, 0]; if (mp >= 1) w[cur] = 1; else { w[cur] = 1 - e; w[to] = e }
-    const wf = w[2] + w[3]; /* the goose and the "27" both turn to face the front */
+    const ga = gready && w[2] > .45 ? smooth(clamp((w[2] - .45) / .5, 0, 1)) : 0, wf = w[2] + w[3]; /* the goose and the "27" both turn to face the front */
 
     /* camera: idle spin, drag momentum, and a gentle turn to face front for the "27" */
     if (!drag) { yaw += vy * dt * (1 - wf); vy += (IDLE - vy) * Math.min(1, dt * .0015); pitchD *= Math.exp(-dt / 1600) }
@@ -132,9 +150,9 @@
     /* particles: small pixel squares, added together so dense areas glow */
     x.globalCompositeOperation = 'lighter'; let last = -1;
     for (let i = 0; i < N; i++) {
-      const d = SD[i], z = ((lite ? 1.6 : 1.4) + d * 2.2) * (1 + .75 * wf + .5 * w[2]);
+      const d = SD[i], z = ((lite ? 1.6 : 1.4) + d * 2.2) * (1 + .75 * wf);
       if (SB[i] !== last) { x.fillStyle = COL[SB[i]]; last = SB[i] }
-      x.globalAlpha = Math.min(1, (.22 + .78 * d) * (1 + .5 * wf)); x.fillRect(SX[i] - z / 2, SY[i] - z / 2, z, z);
+      x.globalAlpha = Math.min(1, (.22 + .78 * d) * (1 + .5 * wf)) * (1 - .85 * ga); x.fillRect(SX[i] - z / 2, SY[i] - z / 2, z, z);
     }
 
     /* signals hopping along the lattice */
@@ -145,6 +163,14 @@
         k.u += dt * .0022; const u = Math.min(1, k.u), px = SX[k.a] + (SX[k.b] - SX[k.a]) * u, py = SY[k.a] + (SY[k.b] - SY[k.a]) * u;
         x.globalAlpha = .18 * w[1]; x.fillRect(px - 7, py - 7, 14, 14); x.globalAlpha = w[1]; x.fillRect(px - 2.5, py - 2.5, 5, 5);
       });
+    }
+
+
+    /* the goose artwork, drawn over its own particles; it sways with the shape and bobs a little as if typing */
+    if (ga > .01) {
+      const sw = Math.cos(yaw - Math.round(yaw / TAU) * TAU), dw = gw * gcell * R, dh = gh * gcell * R;
+      x.save(); x.globalCompositeOperation = 'source-over'; x.globalAlpha = ga; x.imageSmoothingEnabled = true;
+      x.translate(ox, oy + Math.sin(t * .004) * 1.5); x.scale(sw, 1); x.drawImage(gimg, -dw / 2, -dh / 2, dw, dh); x.restore();
     }
 
     /* label */
