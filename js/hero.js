@@ -1,4 +1,4 @@
-/* Hero canvas: an interactive tesseract in front of 3D wireframe shapes, jacks and dust.
+/* Hero canvas: an interactive tesseract in front of 3D wireframe shapes and dust.
    Tesseract: drag to spin it (it keeps its momentum), shift-drag to rotate through the 4th dimension,
    hover a node to light its edges, click a node to send a pulse racing through the graph.
    Everything else floats at its own depth: nearer things drift more with the cursor and are drawn in front.
@@ -9,7 +9,7 @@
   const lite = document.documentElement.classList.contains('lite');
   if (lite) Object.defineProperty(x, 'shadowBlur', { set() {}, get: () => 0 }); /* canvas glow is the costliest thing to draw on phones */
   const R = (c, a) => `rgba(${c},${a})`, TAU = 6.2832;
-  let W, H, sc, raf = 0, vis = true, wide = false, mx = 0, my = 0, tx = 0, ty = 0, lt = 0;
+  let W, H, sc, zone = 0, raf = 0, vis = true, wide = false, mx = 0, my = 0, tx = 0, ty = 0, lt = 0;
   let sd = 7; const rn = () => (sd = sd * 16807 % 2147483647) / 2147483647;
 
   /* ---- 3D wireframes: n-sided bipyramids ('bi') and prisms ('pr'), z = depth in [-1 far, 1 near] ---- */
@@ -21,19 +21,14 @@
     return { v, e };
   }
   const G = [
-    { k: 'bi', n: 5, fx: .50, fy: .22, r: 30, c: L, a: .6, s: .0005, z: -.5 },
-    { k: 'pr', n: 6, fx: .58, fy: .80, r: 18, c: P, a: .65, s: -.0006, z: .55 },
-    { k: 'bi', n: 7, fx: .80, fy: .84, r: 28, c: L, a: .6, s: .0004, z: -.2 },
-    { k: 'pr', n: 8, fx: .92, fy: .14, r: 16, c: B, a: .5, s: .0005, z: .6 },
-    { k: 'bi', n: 5, fx: .06, fy: .12, r: 12, c: P, a: .4, s: -.0004, z: -.75 },
-    { k: 'pr', n: 4, fx: .04, fy: .62, r: 14, c: B, a: .45, s: .0006, z: .3 },
-    { k: 'bi', n: 6, fx: .66, fy: .06, r: 13, c: O, a: .4, s: -.0005, z: .15 }
+    { k: 'bi', n: 5, fx: .56, fy: .15, r: 24, c: L, a: .55, s: .0005, z: -.5 },
+    { k: 'pr', n: 6, fx: .62, fy: .85, r: 15, c: P, a: .6, s: -.0006, z: .55 },
+    { k: 'bi', n: 7, fx: .91, fy: .86, r: 22, c: L, a: .5, s: .0004, z: -.2 },
+    { k: 'pr', n: 8, fx: .94, fy: .13, r: 13, c: B, a: .5, s: .0005, z: .6 },
+    { k: 'bi', n: 6, fx: .975, fy: .5, r: 10, c: O, a: .4, s: -.0005, z: .15 }
   ];
   G.forEach(o => { o.sh = shape(o.k, o.n); o.ph = rn() * TAU; o.f = solid });
-  /* jacks: three crossed bars that tumble in 3D */
-  const S = [{ fx: .06, fy: .78, sz: 10, c: M, z: .4 }, { fx: .955, fy: .5, sz: 18, c: M, z: -.3 }, { fx: .9, fy: .04, sz: 9, c: P, z: .7 }];
-  S.forEach(o => o.f = jack);
-  const ITEMS = [...G, ...S].sort((a, b) => a.z - b.z), FAR = ITEMS.filter(o => o.z < 0), NEAR = ITEMS.filter(o => o.z >= 0);
+  const ITEMS = [...G].sort((a, b) => a.z - b.z), FAR = ITEMS.filter(o => o.z < 0), NEAR = ITEMS.filter(o => o.z >= 0);
   const D = Array.from({ length: 34 }, () => ({ fx: rn(), fy: rn(), r: .8 + rn() * 2, p: rn() * TAU, c: rn() > .6 ? P : L, z: rn() * 2 - 1 }));
 
   function solid(o, t) {
@@ -48,16 +43,6 @@
     x.fillStyle = R(o.c, o.a * (.5 + .5 * d) + .15);
     p.forEach(q => { x.beginPath(); x.arc(q[0], q[1], (1 + d) * (.8 + .25 * q[2]), 0, TAU); x.fill() });
   }
-  function jack(o, t) {
-    const d = (o.z + 1) / 2, px = W * o.fx + mx * (8 + 20 * d), py = H * o.fy + Math.sin(t * .0009 + o.fx * 9) * 4 + my * (6 + 12 * d), r = o.sz * sc * (.8 + .5 * d);
-    const a = t * .0009 + o.fx * 9, b = t * .0007 + o.fx * 5, ca = Math.cos(a), sa = Math.sin(a), cb = Math.cos(b), sb = Math.sin(b);
-    x.strokeStyle = R(o.c, .45 + .4 * d); x.lineWidth = Math.max(2, r * .34 * (.7 + .4 * d));
-    [[1, 0, 0], [0, 1, 0], [0, 0, 1]].forEach(([X, Y, Z]) => {
-      const x1 = X * ca + Z * sa, z1 = -X * sa + Z * ca, y2 = Y * cb - z1 * sb, k = 1 / (1 - (Y * sb + z1 * cb) * .25), vx = x1 * r * k, vy = y2 * r * k;
-      x.beginPath(); x.moveTo(px - vx, py - vy); x.lineTo(px + vx, py + vy); x.stroke();
-    });
-  }
-
   /* ---- tesseract: 16 vertices, 32 edges, three rotation angles ([XW, YZ, ZX]) with momentum ---- */
   const V = Array.from({ length: 16 }, (_, i) => [i & 1 ? 1 : -1, i & 2 ? 1 : -1, i & 4 ? 1 : -1, i & 8 ? 1 : -1]), TE = [];
   for (let i = 0; i < 16; i++) for (let b = 1; b < 16; b <<= 1) if (!(i & b)) TE.push([i, i | b, b == 8]);
@@ -71,7 +56,9 @@
   const near = p => { let b = -1, d = (24 * sc) ** 2; Q.forEach((q, j) => { const dd = (q.x - p[0]) ** 2 + (q.y - p[1]) ** 2; if (dd < d) { d = dd; b = j } }); return b };
 
   function graph(t, dt) {
-    const cx = wide ? W * .74 : W / 2, cy = Math.min(H * .46, 300 * sc), S = 620 * sc;
+    let cx, cy, S;                                  /* extent of the projected cube is about .245 * S */
+    if (wide) { cx = W * .74; cy = H * .5; S = Math.min(W * .145, H * .3) / .245 }
+    else { cx = W / 2; cy = 84 + zone / 2; S = zone * .44 / .245 }
     for (let i = 0; i < 3; i++) {
       if (drag) vel[i] *= Math.exp(-dt / 80);                                  /* held still: no fling on release */
       else { ang[i] += vel[i] * dt; vel[i] += (IDLE[i] - vel[i]) * Math.min(1, dt * .0015) }  /* coast, then ease back to the idle spin */
@@ -122,12 +109,12 @@
     const dt = lt ? Math.min(t - lt, 50) : 0; lt = t;
     mx += (tx - mx) * .05; my += (ty - my) * .05; x.clearRect(0, 0, W, H);
     D.slice(0, lite ? 10 : 34).forEach(d => { const e = (d.z + 1) / 2; x.fillStyle = R(d.c, (.25 + .45 * (Math.sin(t * .0012 + d.p) + 1) / 2) * (.5 + .5 * e)); x.beginPath(); x.arc(W * d.fx + mx * (4 + 18 * e), H * d.fy + my * (3 + 12 * e), d.r * (.6 + .8 * e), 0, TAU); x.fill() });
-    x.lineCap = 'round'; if (!lite) FAR.forEach(o => o.f(o, t)); graph(t, dt); x.lineCap = 'round'; if (!lite) NEAR.forEach(o => o.f(o, t));
+    x.lineCap = 'round'; if (!lite && wide) FAR.forEach(o => o.f(o, t)); graph(t, dt); x.lineCap = 'round'; if (!lite && wide) NEAR.forEach(o => o.f(o, t));
   }
 
   function size() {
     const d = lite ? 1 : Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * d; cv.height = H * d; x.setTransform(d, 0, 0, d, 0, 0);
-    wide = W > 820; sc = Math.min(Math.max(W / 900, .55), 1.2); if (RM.matches) draw(0);
+    wide = W > 1080; zone = wide ? 0 : Math.min(W * .72, 340); hero.style.setProperty('--zone', zone + 'px'); sc = Math.min(Math.max(W / 900, .55), 1.2); if (RM.matches) draw(0);
   }
   let last = 0;
   const f = t => { if (!lite || t - last > 32) { last = t; draw(t) } raf = requestAnimationFrame(f) }, go = () => { if (!raf && vis && !document.hidden && !RM.matches) raf = requestAnimationFrame(f) }, no = () => { cancelAnimationFrame(raf); raf = 0 };
