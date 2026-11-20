@@ -1,7 +1,8 @@
-/* Hero canvas: one particle field that morphs between three forms, matching the tagline.
+/* Hero canvas: one particle field that morphs between four forms.
      01 DREAM IT  a spiral galaxy
      02 CODE IT   a crystal lattice with signals running along it
-     03 SHIP IT   the pixel "27"
+     03 THE GOOSE the NottsHack logo goose, in pixels
+     04 SHIP IT   the pixel "27"
    Drag to spin it, click to morph to the next form, hover to push the particles around.
    Uses $, RM and root from main.js. */
 (() => {
@@ -9,14 +10,15 @@
   const lite = root.classList.contains('lite');
   const TAU = Math.PI * 2, L = 10, N = L * L * L;
   const COL = ['rgb(125,255,178)', 'rgb(255,122,217)', 'rgb(154,165,255)', 'rgb(255,184,107)', 'rgb(255,250,255)']; /* g p b o w */
-  const NAMES = ['Dream it', 'Code it', 'Ship it'];
+  const NAMES = ['Dream it', 'Code it', 'The goose', 'Ship it'];
   let sd = 11; const rn = () => (sd = sd * 16807 % 2147483647) / 2147483647, gs = () => (rn() + rn() + rn() - 1.5) / 1.5;
   const smooth = u => u * u * (3 - 2 * u), clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
   /* ---- three target shapes, one position + colour bucket per particle ---- */
   const GAL = new Float32Array(N * 3), LAT = new Float32Array(N * 3), TXT = new Float32Array(N * 3);
   const BG = new Uint8Array(N), BL = new Uint8Array(N), BT = new Uint8Array(N);
-  const PH = [GAL, LAT, TXT], PB = [BG, BL, BT];
+  const GOO = new Float32Array(N * 3), BO = new Uint8Array(N);
+  const PH = [GAL, LAT, GOO, TXT], PB = [BG, BL, BO, BT];
 
   for (let i = 0; i < N; i++) { /* galaxy: two spiral arms plus a bright core */
     const core = i % 7 == 0, r = core ? Math.abs(gs()) * .2 : Math.pow(rn(), .72) + .08, a = r * 6 + (i % 2) * Math.PI + gs() * .35 * (1 - r * .5);
@@ -45,6 +47,19 @@
       const t = (p[1] + .5); BT[i] = t < .33 ? 0 : t < .66 ? 4 : 1;
     }
   }
+
+  /* the goose: sampled from the NottsHack logo (a goose typing on a laptop), a pixel map where each cell is filled by three particles */
+  (() => {
+    const MAP = ['...........wwww..............', '..........wwwwwg.............', '.........wwwwwwoo............', '.........wwwwwwooo...........', '.........wwwwwwooo...........', '.........wwww................', '.........wwww............w...', '.........wwww..........w.w.w.', '.........wwww........w.g.w.w.', '.........wwwww........w......', '.........wwwww......w.....ggg', '.........wwwww.........gggggg', '......wwwwwwwww.....w.wgggggg', '.....wwwwwwwwww.......ggggggg', '.gwwwwwwwwwwwwwwww....gggggg.', 'gwwwwwwwwwwwwwwwwwww..gggggg.', '.wwwwwwwwwwwwwwwwwwwgggggggg.', '.wwwwwwwwwwwwwwwwwwggggggggg.', '..wwwwwwwwwwwwwwgwggggggggg..', '..wwwwwwwwwwwgggggggggggg....', '...wwwwwwwwwwgggggggggg......', '....wwwwwwwwooooogggg........', '......wwwoooooooo............', '.........oooooog.............', '..........wwo................'];
+    const CH = { w: 4, g: 2, o: 3 }, W0 = 29, H0 = 25, cell = 1.9 / Math.max(W0, H0), P = [];
+    MAP.forEach((row, y) => [...row].forEach((c, x) => {
+      if (!CH.hasOwnProperty(c)) return;
+      const sub = [[0, 0], [1, 0], [0, 1], [1, 1]]; for (let i = 3; i > 0; i--) { const j = rn() * (i + 1) | 0;[sub[i], sub[j]] = [sub[j], sub[i]] }
+      for (let k = 0; k < 3; k++) P.push([(x - W0 / 2 + (sub[k][0] + .5) / 2) * cell, (y - H0 / 2 + (sub[k][1] + .5) / 2) * cell, CH[c]]);
+    }));
+    for (let i = P.length - 1; i > 0; i--) { const j = rn() * (i + 1) | 0;[P[i], P[j]] = [P[j], P[i]] }
+    for (let i = 0; i < N; i++) { const p = P[i % P.length]; GOO[i * 3] = p[0]; GOO[i * 3 + 1] = p[1]; GOO[i * 3 + 2] = (rn() - .5) * .16; BO[i] = p[2] }
+  })();
   buildText();
   if (document.fonts && document.fonts.load) Promise.race([document.fonts.load('200px Monocraft', '27'), new Promise(r => setTimeout(r, 2500))]).then(buildText).catch(() => {});
 
@@ -59,8 +74,10 @@
   let cur = 0, to = 0, mp = 1, hold = 0, yaw = 0, pitchD = 0, vy = .00022, hint = 1, used = false;
   let ptr = null, drag = false, moved = false, down, lx, ly;
   const HOLD = 5200, MORPH = 2800, IDLE = .00022;
+  /* ?form=0..3 shows one form and holds it (handy for checking a single shape) */
+  { const q = new URLSearchParams(location.search).get('form'); if (q !== null && !isNaN(+q)) { cur = to = (+q % 4 + 4) % 4; hold = -1e9 } }
   const live = () => wide && !RM.matches;
-  const next = () => { if (mp < 1) return; to = (cur + 1) % 3; mp = 0; hold = 0 };
+  const next = () => { if (mp < 1) return; to = (cur + 1) % 4; mp = 0; hold = 0 };
 
   function draw(t) {
     const dt = lt ? Math.min(t - lt, 50) : 0; lt = t;
@@ -75,12 +92,13 @@
       if (mp < 1) { mp = Math.min(1, mp + dt / MORPH); if (mp >= 1) { cur = to; hold = 0 } }
       else { hold += dt; if (hold > HOLD && !drag) next() }
     }
-    const e = mp >= 1 ? 1 : smooth(mp), w = [0, 0, 0]; if (mp >= 1) w[cur] = 1; else { w[cur] = 1 - e; w[to] = e }
+    const e = mp >= 1 ? 1 : smooth(mp), w = [0, 0, 0, 0]; if (mp >= 1) w[cur] = 1; else { w[cur] = 1 - e; w[to] = e }
+    const wf = w[2] + w[3]; /* the goose and the "27" both turn to face the front */
 
     /* camera: idle spin, drag momentum, and a gentle turn to face front for the "27" */
-    if (!drag) { yaw += vy * dt * (1 - w[2]); vy += (IDLE - vy) * Math.min(1, dt * .0015); pitchD *= Math.exp(-dt / 1600) }
-    if (w[2] > .001) { const tg = Math.round(yaw / TAU) * TAU + Math.sin(t * .0006) * .36; yaw += (tg - yaw) * Math.min(1, dt * .004 * w[2]) }
-    const pitch = .52 * w[0] + .36 * w[1] + .03 * w[2] + Math.sin(t * .0004) * .07 * w[1] + pitchD;
+    if (!drag) { yaw += vy * dt * (1 - wf); vy += (IDLE - vy) * Math.min(1, dt * .0015); pitchD *= Math.exp(-dt / 1600) }
+    if (wf > .001) { const tg = Math.round(yaw / TAU) * TAU + Math.sin(t * .0006) * .36; yaw += (tg - yaw) * Math.min(1, dt * .004 * wf) }
+    const pitch = .52 * w[0] + .36 * w[1] + .03 * wf + Math.sin(t * .0004) * .07 * w[1] + pitchD;
     const cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
     const A = PH[cur], B = mp >= 1 ? A : PH[to], BA = PB[cur], BB = PB[mp >= 1 ? cur : to];
     const ox = cx + mx * 8, oy = cy + my * 6, px0 = ptr ? ptr[0] : -1e4, py0 = ptr ? ptr[1] : -1e4, pr = R * .3;
@@ -114,9 +132,9 @@
     /* particles: small pixel squares, added together so dense areas glow */
     x.globalCompositeOperation = 'lighter'; let last = -1;
     for (let i = 0; i < N; i++) {
-      const d = SD[i], z = ((lite ? 1.6 : 1.4) + d * 2.2) * (1 + .75 * w[2]);
+      const d = SD[i], z = ((lite ? 1.6 : 1.4) + d * 2.2) * (1 + .75 * wf + .5 * w[2]);
       if (SB[i] !== last) { x.fillStyle = COL[SB[i]]; last = SB[i] }
-      x.globalAlpha = Math.min(1, (.22 + .78 * d) * (1 + .5 * w[2])); x.fillRect(SX[i] - z / 2, SY[i] - z / 2, z, z);
+      x.globalAlpha = Math.min(1, (.22 + .78 * d) * (1 + .5 * wf)); x.fillRect(SX[i] - z / 2, SY[i] - z / 2, z, z);
     }
 
     /* signals hopping along the lattice */
@@ -135,7 +153,7 @@
       const nm = e > .5 ? to : cur, ly0 = oy + R * 1.16 + 38;
       x.font = '700 11px "Space Mono",monospace'; x.fillStyle = 'rgba(226,219,248,.7)';
       x.fillText(`0${nm + 1} / ${NAMES[nm].toUpperCase()}`, ox, ly0);
-      for (let k = 0; k < 3; k++) { x.fillStyle = k == nm ? COL[0] : 'rgba(255,255,255,.2)'; x.fillRect(ox - 14 + k * 12, ly0 + 12, 6, 6) }
+      for (let k = 0; k < 4; k++) { x.fillStyle = k == nm ? COL[0] : 'rgba(255,255,255,.2)'; x.fillRect(ox - 21 + k * 12, ly0 + 12, 6, 6) }
       if (hint > 0) { x.font = '11px "Space Mono",monospace'; x.fillStyle = `rgba(226,219,248,${.45 * hint})`; x.fillText('drag to spin · click to morph', ox, ly0 + 40); if (used) hint = Math.max(0, hint - dt / 1500) }
     }
     x.textAlign = 'start';
@@ -146,7 +164,7 @@
     wide = W > 1080; zone = wide ? 0 : Math.min(W * .85, 380); hero.style.setProperty('--zone', zone + 'px');
     if (wide) { cx = W * .765; cy = H * .5; R = Math.min(W * .16, H * .3) }
     else { cx = W / 2; cy = 84 + zone / 2; R = zone * .4 }
-    if (RM.matches) { cur = to = 2; mp = 1; yaw = 0; lt = 0; draw(0) }
+    if (RM.matches) { cur = to = 3; mp = 1; yaw = 0; lt = 0; draw(0) }
   }
   const f = t => { draw(t); raf = requestAnimationFrame(f) }, go = () => { if (!raf && vis && !document.hidden && !RM.matches) raf = requestAnimationFrame(f) }, no = () => { cancelAnimationFrame(raf); raf = 0 };
   new ResizeObserver(size).observe(cv); new IntersectionObserver(([en]) => { vis = en.isIntersecting; vis ? go() : no() }).observe(cv);

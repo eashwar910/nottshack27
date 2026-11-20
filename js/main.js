@@ -79,8 +79,6 @@ $$('.card:not([data-rv])').forEach(c=>{if(!c.closest('[data-rv]'))c.setAttribute
    {y:4,map:['ggggggggggggg','.yyyyyyyyyyy.','.nnnnnnnnnnn.','.nnnnnnnnnnn.','ooooooooooooo','.ooooooooooo.','..ooooooooo..']}]},
   notes:{w:11,h:9,L:[
    {cls:'notes',map:['...aaaaaaaa','...aaaaaaaa','...a......a','...a......a','...a......a','...a......a','.aaa....aaa','aaaa....aaa','.aa......aa']}]},
-  /* the NottsHack goose, for the hero title */
-  goose:{w:14,h:16,L:[{map:['.......wwww...','......wwwwww..','......wkwwwoo.','......wwwwoo..','......wwww....','.....wwww.....','.....wwww.....','....wwwww.....','w...wwwwwww...','ww.wwwwwwwwww.','wwwwggggggwwg.','wwwwwggggwwww.','.wwwwwwwwwwg..','..wwwwwwwwg...','....o...o.....','...ooo.ooo....']}]},
   /* sponsor tiers */
   crown:{w:15,h:9,L:[{map:['w......w......w','aa....aaa....aa','aa...aaaaa...aa','aaa.aaaaaaa.aaa','aaaaaaaaaaaaaaa','aaaaaaaaaaaaaaa','aaawaaawaaawaaa','aaaaaaaaaaaaaaa','aaaaaaaaaaaaaaa']}]},
   gem:{w:13,h:11,L:[{map:['...wwwwwww...','..waaaaaaaw..','.waaaaaaaaaw.','wwwwwwwwwwwww','.aaaaaaccccc.','..aaaaaccccc.','...aaaaccc...','....aaacc....','.....aacc....','......ac.....','.......c.....']}]},
