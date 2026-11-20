@@ -53,36 +53,25 @@ $$('.card:not([data-rv])').forEach(c=>{if(!c.closest('[data-rv]'))c.setAttribute
   init();addEventListener('load',init);if(document.fonts)document.fonts.ready.then(()=>{measure();aim();kick()})}
 }}
 
-/* ---- pixel sprites for the "Meet NottsHack" slots: drawn from tiny bitmaps, each pixel pops in at a random moment ---- */
-{const PAL={a:'var(--a)',w:'#fffaff',g:'#7dffb2',p:'#ff7ad9',b:'#9aa5ff',o:'#ffb86b',y:'#ffd35c',n:'#a06a46',r:'#ff6b6b',d:'rgba(255,255,255,.22)'};
- const person=c=>['.www.','wwwww','wwwww','.www.',c.repeat(5),c.repeat(5)];
+/* ---- pixel emblems for the sponsor tiers: drawn from tiny bitmaps, each pixel pops in at a random moment ---- */
+{const PAL={a:'var(--a)',w:'#fffaff',c:'color-mix(in srgb,var(--a) 45%,#140b29)',y:'#ffd35c',o:'#d9961c',l:'#fff6c9'};
+ const disc=(n,ring,fill)=>{const c=(n-1)/2,r=n/2-.2,m=[];for(let y=0;y<n;y++){let row='';for(let x=0;x<n;x++){const d=Math.hypot(x-c,y-c);row+=d>r?'.':d>r-1.15?ring:fill}m.push(row)}return m};
+ const line=(x0,y0,x1,y1)=>{const p=[],n=Math.max(Math.abs(x1-x0),Math.abs(y1-y0));for(let i=0;i<=n;i++)p.push([Math.round(x0+(x1-x0)*i/n),Math.round(y0+(y1-y0)*i/n)]);return p};
+ const node=(cx,cy)=>{const p=[];for(let y=-1;y<=1;y++)for(let x=-1;x<=1;x++)p.push([cx+x,cy+y]);return p};
  const SP={
-  clock:{w:13,h:13,L:[
-   {map:['....aaaaa....','..aa.....aa..','.a.........a.','.a.........a.','a...........a','a...........a','a...........a','a...........a','a...........a','.a.........a.','.a.........a.','..aa.....aa..','....aaaaa....']},
-   {cls:'hand',c:'w',pts:[[6,2],[6,3],[6,4],[6,5],[6,6]]},
-   {c:'w',pts:[[7,6],[8,6],[9,6]]}]},
-  squad:{w:29,h:6,u:.78,L:[0,1,2,3,4].map(i=>({x:i*6,cls:i<3?'pp':'pd',map:person(['g','p','b','d','d'][i])}))},
-  spark:{w:15,h:14,L:[
-   {cls:'star',y:2,map:['.....a.....','.....a.....','....aaa....','....aaa....','..aaaaaaa..','aaaaawaaaaa','..aaaaaaa..','....aaa....','....aaa....','.....a.....','.....a.....']},
-   {cls:'tw1',x:11,y:0,map:['.w.','www','.w.']},
-   {cls:'tw2',x:12,y:11,map:['.w.','www','.w.']}]},
-  trophy:{w:13,h:12,L:[
-   {cls:'cup',map:['.yyyyyyyyyyy.','yy.yyyyyyy.yy','y..yyyyyyy..y','yy.yyyyyyy.yy','...yyyyyyy...','....yyyyy....','.....yyy.....']},
-   {y:7,map:['......y......','......y......','.....yyy.....','....yyyyy....','....yyyyy....']},
-   {cls:'shine',c:'w',pts:[[4,1],[5,1],[4,2]]}]},
-  burger:{w:13,h:11,L:[
-   {cls:'bun',map:['...ooooooo...','.ooooooooooo.','ooowooowooooo','ooooooooooooo']},
-   {y:4,map:['ggggggggggggg','.yyyyyyyyyyy.','.nnnnnnnnnnn.','.nnnnnnnnnnn.','ooooooooooooo','.ooooooooooo.','..ooooooooo..']}]},
-  notes:{w:11,h:9,L:[
-   {cls:'notes',map:['...aaaaaaaa','...aaaaaaaa','...a......a','...a......a','...a......a','...a......a','.aaa....aaa','aaaa....aaa','.aa......aa']}]}
+  crown:{w:15,h:9,L:[{map:['w......w......w','aa....aaa....aa','aa...aaaaa...aa','aaa.aaaaaaa.aaa','aaaaaaaaaaaaaaa','aaaaaaaaaaaaaaa','aaawaaawaaawaaa','aaaaaaaaaaaaaaa','aaaaaaaaaaaaaaa']}]},
+  gem:{w:13,h:11,L:[{map:['...wwwwwww...','..waaaaaaaw..','.waaaaaaaaaw.','wwwwwwwwwwwww','.aaaaaaccccc.','..aaaaaccccc.','...aaaaccc...','....aaacc....','.....aacc....','......ac.....','.......c.....']}]},
+  medal:{w:13,h:13,L:[{map:disc(13,'w','a')},{c:'c',pts:[[6,3],[6,4],[4,5],[5,5],[6,5],[7,5],[8,5],[5,6],[6,6],[7,6],[5,7],[6,7],[7,7],[5,8],[7,8]]}]},
+  coin:{w:13,h:13,L:[{map:disc(13,'o','y')},{c:'o',pts:[[5,4],[6,4],[7,4],[6,5],[6,6],[6,7],[6,8],[5,9],[6,9],[7,9]]},{c:'l',pts:[[3,4],[3,5],[4,3]]}]},
+  net:{w:15,h:13,L:[{c:'c',pts:[...line(7,1,2,11),...line(7,1,12,11),...line(2,11,12,11)]},{c:'w',pts:[...node(7,1),...node(2,11),...node(12,11)]}]}
  };
  const rect=(x,y,c)=>`<rect x="${x}" y="${y}" width="1" height="1" style="fill:${PAL[c]};--r:${(Math.random()*.75).toFixed(2)}s"/>`;
  $$('[data-sprite]').forEach(el=>{const d=SP[el.dataset.sprite];if(!d)return;
-  const g=d.L.map(l=>{let o='';const ox=l.x||0,oy=l.y||0;
-   if(l.pts)l.pts.forEach(([x,y])=>o+=rect(x+ox,y+oy,l.c));
-   else l.map.forEach((row,y)=>[...row].forEach((c,x)=>{if(c!=='.')o+=rect(x+ox,y+oy,c)}));
-   return `<g class="${l.cls||''}">${o}</g>`}).join('');
-  el.innerHTML=`<svg viewBox="0 0 ${d.w} ${d.h}" shape-rendering="crispEdges" style="width:calc(var(--u)*${d.u||1}*${d.w});height:calc(var(--u)*${d.u||1}*${d.h})">${g}</svg>`})}
+  const g=d.L.map(l=>{let o='';
+   if(l.pts)l.pts.forEach(([x,y])=>o+=rect(x,y,l.c));
+   else l.map.forEach((row,y)=>[...row].forEach((c,x)=>{if(c!=='.')o+=rect(x,y,c)}));
+   return `<g>${o}</g>`}).join('');
+  el.innerHTML=`<svg viewBox="0 0 ${d.w} ${d.h}" shape-rendering="crispEdges" style="width:calc(var(--u)*${d.w});height:calc(var(--u)*${d.h})">${g}</svg>`})}
 
 /* ---- headings decode as they scroll in (the display font is monospaced, so nothing shifts) ---- */
 if(!RM.matches){const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);const el=e.target,t=el.textContent;let f=0;
@@ -106,14 +95,31 @@ const END=new Date('2027-02-25T18:00:00+08:00'),cd=$$('[data-cd]');
 /* ---- FAQ accordion (smooth open/close) ---- */
 $$('.faq-q').forEach(q=>q.addEventListener('click',()=>{const i=q.closest('.faq-i'),o=!i.classList.contains('open');i.classList.toggle('open',o);q.setAttribute('aria-expanded',o)}));
 
-/* ---- sponsor wall: rendered from SPONSORS in config.js ---- */
-{const T=[['founding','Founding sponsors','var(--spring)'],['diamond','Diamond sponsors','var(--orchid)'],['platinum','Platinum sponsors','var(--peri)']],wall=$('#wall');
- const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const html=T.filter(([k])=>SPONSORS[k]&&SPONSORS[k].length).map(([k,label,c])=>`<div class="tier t-${k}" style="--tc:${c}" data-rv><p class="tier-h">${label}</p><div class="tiles">${SPONSORS[k].map(s=>{
-   const inner=s.logo?`<img src="${esc(s.logo)}" alt="${esc(s.name)}" loading="lazy" decoding="async"/>`:`<span>${esc(s.name)}</span>`;
-   return s.url?`<a class="tile" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.name)}">${inner}</a>`:`<div class="tile" role="img" aria-label="${esc(s.name)}">${inner}</div>`}).join('')}</div></div>`).join('');
- if(html){wall.innerHTML=html;wall.hidden=false;$('#sp-title').textContent='Sponsors & Partners';$('#sp-lede').textContent='NottsHack 2027 is made possible by these partners. Want to co-host a track with us? Say hello below.';
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});$$('[data-rv]',wall).forEach(e=>io.observe(e))}}
+/* ---- sponsor tiers + tracks: logos and sponsors come from config.js; each tier has its own reveal (see the css) ---- */
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+{const tiers=$$('.tier');
+ tiers.forEach(t=>{const list=(typeof SPONSORS!=='undefined'&&SPONSORS[t.dataset.tier])||[];if(!list.length)return;
+  $('.tiles',t).innerHTML=list.map((s,i)=>{const inner=s.logo?`<img src="${esc(s.logo)}" alt="${esc(s.name)}" loading="lazy" decoding="async"/>`:`<span>${esc(s.name)}</span>`,cls='tile'+(s.light?' light':''),st=`style="--i:${i}"`;
+   return s.url?`<a class="${cls}" ${st} href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.name)}">${inner}</a>`:`<div class="${cls}" ${st} role="img" aria-label="${esc(s.name)}">${inner}</div>`}).join('');
+  t.classList.add('has')});
+ const gold=$('.t-gold .fx');if(gold)for(let i=0;i<9;i++){const s=document.createElement('i');s.className='spk';s.style.cssText=`left:${8+Math.random()*84}%;top:${12+Math.random()*76}%;--dl:${(Math.random()*2.6).toFixed(2)}s`;gold.append(s)}
+ if($$('.tier.has').length){$('#sp-title').textContent='Sponsors & Partners';$('#sp-lede').textContent='NottsHack 2027 is made possible by these partners. Want to join them? Pick a tier below.'}
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.3});
+ tiers.forEach(t=>io.observe(t))}
+{const T=(typeof TRACKS!=='undefined'&&TRACKS)||[];
+ $$('.track').forEach((el,i)=>{const t=T[i];if(!t||(!t.sponsor&&!t.title&&!t.brief))return;
+  if(t.title)$('.track-t',el).textContent=t.title;
+  if(t.brief)$('.track-brief',el).innerHTML=`<p class="s">${esc(t.brief)}</p>`;
+  if(t.sponsor){const s=t.sponsor;$('.track-sp',el).innerHTML=`<span class="name">${s.logo?`<img src="${esc(s.logo)}" alt=""/>`:''}${esc(s.name)}</span>`;$('.link-go',el).hidden=true}})}
+
+/* ---- "Be a … sponsor" buttons jump to the contact card with that interest filled in ---- */
+{const card=$('#contact'),chips=$$('[data-chip]'),links=$$('[data-wa],[data-mail]');let cur='';
+ const msg=p=>p?`Hi! I'm interested in becoming a ${p} for NottsHack '27.`:`Hi! I'd like to know more about sponsoring NottsHack '27.`;
+ const apply=p=>{cur=p;const k=p.toLowerCase();chips.forEach(c=>c.setAttribute('aria-pressed',String(!!p&&k.startsWith(c.dataset.chip))));
+  links.forEach(a=>{const m=msg(p);a.href=a.dataset.wa?`https://wa.me/${a.dataset.wa}?text=${encodeURIComponent(m)}`:`mailto:${a.dataset.mail}?subject=${encodeURIComponent("NottsHack '27: "+(p||'sponsorship'))}&body=${encodeURIComponent(m)}`})};
+ chips.forEach(c=>c.addEventListener('click',()=>apply(cur===c.dataset.pick?'':c.dataset.pick)));
+ $$('[data-pick]:not([data-chip])').forEach(b=>b.addEventListener('click',()=>{apply(b.dataset.pick);card.scrollIntoView({behavior:RM.matches?'auto':'smooth',block:'start'});card.classList.remove('flash');void card.offsetWidth;card.classList.add('flash')}));
+ apply('')}
 
 /* ---- bouncing-logo easter egg ---- */
 const GL=['#ff7ad9','#7dffb2','#9aa5ff','#ffb86b'],bs=[];let raf=0,last=0,hits=0;

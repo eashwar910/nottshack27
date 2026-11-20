@@ -12,19 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/></noscript>
     <link rel="preload" href="assets/Monocraft.woff" as="font" type="font/woff" crossorigin/>
     <link rel="stylesheet" href="css/tailwind.css?v=9"/>
-    <link rel="stylesheet" href="css/style.css?v=34"/>
+    <link rel="stylesheet" href="css/style.css?v=36"/>
     <script>document.documentElement.classList.add("js");/* lite = phones / low-end devices: skips the expensive effects */if(matchMedia("(max-width:820px),(pointer:coarse)").matches||navigator.deviceMemory<=4||navigator.hardwareConcurrency<=4)document.documentElement.classList.add("lite")</script>
   </head>
   <body>
     <div class="progress" id="progress" aria-hidden="true"></div>
 
     <svg width="0" height="0" class="absolute" aria-hidden="true"><defs>
-    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></symbol>
-    <symbol id="i-usr" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M16 4.5a3.5 3.5 0 010 7M18 14c2.5.7 4 2.5 4 6"/></symbol>
-    <symbol id="i-tro" viewBox="0 0 24 24"><path d="M7 4h10v6a5 5 0 01-10 0zM7 6H3c0 4 2 5 4 5M17 6h4c0 4-2 5-4 5M12 15v4M8 21h8"/></symbol>
-    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v4M8 22h8"/></symbol>
-    <symbol id="i-eat" viewBox="0 0 24 24"><path d="M6 3v8a2 2 0 004 0V3M8 11v10M17 3c-2 2-3 5-3 8h3v10"/></symbol>
-    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect pathLength="1" x="3" y="4" width="18" height="17" rx="2"/><path pathLength="1" d="M3 9h18M8 2v4M16 2v4"/></symbol>
+    <symbol id="i-usr" viewBox="0 0 24 24"><circle pathLength="1" cx="9" cy="8" r="3.5"/><path pathLength="1" d="M2 20c0-4 3-6 7-6s7 2 7 6M16 4.5a3.5 3.5 0 010 7M18 14c2.5.7 4 2.5 4 6"/></symbol>
+    <symbol id="i-tro" viewBox="0 0 24 24"><path pathLength="1" d="M7 4h10v6a5 5 0 01-10 0zM7 6H3c0 4 2 5 4 5M17 6h4c0 4-2 5-4 5M12 15v4M8 21h8"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect pathLength="1" x="9" y="2" width="6" height="12" rx="3"/><path pathLength="1" d="M5 11a7 7 0 0014 0M12 18v4M8 22h8"/></symbol>
+    <symbol id="i-eat" viewBox="0 0 24 24"><path pathLength="1" d="M6 3v8a2 2 0 004 0V3M8 11v10M17 3c-2 2-3 5-3 8h3v10"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path pathLength="1" d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/></symbol>
     <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2 4 2 4H5"/></symbol>
     <symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18"/></symbol>
     <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7zM12 22V12M3 7l9 5 9-5"/></symbol>
@@ -46,8 +46,8 @@
           <li><a class="nav-link" href="#about">Event</a></li>
           <li><a class="nav-link" href="#schedule">Schedule</a></li>
           <li><a class="nav-link" href="#tracks">Tracks</a></li>
-          <li><a class="nav-link" href="#past">NottsHack 26</a></li>
           <li><a class="nav-link" href="#sponsors">Sponsors</a></li>
+          <li><a class="nav-link" href="#past">NottsHack 26</a></li>
           <li><a class="nav-link" href="#faq">FAQ</a></li>
         </ul>
         <i class="nav-ind" aria-hidden="true"></i>
@@ -93,13 +93,33 @@
             <p class="lede" data-rv>Run by the <b>Computer Science Society</b> at the University of Nottingham Malaysia. Bring an idea, pick up the tools, and ship something that works.</p>
           </div>
         </div>
-        <div class="slots" id="slots">
-          <article class="slot" data-rv style="--a:var(--spring)"><div class="spr" data-sprite="clock" aria-hidden="true"></div><h3><b data-count="48">48</b> hours</h3><p>Thursday 25 to Saturday 27 February 2027.</p></article>
-          <article class="slot" data-rv style="--a:var(--orchid)"><div class="spr" data-sprite="squad" aria-hidden="true"></div><h3>3–5 per squad</h3><p>Build with a team, not alone.</p></article>
-          <article class="slot" data-rv style="--a:var(--peri)"><div class="spr" data-sprite="spark" aria-hidden="true"></div><h3>New topics</h3><p>Such as AI. Each track’s topic follows its sponsor.</p></article>
-          <article class="slot" data-rv style="--a:var(--peach)"><div class="spr" data-sprite="trophy" aria-hidden="true"></div><h3>Prizes</h3><p>Prize pool announced soon. Last year: RM13,000+.</p></article>
-          <article class="slot" data-rv style="--a:var(--spring)"><div class="spr" data-sprite="burger" aria-hidden="true"></div><h3>Free food</h3><p>On campus day.</p></article>
-          <article class="slot" data-rv style="--a:var(--orchid)"><div class="spr" data-sprite="notes" aria-hidden="true"></div><h3>Live finale</h3><p>The Music Society plays the closing ceremony. Request a song.</p></article>
+        <div class="bento">
+          <div class="card b4 a-spring">
+            <div class="b-top"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg></span><span class="b-tag">Duration</span></div>
+            <h3 class="big" data-count="48">48</h3><p class="k">hours to build</p>
+            <div class="span" aria-hidden="true"><i><b>Thu 25</b></i><i><b>Fri 26</b></i><i><b>Sat 27</b></i></div>
+          </div>
+          <div class="card b2 a-orchid">
+            <div class="b-top"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-usr"/></svg></span><span class="b-tag">Squad</span></div>
+            <h3 class="big">3–5</h3><p class="k">people per squad</p>
+          </div>
+          <div class="card b2 a-peri">
+            <div class="b-top"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></span><span class="b-tag">Topics</span></div>
+            <h3 class="mid">New topics</h3><p class="s">Such as AI. Each track’s topic follows its sponsor.</p>
+          </div>
+          <div class="card b2 a-peach">
+            <div class="b-top"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-tro"/></svg></span><span class="b-tag">Prizes</span></div>
+            <h3 class="mid">Prize pool</h3><p class="s">Announced soon. Last year: RM13,000+.</p>
+          </div>
+          <div class="card b2 a-spring">
+            <div class="b-top"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-eat"/></svg></span><span class="b-tag">Food</span></div>
+            <h3 class="mid">Free food</h3><p class="s">On campus day.</p>
+          </div>
+          <div class="card b6 b-row a-orchid">
+            <div class="b-top"><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-mic"/></svg></span></div>
+            <div class="b-main"><span class="b-tag">Finale</span><h3 class="mid">A live closing ceremony</h3><p class="s">The Music Society, one of the biggest clubs at Nottingham, performs while everyone enjoys food. Request a song and some of the best musicians on campus will play it.</p></div>
+            <span class="eq" aria-hidden="true"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i></span>
+          </div>
         </div>
       </div></section>
 
@@ -148,10 +168,41 @@
       <section id="tracks" class="sec"><div class="wrap">
         <p class="eyebrow" data-rv>Tracks</p>
         <h2 class="h2" data-rv>Pick your challenge</h2>
-        <p class="lede" data-rv>Two tracks, each co-hosted by a sponsor, so the challenge is a real one. Briefs drop once the sponsors are confirmed.</p>
-        <div class="tracks">
-          <div class="card track a-spring" data-rv><span class="num">01</span><p class="status"><i></i>Revealing soon</p><h3>Track 01</h3><p class="s">Sponsor and challenge statement to be announced.</p></div>
-          <div class="card track a-orchid" data-rv><span class="num">02</span><p class="status"><i></i>Revealing soon</p><h3>Track 02</h3><p class="s">Sponsor and challenge statement to be announced.</p></div>
+        <p class="lede" data-rv>Three tracks, each backed by a sponsor, so the challenge is a real one. Sponsors and briefs are announced soon.</p>
+        <div class="tracks" id="tracks-grid">
+          <article class="track" data-rv style="--a:var(--spring);--d:0ms">
+            <span class="num" aria-hidden="true">01</span>
+            <p class="track-k">Track 01</p>
+            <h3 class="track-t">Challenge revealed soon</h3>
+            <div class="track-brief" aria-hidden="true"><i class="redact" style="width:94%"></i><i class="redact" style="width:80%"></i><i class="redact" style="width:56%"></i></div>
+            <div class="track-foot">
+              <p class="track-by">Sponsored by</p>
+              <p class="track-sp"><i class="redact"></i><span>To be announced</span></p>
+              <button type="button" class="link-go" data-pick="Track 01 sponsor">Sponsor this track<svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></button>
+            </div>
+          </article>
+          <article class="track" data-rv style="--a:var(--orchid);--d:140ms">
+            <span class="num" aria-hidden="true">02</span>
+            <p class="track-k">Track 02</p>
+            <h3 class="track-t">Challenge revealed soon</h3>
+            <div class="track-brief" aria-hidden="true"><i class="redact" style="width:90%"></i><i class="redact" style="width:84%"></i><i class="redact" style="width:48%"></i></div>
+            <div class="track-foot">
+              <p class="track-by">Sponsored by</p>
+              <p class="track-sp"><i class="redact"></i><span>To be announced</span></p>
+              <button type="button" class="link-go" data-pick="Track 02 sponsor">Sponsor this track<svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></button>
+            </div>
+          </article>
+          <article class="track" data-rv style="--a:var(--peach);--d:280ms">
+            <span class="num" aria-hidden="true">03</span>
+            <p class="track-k">Track 03</p>
+            <h3 class="track-t">Challenge revealed soon</h3>
+            <div class="track-brief" aria-hidden="true"><i class="redact" style="width:96%"></i><i class="redact" style="width:72%"></i><i class="redact" style="width:62%"></i></div>
+            <div class="track-foot">
+              <p class="track-by">Sponsored by</p>
+              <p class="track-sp"><i class="redact"></i><span>To be announced</span></p>
+              <button type="button" class="link-go" data-pick="Track 03 sponsor">Sponsor this track<svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></button>
+            </div>
+          </article>
         </div>
         <div class="card mentors" data-rv>
           <div class="avatars" aria-hidden="true"><span style="--c:var(--spring)">?</span><span style="--c:var(--orchid)">?</span><span style="--c:var(--peri)">?</span><span style="--c:var(--peach)">?</span></div>
@@ -159,76 +210,101 @@
         </div>
       </div></section>
 
-      <!-- PREVIOUSLY -->
-      <section id="past" class="sec"><div class="wrap">
-        <p class="eyebrow" data-rv>Previously</p>
-        <h2 class="h2" data-rv>NottsHack 26</h2>
-        <p class="lede" data-rv>Last year students from universities across Malaysia came together to build, learn and compete. Here’s how it went.</p>
-        <div class="stats" data-rv>
-          <div><b data-count="120">120</b><span>sign-ups</span></div>
-          <div><b data-count="10">10</b><span>universities</span></div>
-          <div><b data-count="13000" data-prefix="RM" data-suffix="+">RM13,000+</b><span>in prizes</span></div>
-        </div>
-        <div class="unis" aria-label="Universities that joined NottsHack 26"><div class="unis-track">
-          <span>TARUMT</span><span>Monash</span><span>UM</span><span>UPM</span><span>UKM</span><span>Sunway</span><span>APU</span><span>UTAR</span><span>Taylor’s</span><span>USM</span>
-          <span aria-hidden="true">TARUMT</span><span aria-hidden="true">Monash</span><span aria-hidden="true">UM</span><span aria-hidden="true">UPM</span><span aria-hidden="true">UKM</span><span aria-hidden="true">Sunway</span><span aria-hidden="true">APU</span><span aria-hidden="true">UTAR</span><span aria-hidden="true">Taylor’s</span><span aria-hidden="true">USM</span>
-        </div></div>
-        <div class="gallery" id="gallery">
-          <figure class="photo g-main" data-rv><img src="assets/gallery/web/main.jpg" alt="The whole NottsHack 26 crowd posing together in the lecture theatre" loading="lazy" decoding="async"/></figure>
-          <figure class="photo" data-rv><img src="assets/gallery/web/dsc01875.jpg" alt="Track 1 champions holding their winner’s cheque on stage" loading="lazy" decoding="async"/></figure>
-          <figure class="photo" data-rv><img src="assets/gallery/web/dsc01778.jpg" alt="A participant pitching their project to the judges" loading="lazy" decoding="async"/></figure>
-          <figure class="photo" data-rv><img src="assets/gallery/web/dsc01521.jpg" alt="Squads working on laptops at tables during the build" loading="lazy" decoding="async"/></figure>
-          <figure class="photo" data-rv><img src="assets/gallery/web/dsc01564.jpg" alt="A squad talking through their project with a mentor" loading="lazy" decoding="async"/></figure>
-          <figure class="photo g-wide" data-rv><img src="assets/gallery/web/dsc01537.jpg" alt="A mentor helping a squad at their table" loading="lazy" decoding="async"/></figure>
-          <figure class="photo" data-rv><img src="assets/gallery/web/img_9637.jpg" alt="A humanoid robot on display at the event" loading="lazy" decoding="async"/></figure>
-          <figure class="photo" data-rv><img src="assets/gallery/web/dsc01623.jpg" alt="Sponsor swag laid out on a table: backpacks, stickers and lanyards" loading="lazy" decoding="async"/></figure>
-        </div>
-        <a href="https://nottshack26.unmcss.dev/" target="_blank" rel="noopener" class="btn btn-ghost past-link" data-rv>Visit the NottsHack 26 site<svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></a>
-      </div></section>
-
       <!-- SPONSORS & PARTNERS -->
       <section id="sponsors" class="sec"><div class="wrap">
         <p class="eyebrow" data-rv>Sponsors</p>
         <h2 class="h2" data-rv id="sp-title">Partner with NottsHack</h2>
-        <p class="lede" data-rv id="sp-lede">Co-host a track and put your brand in front of students from universities across Malaysia, while they build on your challenge.</p>
+        <p class="lede" data-rv id="sp-lede">Put your brand in front of students from universities across Malaysia while they build on your challenge. Pick a tier and say hello.</p>
 
-        <!-- 2027 partner wall: filled from SPONSORS in js/config.js. Stays hidden until a sponsor is added. -->
-        <div class="wall" id="wall" hidden></div>
+        <ol class="perks">
+          <li data-rv><span>01</span><h3>Co-host a track</h3><p>The challenge topic follows you. Set a brief that matters to your team.</p></li>
+          <li data-rv><span>02</span><h3>Reach students</h3><p>Last year’s sign-ups came from 10 universities across Malaysia.</p></li>
+          <li data-rv><span>03</span><h3>Meet future hires</h3><p>Recruitment access to the builders who ship, not just their CVs.</p></li>
+          <li data-rv><span>04</span><h3>Get your tools used</h3><p>Put your product or API in builders’ hands for a whole hackathon.</p></li>
+        </ol>
 
-        <div class="perks">
-          <div class="card perk a-spring" data-rv><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-flag"/></svg></span><h3>Co-host a track</h3><p class="s">The challenge topic follows you. Set a brief that matters to your team.</p></div>
-          <div class="card perk a-orchid" data-rv><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-usr"/></svg></span><h3>Reach students</h3><p class="s">Last year’s sign-ups came from 10 universities across Malaysia.</p></div>
-          <div class="card perk a-peri" data-rv><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-brief"/></svg></span><h3>Meet future hires</h3><p class="s">Recruitment access to the builders who ship, not just their CVs.</p></div>
-          <div class="card perk a-peach" data-rv><span class="ico"><svg class="ic" aria-hidden="true"><use href="#i-cube"/></svg></span><h3>Get your tools used</h3><p class="s">Put your product or API in builders’ hands for a whole hackathon.</p></div>
+        <div class="tiers" id="tiers">
+          <article class="tier t-founding" data-tier="founding">
+            <div class="tier-info"><p class="tier-n">Tier 01</p><h3>Founding sponsor</h3><p class="s">The headline partner of NottsHack ’27.</p>
+              <button type="button" class="btn btn-primary btn-sm" data-pick="Founding sponsor">Be a founding sponsor<svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></button></div>
+            <div class="tier-art"><i class="fx"></i><div class="art" data-sprite="crown" aria-hidden="true"></div><div class="tiles" data-tiles="founding"></div></div>
+          </article>
+          <article class="tier t-diamond" data-tier="diamond">
+            <div class="tier-info"><p class="tier-n">Tier 02</p><h3>Diamond sponsor</h3><p class="s">A leading partner of the event.</p>
+              <button type="button" class="btn btn-ghost btn-sm" data-pick="Diamond sponsor">Be a diamond sponsor<svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></button></div>
+            <div class="tier-art"><i class="fx"></i><div class="art" data-sprite="gem" aria-hidden="true"></div><div class="tiles" data-tiles="diamond"></div></div>
+          </article>
+          <article class="tier t-platinum" data-tier="platinum">
+            <div class="tier-info"><p class="tier-n">Tier 03</p><h3>Platinum sponsor</h3><p class="s">A major partner of the event.</p>
+              <button type="button" class="btn btn-ghost btn-sm" data-pick="Platinum sponsor">Be a platinum sponsor<svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></button></div>
+            <div class="tier-art"><i class="fx"></i><div class="art" data-sprite="medal" aria-hidden="true"></div><div class="tiles" data-tiles="platinum"></div></div>
+          </article>
+          <article class="tier t-gold" data-tier="gold">
+            <div class="tier-info"><p class="tier-n">Tier 04</p><h3>Gold sponsor</h3><p class="s">A key supporter of the event.</p>
+              <button type="button" class="btn btn-ghost btn-sm" data-pick="Gold sponsor">Be a gold sponsor<svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></button></div>
+            <div class="tier-art"><i class="fx"></i><div class="art" data-sprite="coin" aria-hidden="true"></div><div class="tiles" data-tiles="gold"></div></div>
+          </article>
+          <article class="tier t-community" data-tier="community">
+            <div class="tier-info"><p class="tier-n">Community</p><h3>Community partner</h3><p class="s">For student societies, communities and media who help spread the word.</p>
+              <button type="button" class="btn btn-ghost btn-sm" data-pick="Community partner">Be a community partner<svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></button></div>
+            <div class="tier-art"><i class="fx"></i><div class="art" data-sprite="net" aria-hidden="true"></div><div class="tiles" data-tiles="community"></div></div>
+          </article>
         </div>
-        <p class="perk-foot" data-rv><svg class="ic" aria-hidden="true"><use href="#i-chat"/></svg>Your engineers can also mentor and judge, and meet the squads up close.</p>
 
-        <div class="past-partners" data-rv>
-          <p class="eyebrow">Backed last year by</p>
-          <ul><li>CCACC</li><li>DCAI</li><li>BGA</li><li>Dash</li></ul>
-        </div>
-
-        <div id="sponsor-card" class="card cta-card" data-rv>
-          <div class="cta-head"><div><h3>Let’s build a track together</h3><p class="s">Reach out to our committee for the sponsorship deck, tiers and what a partnership can look like.</p></div></div>
+        <div id="contact" class="card cta-card" data-rv>
+          <div class="cta-head"><h3>Let’s talk</h3><p class="s">Tell us what you’re interested in, then message our committee. We’ll send the sponsorship deck and walk you through the tiers.</p></div>
+          <div class="pick-row" role="group" aria-label="What are you interested in?">
+            <span class="pick-l">I’m interested in</span>
+            <button type="button" class="pick" data-chip="founding" data-pick="Founding sponsor">Founding</button>
+            <button type="button" class="pick" data-chip="diamond" data-pick="Diamond sponsor">Diamond</button>
+            <button type="button" class="pick" data-chip="platinum" data-pick="Platinum sponsor">Platinum</button>
+            <button type="button" class="pick" data-chip="gold" data-pick="Gold sponsor">Gold</button>
+            <button type="button" class="pick" data-chip="community" data-pick="Community partner">Community</button>
+            <button type="button" class="pick" data-chip="track" data-pick="Track sponsor">A track</button>
+          </div>
           <div class="contact-grid" id="contact-grid">
             <div class="contact a-spring">
               <div class="contact-top"><span class="badge">President</span></div>
               <h4>Yoonjae Lee</h4><p class="role">UNM Computer Science Society</p>
               <div class="contact-actions">
-                <a href="https://wa.me/60109699115" target="_blank" rel="noopener noreferrer" class="contact-btn"><span><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>+60 10 969 9115</span><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg><span class="sr-only">WhatsApp</span></a>
-                <a href="mailto:hfyyl16@nottingham.edu.my" class="contact-btn"><span><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>hfyyl16@nottingham.edu.my</span><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg></a>
+                <a href="https://wa.me/60109699115" data-wa="60109699115" target="_blank" rel="noopener noreferrer" class="contact-btn"><span><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>+60 10 969 9115</span><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg><span class="sr-only">WhatsApp</span></a>
+                <a href="mailto:hfyyl16@nottingham.edu.my" data-mail="hfyyl16@nottingham.edu.my" class="contact-btn"><span><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>hfyyl16@nottingham.edu.my</span><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg></a>
               </div>
             </div>
             <div class="contact a-orchid">
               <div class="contact-top"><span class="badge">External Relations Officer</span></div>
               <h4>Muhammad Sajid Desai</h4><p class="role">UNM Computer Science Society</p>
               <div class="contact-actions">
-                <a href="https://wa.me/601114727860" target="_blank" rel="noopener noreferrer" class="contact-btn"><span><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>+60 11 1472 7860</span><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg><span class="sr-only">WhatsApp</span></a>
-                <a href="mailto:hcymd2@nottingham.edu.my" class="contact-btn"><span><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>hcymd2@nottingham.edu.my</span><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg></a>
+                <a href="https://wa.me/601114727860" data-wa="601114727860" target="_blank" rel="noopener noreferrer" class="contact-btn"><span><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>+60 11 1472 7860</span><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg><span class="sr-only">WhatsApp</span></a>
+                <a href="mailto:hcymd2@nottingham.edu.my" data-mail="hcymd2@nottingham.edu.my" class="contact-btn"><span><svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>hcymd2@nottingham.edu.my</span><svg class="ic" aria-hidden="true"><use href="#i-ext"/></svg></a>
               </div>
             </div>
           </div>
         </div>
+      </div></section>
+
+      <!-- PREVIOUSLY (kept short) -->
+      <section id="past" class="sec sec-min"><div class="wrap">
+        <div class="past-head">
+          <div><p class="eyebrow" data-rv>Previously</p><h2 class="h2" data-rv>NottsHack 26</h2></div>
+          <a href="https://nottshack26.unmcss.dev/" target="_blank" rel="noopener" class="textlink" data-rv>Visit the NottsHack 26 site<svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></a>
+        </div>
+        <div class="stats-min" data-rv>
+          <div><b data-count="120">120</b><span>sign-ups</span></div>
+          <div><b data-count="10">10</b><span>universities</span></div>
+          <div><b data-count="13000" data-prefix="RM" data-suffix="+">RM13,000+</b><span>in prizes</span></div>
+        </div>
+        <div class="strip" id="gallery">
+          <figure class="photo" data-rv><img src="assets/gallery/web/main.jpg" alt="The whole NottsHack 26 crowd posing together in the lecture theatre" loading="lazy" decoding="async"/></figure>
+          <figure class="photo" data-rv><img src="assets/gallery/web/dsc01875.jpg" alt="Track 1 champions holding their winner’s cheque on stage" loading="lazy" decoding="async"/></figure>
+          <figure class="photo" data-rv><img src="assets/gallery/web/dsc01778.jpg" alt="A participant pitching their project to the judges" loading="lazy" decoding="async"/></figure>
+          <figure class="photo" data-rv data-more="+4 more"><img src="assets/gallery/web/dsc01521.jpg" alt="Squads working on laptops at tables during the build" loading="lazy" decoding="async"/></figure>
+          <figure class="photo hid"><img src="assets/gallery/web/dsc01564.jpg" alt="A squad talking through their project with a mentor" loading="lazy" decoding="async"/></figure>
+          <figure class="photo hid"><img src="assets/gallery/web/dsc01537.jpg" alt="A mentor helping a squad at their table" loading="lazy" decoding="async"/></figure>
+          <figure class="photo hid"><img src="assets/gallery/web/img_9637.jpg" alt="A humanoid robot on display at the event" loading="lazy" decoding="async"/></figure>
+          <figure class="photo hid"><img src="assets/gallery/web/dsc01623.jpg" alt="Sponsor swag laid out on a table: backpacks, stickers and lanyards" loading="lazy" decoding="async"/></figure>
+        </div>
+        <p class="past-by" data-rv>Backed by <b>CCACC</b> · <b>DCAI</b> · <b>BGA</b> · <b>Dash</b></p>
       </div></section>
 
       <!-- FAQ -->
@@ -238,7 +314,7 @@
         <div class="faq">
         <div class="faq-col">
           <div class="faq-i" data-rv><button type="button" class="faq-q" id="q1" aria-expanded="false" aria-controls="a1">How big is a squad?<i aria-hidden="true"></i></button><div class="faq-a" id="a1" role="region" aria-labelledby="q1"><div><p>Three to five people.</p></div></div></div>
-          <div class="faq-i" data-rv><button type="button" class="faq-q" id="q3" aria-expanded="false" aria-controls="a3">What will we build?<i aria-hidden="true"></i></button><div class="faq-a" id="a3" role="region" aria-labelledby="q3"><div><p>Solutions to challenges set by our sponsors across two tracks. The topic of each track follows its sponsor, with new topics this year such as AI.</p></div></div></div>
+          <div class="faq-i" data-rv><button type="button" class="faq-q" id="q3" aria-expanded="false" aria-controls="a3">What will we build?<i aria-hidden="true"></i></button><div class="faq-a" id="a3" role="region" aria-labelledby="q3"><div><p>Solutions to challenges set by our sponsors across three tracks. The topic of each track follows its sponsor, with new topics this year such as AI.</p></div></div></div>
           <div class="faq-i" data-rv><button type="button" class="faq-q" id="q5" aria-expanded="false" aria-controls="a5">Do CSS members get a discount?<i aria-hidden="true"></i></button><div class="faq-a" id="a5" role="region" aria-labelledby="q5"><div><p>Yes, CSS members get a discount on registration.</p></div></div></div>
         </div>
         <div class="faq-col">
@@ -286,7 +362,7 @@
     </dialog>
 
     <script src="js/config.js"></script>
-    <script src="js/main.js?v=14"></script>
+    <script src="js/main.js?v=15"></script>
     <script src="js/hero.js?v=6"></script>
   </body>
 </html>
