@@ -2,17 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>NottsHack 2027</title>
+    <title>NottsHack '27</title>
     <meta name="description" content="NottsHack 2027: a hackathon run by the UNM Computer Science Society at the University of Nottingham Malaysia. 25–27 Feb 2027, online build with finals on campus."/>
-    <meta property="og:type" content="website"/><meta property="og:title" content="NottsHack 2027"/>
+    <meta property="og:type" content="website"/><meta property="og:title" content="NottsHack '27"/>
     <meta property="og:description" content="A hackathon at the University of Nottingham Malaysia. 25–27 Feb 2027."/>
     <meta name="twitter:card" content="summary"/><meta name="theme-color" content="#140b29"/>
     <link rel="icon" type="image/png" href="assets/NottsHack-logo/nottshack-square.png"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/></noscript>
     <link rel="preload" href="assets/Monocraft.woff" as="font" type="font/woff" crossorigin/>
     <link rel="stylesheet" href="css/tailwind.css?v=9"/>
-    <link rel="stylesheet" href="css/style.css?v=30"/>
+    <link rel="stylesheet" href="css/style.css?v=32"/>
     <script>document.documentElement.classList.add("js");/* lite = phones / low-end devices: skips the expensive effects */if(matchMedia("(max-width:820px),(pointer:coarse)").matches||navigator.deviceMemory<=4||navigator.hardwareConcurrency<=4)document.documentElement.classList.add("lite")</script>
   </head>
   <body>
@@ -62,8 +62,8 @@
         <canvas id="fx" aria-hidden="true"></canvas>
         <div class="wrap hero-grid">
           <div class="hero-copy">
-            <p class="pill"><i></i>UNM CSS presents</p>
-            <h1 class="wm" id="wm"><span class="sr-only">NottsHack 27</span><span aria-hidden="true"><span class="ln"><span data-l>N</span><span data-l>o</span><span data-l>t</span><span data-l>t</span><span data-l>s</span><span data-l>H</span><span data-l>a</span><span data-l>c</span><span data-l>k</span></span><span class="ln ln2"><span data-l>2</span><span data-l>7</span></span></span></h1>
+            <p class="kicker">UNM CSS presents<i aria-hidden="true"></i></p>
+            <h1 class="wm" id="wm"><span class="sr-only">NottsHack '27</span><span aria-hidden="true"><span class="ln"><span data-l>N</span><span data-l>o</span><span data-l>t</span><span data-l>t</span><span data-l>s</span><span data-l>H</span><span data-l>a</span><span data-l>c</span><span data-l>k</span></span><span class="ln ln2"><span data-l>'</span><span data-l>2</span><span data-l>7</span></span></span></h1>
             <p class="hero-date"><time datetime="2027-02-25">Feb 25–27, 2027</time><span>Online build · Finals at UNMC</span></p>
             <p class="lede">A hackathon where you turn an idea into something real, with AI in your toolkit. Hosted by the UNM Computer Science Society.</p>
             <div class="cd-wrap"><p class="cd-label" id="cdl">Kickoff in</p>
@@ -74,7 +74,6 @@
             <a class="textlink" href="#sponsors">Interested in sponsoring? <svg class="ic ic-arr" aria-hidden="true"><use href="#i-arr"/></svg></a>
           </div>
         </div>
-        <a href="#about" class="scroll-cue" aria-label="Scroll to the event details"><span></span></a>
       </section>
 
       <!-- brand band -->
@@ -89,7 +88,7 @@
       <section id="about" class="sec"><div class="wrap about">
         <div class="about-copy">
           <div class="about-stick">
-            <p class="eyebrow" data-rv>01 · The event</p>
+            <p class="eyebrow" data-rv>The event</p>
             <h2 class="h2" data-rv>Meet NottsHack</h2>
             <p class="lede" data-rv>Run by the <b>Computer Science Society</b> at the University of Nottingham Malaysia. Bring an idea, pick up the tools, and ship something that works.</p>
             <p class="note" data-rv><i></i>New this year: we moved from April to February, so more students can join in.</p>
@@ -107,19 +106,38 @@
 
       <!-- SCHEDULE -->
       <section id="schedule" class="sec"><div class="wrap">
-        <p class="eyebrow" data-rv>02 · Schedule</p>
+        <p class="eyebrow" data-rv>Schedule</p>
         <h2 class="h2" data-rv>How it runs</h2>
         <p class="lede" data-rv>Hacking is fully online, because staying overnight was hard for many people last year. Only finalists come to campus.</p>
         <div class="days" id="days">
-          <div class="day" data-rv><i class="dot"></i><div class="card a-spring">
-            <p class="when">Thu · 25 Feb</p><span class="tag tag-on">Online</span>
-            <h3>Kickoff</h3><p class="s">Opening ceremony and briefing, then workshops to get your squad moving.</p></div></div>
-          <div class="day" data-rv><i class="dot"></i><div class="card a-orchid">
-            <p class="when">Fri · 26 Feb</p><span class="tag tag-on">Online</span>
-            <h3>Build</h3><p class="s">Hack with your squad from wherever you are, with mentors on hand to help you scope and build.</p></div></div>
-          <div class="day" data-rv><i class="dot"></i><div class="card a-peach">
-            <p class="when">Sat · 27 Feb</p><span class="tag tag-off">On campus</span>
-            <h3>Demo Day</h3><p class="s">Finalists pitch to the judges at UNMC, followed by networking, food, the awards and the closing ceremony.</p></div></div>
+          <div class="wire" aria-hidden="true"><i class="w-base"></i><i class="w-on"></i><i class="w-head"></i></div>
+          <article class="day" style="--c:var(--spring)">
+            <div class="day-top"><span class="node" aria-hidden="true"></span><span class="day-n">Day 01</span></div>
+            <div class="day-body">
+              <p class="date"><b>25</b><span>Thu<br/>Feb</span></p>
+              <p class="mode">// online</p>
+              <h3 data-t="Kickoff">Kickoff</h3>
+              <p class="s">Opening ceremony and briefing, then workshops to get your squad moving.</p>
+            </div>
+          </article>
+          <article class="day" style="--c:var(--orchid)">
+            <div class="day-top"><span class="node" aria-hidden="true"></span><span class="day-n">Day 02</span></div>
+            <div class="day-body">
+              <p class="date"><b>26</b><span>Fri<br/>Feb</span></p>
+              <p class="mode">// online</p>
+              <h3 data-t="Build">Build</h3>
+              <p class="s">Hack with your squad from wherever you are, with mentors on hand to help you scope and build.</p>
+            </div>
+          </article>
+          <article class="day" style="--c:var(--peach)">
+            <div class="day-top"><span class="node" aria-hidden="true"></span><span class="day-n">Day 03</span></div>
+            <div class="day-body">
+              <p class="date"><b>27</b><span>Sat<br/>Feb</span></p>
+              <p class="mode">// on campus</p>
+              <h3 data-t="Demo Day">Demo Day</h3>
+              <p class="s">Finalists pitch to the judges at UNMC, followed by networking, food, the awards and the closing ceremony.</p>
+            </div>
+          </article>
         </div>
         <div class="card where" data-rv>
           <div><p class="eyebrow">Find us</p><p class="where-t"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>University of Nottingham Malaysia, Semenyih, Selangor</p><p class="s">Finalists only. Parking and transport details to come.</p></div>
@@ -129,7 +147,7 @@
 
       <!-- TRACKS + MENTORS -->
       <section id="tracks" class="sec"><div class="wrap">
-        <p class="eyebrow" data-rv>03 · Tracks</p>
+        <p class="eyebrow" data-rv>Tracks</p>
         <h2 class="h2" data-rv>Pick your challenge</h2>
         <p class="lede" data-rv>Two tracks, each co-hosted by a sponsor, so the challenge is a real one. Briefs drop once the sponsors are confirmed.</p>
         <div class="tracks">
@@ -144,7 +162,7 @@
 
       <!-- PREVIOUSLY -->
       <section id="past" class="sec"><div class="wrap">
-        <p class="eyebrow" data-rv>04 · Previously</p>
+        <p class="eyebrow" data-rv>Previously</p>
         <h2 class="h2" data-rv>NottsHack 26</h2>
         <p class="lede" data-rv>Last year students from universities across Malaysia came together to build, learn and compete. Here’s how it went.</p>
         <div class="stats" data-rv>
@@ -171,7 +189,7 @@
 
       <!-- SPONSORS & PARTNERS -->
       <section id="sponsors" class="sec"><div class="wrap">
-        <p class="eyebrow" data-rv>05 · Sponsors</p>
+        <p class="eyebrow" data-rv>Sponsors</p>
         <h2 class="h2" data-rv id="sp-title">Partner with NottsHack</h2>
         <p class="lede" data-rv id="sp-lede">Co-host a track and put your brand in front of students from universities across Malaysia, while they build on your challenge.</p>
 
@@ -216,7 +234,7 @@
 
       <!-- FAQ -->
       <section id="faq" class="sec"><div class="wrap">
-        <p class="eyebrow" data-rv>06 · FAQ</p>
+        <p class="eyebrow" data-rv>FAQ</p>
         <h2 class="h2" data-rv>Good questions</h2>
         <div class="faq">
         <div class="faq-col">
@@ -252,7 +270,7 @@
           <a href="https://www.instagram.com/unm.css/" target="_blank" rel="noopener noreferrer" aria-label="UNM CSS on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg></a>
           <a href="https://www.linkedin.com/company/unmcss" target="_blank" rel="noopener noreferrer" aria-label="UNM CSS on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0H5C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5ZM8 19H5V9h3v10ZM6.5 7.7a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6ZM20 19h-3v-4.8c0-1.14-.02-2.61-1.59-2.61-1.6 0-1.84 1.25-1.84 2.53V19h-3V9h2.88v1.37h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.6V19Z"/></svg></a>
         </div>
-        <p class="foot-copy">NottsHack 27 © UNM CSS</p>
+        <p class="foot-copy">NottsHack '27 © UNM CSS</p>
         <button id="poke" type="button" class="poke">psst… click the NottsHack letters up top</button>
       </div>
     </div></footer>
@@ -269,7 +287,7 @@
     </dialog>
 
     <script src="js/config.js"></script>
-    <script src="js/main.js?v=12"></script>
-    <script src="js/hero.js?v=3"></script>
+    <script src="js/main.js?v=13"></script>
+    <script src="js/hero.js?v=5"></script>
   </body>
 </html>

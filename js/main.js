@@ -31,7 +31,27 @@ $$('.card:not([data-rv])').forEach(c=>{if(!c.closest('[data-rv]'))c.setAttribute
  $$('[data-rv]').forEach(e=>{const p=e.parentElement,n=groups.get(p)||0;groups.set(p,n+1);e.style.setProperty('--d',Math.min(n,6)*80+'ms')});
  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14,rootMargin:'0px 0px -6% 0px'});
  $$('[data-rv]').forEach(e=>io.observe(e));
- const days=$('#days');if(days)new IntersectionObserver(([e],o)=>{if(e.isIntersecting){days.classList.add('in');o.disconnect()}},{threshold:.25}).observe(days)}
+}
+
+/* ---- schedule: a power line that charges up as you scroll; each day boots when the current reaches it ---- */
+{const box=$('#days');if(box){
+ const days=$$('.day',box),vert=matchMedia('(max-width:860px)'),HC=['#7dffb2','#ff7ad9','#ffb86b'];
+ let th=[],cur=0,tgt=0,running=false;
+ const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+ const measure=()=>{const r=box.getBoundingClientRect();th=days.map(d=>{const n=$('.node',d).getBoundingClientRect();return vert.matches?(n.top+n.height/2-r.top)/r.height:(n.left+n.width/2-r.left)/r.width})};
+ const decode=el=>{const t=el.dataset.t;if(RM.matches||el._d)return;el._d=1;let f=0;const id=setInterval(()=>{el.textContent=[...t].map((c,i)=>c===' '||i<f?c:'#%&*+?<>/'[Math.random()*9|0]).join('');if(++f>t.length+1){clearInterval(id);el.textContent=t}},55)};
+ const paint=()=>{box.style.setProperty('--p',cur.toFixed(4));let n=0;
+  days.forEach((d,i)=>{const on=cur>=th[i]-.002;if(on){n++;if(!d.classList.contains('on')){d.classList.add('on');decode($('h3',d))}}else d.classList.remove('on')});
+  box.style.setProperty('--hc',HC[Math.max(0,n-1)]);box.classList.toggle('live',cur>.001&&cur<.995);box.classList.toggle('done',cur>=.995)};
+ const aim=()=>{const r=box.getBoundingClientRect();tgt=clamp((innerHeight*(vert.matches?.62:.72)-r.top)/(vert.matches?r.height:r.height*1.1),0,1)};
+ const tick=()=>{cur+=(tgt-cur)*.11;if(Math.abs(tgt-cur)<.0006)cur=tgt;paint();if(cur!==tgt)requestAnimationFrame(tick);else running=false};
+ const kick=()=>{if(!running){running=true;requestAnimationFrame(tick)}};
+ const init=()=>{measure();aim();if(RM.matches){cur=1;paint()}else{cur=tgt;paint()}};
+ if(RM.matches){measure();cur=1;paint()}
+ else{addEventListener('scroll',()=>{aim();kick()},{passive:true});
+  addEventListener('resize',()=>{measure();aim();kick()});
+  init();addEventListener('load',init);if(document.fonts)document.fonts.ready.then(()=>{measure();aim();kick()})}
+}}
 
 /* ---- card spotlight: a soft glow follows the cursor ---- */
 if(matchMedia('(hover:hover)').matches)document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(!c)return;const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')},{passive:true});
