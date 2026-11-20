@@ -53,25 +53,48 @@ $$('.card:not([data-rv])').forEach(c=>{if(!c.closest('[data-rv]'))c.setAttribute
   init();addEventListener('load',init);if(document.fonts)document.fonts.ready.then(()=>{measure();aim();kick()})}
 }}
 
-/* ---- pixel emblems for the sponsor tiers: drawn from tiny bitmaps, each pixel pops in at a random moment ---- */
-{const PAL={a:'var(--a)',w:'#fffaff',c:'color-mix(in srgb,var(--a) 45%,#140b29)',y:'#ffd35c',o:'#d9961c',l:'#fff6c9'};
+/* ---- pixel sprites: the "Meet NottsHack" slots and the sponsor-tier emblems. Drawn from tiny bitmaps; each pixel pops in at a random moment ---- */
+{const PAL={a:'var(--a)',w:'#fffaff',c:'color-mix(in srgb,var(--a) 45%,#140b29)',y:'#ffd35c',k:'#d9961c',l:'#fff6c9',g:'#7dffb2',p:'#ff7ad9',b:'#9aa5ff',o:'#ffb86b',n:'#a06a46',r:'#ff6b6b',d:'rgba(255,255,255,.22)'};
  const disc=(n,ring,fill)=>{const c=(n-1)/2,r=n/2-.2,m=[];for(let y=0;y<n;y++){let row='';for(let x=0;x<n;x++){const d=Math.hypot(x-c,y-c);row+=d>r?'.':d>r-1.15?ring:fill}m.push(row)}return m};
  const line=(x0,y0,x1,y1)=>{const p=[],n=Math.max(Math.abs(x1-x0),Math.abs(y1-y0));for(let i=0;i<=n;i++)p.push([Math.round(x0+(x1-x0)*i/n),Math.round(y0+(y1-y0)*i/n)]);return p};
  const node=(cx,cy)=>{const p=[];for(let y=-1;y<=1;y++)for(let x=-1;x<=1;x++)p.push([cx+x,cy+y]);return p};
+ const person=c=>['.www.','wwwww','wwwww','.www.',c.repeat(5),c.repeat(5)];
  const SP={
+  /* about slots */
+  clock:{w:13,h:13,L:[
+   {map:['....aaaaa....','..aa.....aa..','.a.........a.','.a.........a.','a...........a','a...........a','a...........a','a...........a','a...........a','.a.........a.','.a.........a.','..aa.....aa..','....aaaaa....']},
+   {cls:'hand',c:'w',pts:[[6,2],[6,3],[6,4],[6,5],[6,6]]},
+   {c:'w',pts:[[7,6],[8,6],[9,6]]}]},
+  squad:{w:29,h:6,u:.78,L:[0,1,2,3,4].map(i=>({x:i*6,cls:i<3?'pp':'pd',map:person(['g','p','b','d','d'][i])}))},
+  spark:{w:15,h:14,L:[
+   {cls:'star',y:2,map:['.....a.....','.....a.....','....aaa....','....aaa....','..aaaaaaa..','aaaaawaaaaa','..aaaaaaa..','....aaa....','....aaa....','.....a.....','.....a.....']},
+   {cls:'tw1',x:11,y:0,map:['.w.','www','.w.']},
+   {cls:'tw2',x:12,y:11,map:['.w.','www','.w.']}]},
+  trophy:{w:13,h:12,L:[
+   {cls:'cup',map:['.yyyyyyyyyyy.','yy.yyyyyyy.yy','y..yyyyyyy..y','yy.yyyyyyy.yy','...yyyyyyy...','....yyyyy....','.....yyy.....']},
+   {y:7,map:['......y......','......y......','.....yyy.....','....yyyyy....','....yyyyy....']},
+   {cls:'shine',c:'w',pts:[[4,1],[5,1],[4,2]]}]},
+  burger:{w:13,h:11,L:[
+   {cls:'bun',map:['...ooooooo...','.ooooooooooo.','ooowooowooooo','ooooooooooooo']},
+   {y:4,map:['ggggggggggggg','.yyyyyyyyyyy.','.nnnnnnnnnnn.','.nnnnnnnnnnn.','ooooooooooooo','.ooooooooooo.','..ooooooooo..']}]},
+  notes:{w:11,h:9,L:[
+   {cls:'notes',map:['...aaaaaaaa','...aaaaaaaa','...a......a','...a......a','...a......a','...a......a','.aaa....aaa','aaaa....aaa','.aa......aa']}]},
+  /* the NottsHack goose, for the hero title */
+  goose:{w:14,h:16,L:[{map:['.......wwww...','......wwwwww..','......wkwwwoo.','......wwwwoo..','......wwww....','.....wwww.....','.....wwww.....','....wwwww.....','w...wwwwwww...','ww.wwwwwwwwww.','wwwwggggggwwg.','wwwwwggggwwww.','.wwwwwwwwwwg..','..wwwwwwwwg...','....o...o.....','...ooo.ooo....']}]},
+  /* sponsor tiers */
   crown:{w:15,h:9,L:[{map:['w......w......w','aa....aaa....aa','aa...aaaaa...aa','aaa.aaaaaaa.aaa','aaaaaaaaaaaaaaa','aaaaaaaaaaaaaaa','aaawaaawaaawaaa','aaaaaaaaaaaaaaa','aaaaaaaaaaaaaaa']}]},
   gem:{w:13,h:11,L:[{map:['...wwwwwww...','..waaaaaaaw..','.waaaaaaaaaw.','wwwwwwwwwwwww','.aaaaaaccccc.','..aaaaaccccc.','...aaaaccc...','....aaacc....','.....aacc....','......ac.....','.......c.....']}]},
   medal:{w:13,h:13,L:[{map:disc(13,'w','a')},{c:'c',pts:[[6,3],[6,4],[4,5],[5,5],[6,5],[7,5],[8,5],[5,6],[6,6],[7,6],[5,7],[6,7],[7,7],[5,8],[7,8]]}]},
-  coin:{w:13,h:13,L:[{map:disc(13,'o','y')},{c:'o',pts:[[5,4],[6,4],[7,4],[6,5],[6,6],[6,7],[6,8],[5,9],[6,9],[7,9]]},{c:'l',pts:[[3,4],[3,5],[4,3]]}]},
+  coin:{w:13,h:13,L:[{map:disc(13,'k','y')},{c:'k',pts:[[5,4],[6,4],[7,4],[6,5],[6,6],[6,7],[6,8],[5,9],[6,9],[7,9]]},{c:'l',pts:[[3,4],[3,5],[4,3]]}]},
   net:{w:15,h:13,L:[{c:'c',pts:[...line(7,1,2,11),...line(7,1,12,11),...line(2,11,12,11)]},{c:'w',pts:[...node(7,1),...node(2,11),...node(12,11)]}]}
  };
  const rect=(x,y,c)=>`<rect x="${x}" y="${y}" width="1" height="1" style="fill:${PAL[c]};--r:${(Math.random()*.75).toFixed(2)}s"/>`;
  $$('[data-sprite]').forEach(el=>{const d=SP[el.dataset.sprite];if(!d)return;
-  const g=d.L.map(l=>{let o='';
-   if(l.pts)l.pts.forEach(([x,y])=>o+=rect(x,y,l.c));
-   else l.map.forEach((row,y)=>[...row].forEach((c,x)=>{if(c!=='.')o+=rect(x,y,c)}));
-   return `<g>${o}</g>`}).join('');
-  el.innerHTML=`<svg viewBox="0 0 ${d.w} ${d.h}" shape-rendering="crispEdges" style="width:calc(var(--u)*${d.w});height:calc(var(--u)*${d.h})">${g}</svg>`})}
+  const g=d.L.map(l=>{let o='';const ox=l.x||0,oy=l.y||0;
+   if(l.pts)l.pts.forEach(([x,y])=>o+=rect(x+ox,y+oy,l.c));
+   else l.map.forEach((row,y)=>[...row].forEach((c,x)=>{if(c!=='.')o+=rect(x+ox,y+oy,c)}));
+   return `<g class="${l.cls||''}">${o}</g>`}).join('');
+  el.innerHTML=`<svg viewBox="0 0 ${d.w} ${d.h}" shape-rendering="crispEdges" style="width:calc(var(--u)*${d.u||1}*${d.w});height:calc(var(--u)*${d.u||1}*${d.h})">${g}</svg>`})}
 
 /* ---- headings decode as they scroll in (the display font is monospaced, so nothing shifts) ---- */
 if(!RM.matches){const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);const el=e.target,t=el.textContent;let f=0;

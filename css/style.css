@@ -128,9 +128,15 @@ p{margin:0}
 .kicker{display:flex;align-items:center;font:700 .82rem/1 var(--font-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--text)}
 .kicker i{width:.6rem;height:1.1rem;margin-left:.55rem;background:var(--spring);animation:caret 1.1s steps(1) infinite}
 @keyframes caret{50%{opacity:0}}
-.wm{margin-top:1.5rem;font:400 clamp(2rem,10.6vw,5rem)/1 var(--font-display);color:var(--ink);text-shadow:0 .06em 0 rgba(0,0,0,.28);user-select:none}
+.wm{margin-top:1.5rem;font:400 clamp(2rem,9.4vw,5rem)/1 var(--font-display);color:var(--ink);text-shadow:0 .06em 0 rgba(0,0,0,.28);user-select:none}
 .wm .ln{display:block;white-space:nowrap}
 .wm .ac{color:var(--spring);text-shadow:0 .06em 0 rgba(0,0,0,.28),0 0 .5em rgba(125,255,178,.35)}
+/* the goose in the title: builds itself pixel by pixel, then bobs */
+.wm .goose{--u:.06em;display:inline-block;vertical-align:-.06em;margin:0 .1em 0 .06em}
+.goose svg{display:block;overflow:visible}
+.goose rect{transform-box:fill-box;transform-origin:center;animation:px .32s steps(3,end) calc(.9s + var(--r,0s)) both}
+.goose svg{animation:gbob 1.8s steps(2) 2s infinite}
+@keyframes gbob{50%{translate:0 -.035em}}
 .wm [data-l]{display:inline-block;cursor:pointer;transition:transform .3s var(--ease)}
 .wm [data-l]:hover{animation:hop .5s var(--ease)}.wm [data-l]:active{transform:scale(.88,1.12)}
 @keyframes hop{40%{transform:translateY(-.12em) rotate(-5deg);color:var(--orchid)}}
@@ -147,7 +153,7 @@ p{margin:0}
 .cd small{display:block;margin-top:.4rem;font:700 .55rem/1 var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
 .cta-c{justify-content:center}
-@media(min-width:1081px){.hero{padding-block:7.5rem 6rem}.wm{font-size:clamp(3.4rem,5.6vw,5rem)}}
+@media(min-width:1081px){.hero{padding-block:7.5rem 6rem}.wm{font-size:clamp(3rem,5vw,4.5rem)}}
 /* tablet + phone: the tesseract sits in its own zone above the copy (hero.js sets --zone) */
 @media(max-width:1080px){.hero{min-height:0;align-items:flex-start;padding:calc(5.2rem + var(--zone,300px)) 0 4rem}}
 @media(max-width:560px){.cd div{min-width:0;flex:1}.cta .btn{flex:1 1 100%}}
@@ -161,44 +167,43 @@ p{margin:0}
 .band-track i:nth-of-type(2n){background:var(--orchid)}.band-track i:nth-of-type(3n){background:var(--peri)}
 @keyframes mq{to{transform:translateX(-50%)}}
 
-/* ---------- about ---------- */
+/* ---------- about: pixel "inventory" slots whose sprites build themselves ---------- */
 .about{display:grid;gap:3rem}
 @media(min-width:960px){.about{grid-template-columns:5fr 7fr;gap:4rem;align-items:start}.about-stick{position:sticky;top:7rem}}
-.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1rem}
-.bento .card{display:flex;flex-direction:column;min-height:11.5rem;padding:1.4rem 1.5rem 1.5rem}
-.b2{grid-column:span 2}.b4{grid-column:span 4}.b6{grid-column:span 6}
-.b-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:auto;padding-bottom:1.4rem}
-.b-tag{font:700 .66rem/1 var(--font-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-.bento .ico{width:2.6rem;height:2.6rem;margin:0;border-radius:50%;border-color:color-mix(in srgb,var(--a) 30%,transparent);background:color-mix(in srgb,var(--a) 10%,transparent)}
-.bento .ico .ic{width:1.2rem;height:1.2rem;stroke-width:1.6}
-/* the icons draw themselves in */
-.bento .ico .ic{stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
-.bento .card.in .ico .ic{animation:draw 1.3s var(--ease) .35s both}
-@keyframes draw{from{opacity:1;stroke-dashoffset:1}to{opacity:1;stroke-dashoffset:0}}
-.bento .big{font:400 clamp(3rem,6vw,4.6rem)/1 var(--font-display);white-space:nowrap;background:linear-gradient(180deg,#fff 20%,color-mix(in srgb,var(--a) 55%,#fff));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
-.bento .b2 .big{font-size:clamp(2.4rem,4vw,3.4rem)}
-.bento .mid{font:400 1.2rem/1.25 var(--font-display);letter-spacing:0}
-.bento .k{margin-top:.5rem}
-.bento .s{margin-top:.5rem;max-width:26rem}
-/* three-day bar under the 48 hours */
-.span{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-top:1.25rem}
-.span i{position:relative;display:block;height:.35rem;border-radius:99px;background:rgba(255,255,255,.08)}
-.span i::after{content:"";position:absolute;inset:0;border-radius:99px;background:var(--a);scale:0 1;transform-origin:left;transition:scale 1.1s var(--ease) calc(.6s + var(--k,0) * .25s)}
-.card.in .span i::after{scale:1 1}
-.span i:nth-child(2){--k:1}.span i:nth-child(3){--k:2}
-.span b{position:absolute;left:0;top:.75rem;font:700 .62rem/1 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.span{padding-bottom:1.1rem}
-/* live finale */
-.b-row{flex-direction:row!important;align-items:center;gap:1.5rem}
-.b-row .b-top{margin:0;padding:0;align-self:flex-start}
-.b-main .b-tag{display:block;margin-bottom:.6rem}
-.b-main{flex:1;min-width:0}
-.eq{display:flex;align-items:flex-end;gap:4px;height:3.6rem;flex:none}
-.eq i{display:block;width:4px;height:100%;border-radius:2px;background:linear-gradient(var(--a),color-mix(in srgb,var(--a) 20%,transparent));scale:1 .18;transform-origin:bottom;opacity:.85}
-.card.in .eq i{animation:eq 1.5s ease-in-out calc(var(--i) * -.17s) infinite}
-@keyframes eq{0%,100%{scale:1 .2}35%{scale:1 .95}65%{scale:1 .45}}
-@media(max-width:700px){.bento{grid-template-columns:repeat(2,minmax(0,1fr))}.b4,.b6{grid-column:span 2}.b2{grid-column:span 1}.b-row{flex-wrap:wrap}.eq{width:100%;height:2.4rem;justify-content:space-between}.eq i{flex:1;width:auto}.bento .card{padding:1.2rem}}
-@media(max-width:420px){.b2{grid-column:span 2}}
+.slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.slot{--a:var(--spring);position:relative;padding:1rem 1rem 1.4rem;background:#1c1237;
+  box-shadow:inset 2px 2px 0 rgba(255,255,255,.12),inset -2px -2px 0 rgba(0,0,0,.45),0 0 0 2px #0d0620;
+  transition:transform .3s steps(3),box-shadow .3s,opacity .9s var(--ease) var(--d,0ms),translate .9s var(--ease) var(--d,0ms)}
+.slot:hover{transform:translateY(-4px);box-shadow:inset 2px 2px 0 color-mix(in srgb,var(--a) 50%,transparent),inset -2px -2px 0 rgba(0,0,0,.45),0 0 0 2px var(--a),0 14px 34px -14px var(--a)}
+.spr{--u:6px;display:grid;place-items:center;height:7.4rem;margin-bottom:1.1rem;background:#0f0820;box-shadow:inset 2px 2px 0 rgba(0,0,0,.55),inset -2px -2px 0 rgba(255,255,255,.07);
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:12px 12px}
+.spr svg{display:block;overflow:visible}
+.slot h3{font:400 1.15rem/1.25 var(--font-display);color:var(--ink)}
+.slot h3 b{color:var(--a)}
+.slot p{margin-top:.55rem;font-size:.86rem;line-height:1.6}
+.spr svg rect{transform-box:fill-box;transform-origin:center}
+.js .spr rect{opacity:0}
+.slot.in .spr rect{animation:px .32s steps(3,end) var(--r,0s) both}
+@keyframes px{from{opacity:0;scale:0}to{opacity:1;scale:1}}
+.slot:hover .spr svg{animation:jump .5s steps(4)}
+@keyframes jump{40%{translate:0 -6px}}
+/* idle motion, starts once the sprite has built */
+.spr g{transform-box:view-box}
+.slot.in .hand{transform-origin:6.5px 6.5px;animation:tick 6s steps(12) 1.3s infinite}
+@keyframes tick{to{rotate:360deg}}
+.slot.in .pp{animation:bob 1.4s steps(2) 1.3s infinite}.slot.in .pp:nth-child(2){animation-delay:1.5s}.slot.in .pp:nth-child(3){animation-delay:1.7s}
+@keyframes bob{50%{translate:0 -1px}}
+.slot.in .pd{animation:blink 1.6s steps(2) 1.3s infinite}.slot.in .pd:last-child{animation-delay:1.9s}
+@keyframes blink{50%{opacity:.25}}
+.slot.in .tw1{animation:blink 1.2s steps(2) 1.3s infinite}.slot.in .tw2{animation:blink 1.2s steps(2) 1.9s infinite}
+.slot.in .star{transform-origin:5.5px 7.5px;animation:pulse 2.4s steps(2) 1.3s infinite}
+@keyframes pulse{50%{scale:1.14}}
+.slot.in .cup{animation:bob 1.6s steps(2) 1.3s infinite}.slot.in .shine{animation:blink .9s steps(2) 1.3s infinite}
+.slot.in .bun{animation:bob 1.8s steps(2) 1.3s infinite}
+.slot.in .notes{transform-origin:5.5px 4.5px;animation:sway 1.6s steps(2) 1.3s infinite}
+@keyframes sway{50%{rotate:5deg;translate:0 -1px}}
+@media(max-width:1100px){.slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.slots{gap:.8rem}.spr{--u:4.6px;height:6.4rem}.slot{padding:.85rem .85rem 1.2rem}.slot h3{font-size:1.02rem}}
 
 /* ---------- schedule: a power line that charges up as you scroll ---------- */
 .days{--p:0;position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem;margin-top:3.5rem;padding-top:4rem}
@@ -375,7 +380,6 @@ p{margin:0}
 .cta-card .cta-head h3{font:400 clamp(1.5rem,3.4vw,2.2rem)/1.15 var(--font-display)}
 .cta-card .cta-head .s{max-width:36rem;margin-top:.8rem;font-size:1rem}
 .pick-row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:1.75rem}
-.pick-l{margin-right:.6rem;font:700 .7rem/1 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .pick{padding:.6rem 1rem;border:1px solid var(--line-2);border-radius:8px;background:rgba(255,255,255,.03);font:600 .84rem/1 var(--font-body);color:var(--text);cursor:pointer;transition:border-color .3s,background-color .3s,color .3s}
 .pick:hover{border-color:var(--spring);color:var(--ink)}
 .pick[aria-pressed=true]{border-color:var(--spring);background:rgba(125,255,178,.13);color:var(--ink)}
