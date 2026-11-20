@@ -65,7 +65,7 @@
      condense out of the cloud into the goose, so it stays part of the particle world instead of being a pasted picture. */
   const EM = lite ? 3200 : 10000;
   const EX = new Float32Array(EM * 3), ES = new Float32Array(EM * 3), ED = new Float32Array(EM), EW = new Float32Array(EM), EC = new Uint8Array(EM), ER = new Uint8Array(EM);
-  const EPAL = []; let gready = false, gw = 1, gh = 1, gcell = 1;
+  const EOX = new Float32Array(EM), EOY = new Float32Array(EM), EPAL = []; let gready = false, gw = 1, gh = 1, gcell = 1;
   const gimg = new Image();
   gimg.onload = () => {
     gw = gimg.naturalWidth; gh = gimg.naturalHeight; gcell = 1.8 / Math.max(gw, gh);
@@ -105,6 +105,7 @@
   /* per-particle morph timing: each one leaves a little later and swirls by its own amount, so the change flows like a fluid */
   const DL = Float32Array.from({ length: N }, () => rn() * .4), SW = Float32Array.from({ length: N }, () => (.6 + rn() * .9) * (rn() < .5 ? -1 : 1));
   const SX = new Float32Array(N), SY = new Float32Array(N), SD = new Float32Array(N), SB = new Uint8Array(N);
+  const OFX = new Float32Array(N), OFY = new Float32Array(N); /* how far the cursor has pushed each particle (eases out and back) */
   const DUST = Array.from({ length: lite ? 10 : 34 }, () => ({ fx: rn(), fy: rn(), r: 1 + rn() * 1.6, p: rn() * TAU, c: rn() > .6 ? 1 : 4 }));
   const WK = Array.from({ length: 5 }, () => ({ a: 0, b: 0, u: 1 }));
 
@@ -140,7 +141,7 @@
     const pitch = .52 * w[0] + .36 * w[1] + .03 * wf + Math.sin(t * .0004) * .07 * w[1] + pitchD;
     const cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
     const A = PH[cur], B = mp >= 1 ? A : PH[to], BA = PB[cur], BB = PB[mp >= 1 ? cur : to];
-    const ox = cx + mx * 8, oy = cy + my * 6, px0 = ptr ? ptr[0] : -1e4, py0 = ptr ? ptr[1] : -1e4, pr = R * .3;
+    const ox = cx + mx * 8, oy = cy + my * 6, px0 = ptr ? ptr[0] : -1e4, py0 = ptr ? ptr[1] : -1e4, pr = R * .34, ek = 1 - Math.exp(-dt / 120);
 
     for (let i = 0; i < N; i++) {
       const k = i * 3, u = mp >= 1 ? 1 : clamp((mp - DL[i]) / .6, 0, 1), s = smooth(u);
@@ -148,8 +149,9 @@
       if (u > 0 && u < 1) { const a = Math.sin(Math.PI * s) * SW[i], c = Math.cos(a), n = Math.sin(a), q = X * c + Z * n; Z = -X * n + Z * c; X = q }
       const sh = Math.sin(t * .0015 + i * 1.7) * .005; X += sh; Y += sh;
       const x1 = X * cyw + Z * syw, z1 = -X * syw + Z * cyw, y2 = Y * cp - z1 * sp, z2 = Y * sp + z1 * cp, f = 1 / (1 - z2 * .32);
-      let sx = ox + x1 * R * f, sy = oy + y2 * R * f;
-      if (ptr) { const dx = sx - px0, dy = sy - py0, d2 = dx * dx + dy * dy; if (d2 < pr * pr && d2 > 1) { const d = Math.sqrt(d2), p = 1 - d / pr; sx += dx / d * p * p * R * .2; sy += dy / d * p * p * R * .2 } }
+      let sx = ox + x1 * R * f, sy = oy + y2 * R * f, gx = 0, gy = 0;
+      if (ptr) { const dx = sx - px0, dy = sy - py0, d2 = dx * dx + dy * dy; if (d2 < pr * pr && d2 > 1) { const d = Math.sqrt(d2), p = 1 - d / pr, m = p * p * R * .3 / d; gx = dx * m; gy = dy * m } }
+      OFX[i] += (gx - OFX[i]) * ek; OFY[i] += (gy - OFY[i]) * ek; sx += OFX[i]; sy += OFY[i];
       SX[i] = sx; SY[i] = sy; SD[i] = clamp((z2 + 1) / 2, 0, 1); SB[i] = s > .5 ? BB[i] : BA[i];
     }
 
@@ -185,7 +187,9 @@
         let X = EX[k] + ES[k] * inv, Y = EX[k + 1] + ES[k + 1] * inv, Z = EX[k + 2] + ES[k + 2] * inv;
         if (inv > .001) { const a = inv * 1.2 * (EW[j] > .5 ? 1 : -1), c = Math.cos(a), n = Math.sin(a), q = X * c + Z * n; Z = -X * n + Z * c; X = q }
         const x1 = X * cyw + Z * syw, z1 = -X * syw + Z * cyw, y2 = Y * cp - z1 * sp, z2 = Y * sp + z1 * cp, f = 1 / (1 - z2 * .32);
-        let sx = ox + x1 * R * f, sy = oy + y2 * R * f, al = s * .92;
+        let sx = ox + x1 * R * f, sy = oy + y2 * R * f, al = s * .92, gx = 0, gy = 0;
+        if (ptr) { const dx = sx - px0, dy = sy - py0, d2 = dx * dx + dy * dy; if (d2 < pr * pr && d2 > 1) { const d = Math.sqrt(d2), p = 1 - d / pr, m = p * p * R * (.18 + .5 * EW[j]) / d; gx = dx * m + (EW[j] - .5) * 14 * p; gy = dy * m + (EW[(j * 7) % EM] - .5) * 14 * p } }
+        EOX[j] += (gx - EOX[j]) * ek; EOY[j] += (gy - EOY[j]) * ek; sx += EOX[j]; sy += EOY[j];
         if (ER[j] === 1) al *= Math.sin(t * .011 + EW[j] * 9) > .15 ? 1 : .3;
         else if (ER[j] === 2) { sx += Math.sin(t * .05 + EW[j] * 40) * .5 * sc; sy += Math.sin(t * .043 + EW[j] * 31) * .6 * sc }
         if (EC[j] !== lc) { x.fillStyle = EPAL[EC[j]]; lc = EC[j] }
