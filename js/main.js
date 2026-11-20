@@ -8,7 +8,7 @@ if(typeof REGISTER_URL==='string'&&REGISTER_URL)$$('[data-register]').forEach(a=
 
 /* ---- nav: solid after scrolling, active section, sliding indicator, phone menu ---- */
 {const nav=$('#nav'),tabs=$('#nav-tabs'),btn=$('#nav-btn'),ind=$('.nav-ind'),links=$$('.nav-link'),bar=$('#progress');
- const set=o=>{tabs.dataset.open=String(o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Close menu':'Open menu')};
+ const set=o=>{nav.classList.toggle('menu',o);tabs.dataset.open=String(o);btn.setAttribute('aria-expanded',o);btn.setAttribute('aria-label',o?'Close menu':'Open menu')};
  btn.onclick=()=>set(tabs.dataset.open!=='true');
  tabs.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
  addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});
@@ -52,6 +52,42 @@ $$('.card:not([data-rv])').forEach(c=>{if(!c.closest('[data-rv]'))c.setAttribute
   addEventListener('resize',()=>{measure();aim();kick()});
   init();addEventListener('load',init);if(document.fonts)document.fonts.ready.then(()=>{measure();aim();kick()})}
 }}
+
+/* ---- pixel sprites for the "Meet NottsHack" slots: drawn from tiny bitmaps, each pixel pops in at a random moment ---- */
+{const PAL={a:'var(--a)',w:'#fffaff',g:'#7dffb2',p:'#ff7ad9',b:'#9aa5ff',o:'#ffb86b',y:'#ffd35c',n:'#a06a46',r:'#ff6b6b',d:'rgba(255,255,255,.22)'};
+ const person=c=>['.www.','wwwww','wwwww','.www.',c.repeat(5),c.repeat(5)];
+ const SP={
+  clock:{w:13,h:13,L:[
+   {map:['....aaaaa....','..aa.....aa..','.a.........a.','.a.........a.','a...........a','a...........a','a...........a','a...........a','a...........a','.a.........a.','.a.........a.','..aa.....aa..','....aaaaa....']},
+   {cls:'hand',c:'w',pts:[[6,2],[6,3],[6,4],[6,5],[6,6]]},
+   {c:'w',pts:[[7,6],[8,6],[9,6]]}]},
+  squad:{w:29,h:6,u:.78,L:[0,1,2,3,4].map(i=>({x:i*6,cls:i<3?'pp':'pd',map:person(['g','p','b','d','d'][i])}))},
+  spark:{w:15,h:14,L:[
+   {cls:'star',y:2,map:['.....a.....','.....a.....','....aaa....','....aaa....','..aaaaaaa..','aaaaawaaaaa','..aaaaaaa..','....aaa....','....aaa....','.....a.....','.....a.....']},
+   {cls:'tw1',x:11,y:0,map:['.w.','www','.w.']},
+   {cls:'tw2',x:12,y:11,map:['.w.','www','.w.']}]},
+  trophy:{w:13,h:12,L:[
+   {cls:'cup',map:['.yyyyyyyyyyy.','yy.yyyyyyy.yy','y..yyyyyyy..y','yy.yyyyyyy.yy','...yyyyyyy...','....yyyyy....','.....yyy.....']},
+   {y:7,map:['......y......','......y......','.....yyy.....','....yyyyy....','....yyyyy....']},
+   {cls:'shine',c:'w',pts:[[4,1],[5,1],[4,2]]}]},
+  burger:{w:13,h:11,L:[
+   {cls:'bun',map:['...ooooooo...','.ooooooooooo.','ooowooowooooo','ooooooooooooo']},
+   {y:4,map:['ggggggggggggg','.yyyyyyyyyyy.','.nnnnnnnnnnn.','.nnnnnnnnnnn.','ooooooooooooo','.ooooooooooo.','..ooooooooo..']}]},
+  notes:{w:11,h:9,L:[
+   {cls:'notes',map:['...aaaaaaaa','...aaaaaaaa','...a......a','...a......a','...a......a','...a......a','.aaa....aaa','aaaa....aaa','.aa......aa']}]}
+ };
+ const rect=(x,y,c)=>`<rect x="${x}" y="${y}" width="1" height="1" style="fill:${PAL[c]};--r:${(Math.random()*.75).toFixed(2)}s"/>`;
+ $$('[data-sprite]').forEach(el=>{const d=SP[el.dataset.sprite];if(!d)return;
+  const g=d.L.map(l=>{let o='';const ox=l.x||0,oy=l.y||0;
+   if(l.pts)l.pts.forEach(([x,y])=>o+=rect(x+ox,y+oy,l.c));
+   else l.map.forEach((row,y)=>[...row].forEach((c,x)=>{if(c!=='.')o+=rect(x+ox,y+oy,c)}));
+   return `<g class="${l.cls||''}">${o}</g>`}).join('');
+  el.innerHTML=`<svg viewBox="0 0 ${d.w} ${d.h}" shape-rendering="crispEdges" style="width:calc(var(--u)*${d.u||1}*${d.w});height:calc(var(--u)*${d.u||1}*${d.h})">${g}</svg>`})}
+
+/* ---- headings decode as they scroll in (the display font is monospaced, so nothing shifts) ---- */
+if(!RM.matches){const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);const el=e.target,t=el.textContent;let f=0;
+  const id=setInterval(()=>{el.textContent=[...t].map((c,i)=>c===' '||c===' '||i<f?c:'#%&*+?<>/'[Math.random()*9|0]).join('');if(++f>t.length+1){clearInterval(id);el.textContent=t}},38)}),{threshold:.6});
+ $$('.h2').forEach(h=>io.observe(h))}
 
 /* ---- card spotlight: a soft glow follows the cursor ---- */
 if(matchMedia('(hover:hover)').matches)document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(!c)return;const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')},{passive:true});

@@ -144,7 +144,7 @@
   function size() {
     const d = lite ? 1 : Math.min(devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = W * d; cv.height = H * d; x.setTransform(d, 0, 0, d, 0, 0);
     wide = W > 1080; zone = wide ? 0 : Math.min(W * .85, 380); hero.style.setProperty('--zone', zone + 'px');
-    if (wide) { cx = W * .74; cy = H * .5; R = Math.min(W * .17, H * .3) }
+    if (wide) { cx = W * .765; cy = H * .5; R = Math.min(W * .16, H * .3) }
     else { cx = W / 2; cy = 84 + zone / 2; R = zone * .4 }
     if (RM.matches) { cur = to = 2; mp = 1; yaw = 0; lt = 0; draw(0) }
   }
